@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://crit7oidgfe05"]
+
+[ext_resource type="Script" path="res://Main.cs" id="1_u0mot"]
+[ext_resource type="Script" path="res://WinPopUp.cs" id="2_0q6in"]
+[ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://GamePlay.tscn" id="2_8tmtq"]
+[ext_resource type="PackedScene" uid="uid://dlbvgvq6yoc2m" path="res://WinPopUp.tscn" id="2_pb8ke"]
+[ext_resource type="Script" path="res://GamePlay.cs" id="3_3v4gi"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_sg3h7"]
+script/source = "using Godot;
+using System;
+
+public partial class GamePlay : HBoxContainer
+{
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		Control gamePlay = GetNode<Control>(\"GamePlay\");
+		for (int j = 0; j < 2; j++)
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				int x = (i % 3) * 110 + j * 350;
+				int y = (i / 3) * 110;
+
+				Button btn = new Button();
+				btn.Size = new Vector2(100, 100);
+				btn.SetPosition(new Vector2(x, y), false); 
+				gamePlay.AddChild(btn);
+			}
+		}
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
+
+[node name="Main" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
+script = ExtResource("1_u0mot")
+
+[node name="WinPopUp" parent="." instance=ExtResource("2_pb8ke")]
+visible = true
+script = ExtResource("2_0q6in")
+
+[node name="camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 100, 300)
+rotation_order = 0
+h_offset = 500.0
+v_offset = 20.0
+near = 0.1
+
+[node name="rightSide" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(800, 1000)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("CSharpScript_sg3h7")
+
+[node name="GamePlay" parent="rightSide" instance=ExtResource("2_8tmtq")]
+custom_minimum_size = Vector2(800, 1000)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("3_3v4gi")
+
+[node name="leftSide" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(800, 1000)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -500.0
+offset_right = 800.0
+offset_bottom = 500.0
+grow_vertical = 2

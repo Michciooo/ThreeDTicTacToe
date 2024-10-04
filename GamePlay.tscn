@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://1p3f41itx78m"]
+
+[node name="GamePlay" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 800.0
+offset_right = 1600.0
+offset_bottom = 1000.0
+
+[node name="playerTurnLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 30
+text = "Player turn : X"
+
+[node name="restartBtn" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_right = 100.0
+offset_bottom = 60.0
+grow_horizontal = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 20
+text = "Restart"
+
+[node name="firstD" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.493
+anchor_bottom = 0.493
+offset_left = -12.0
+offset_top = -368.0
+offset_right = 296.0
+offset_bottom = 32.0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+
+[node name="lay1" type="VBoxContainer" parent="firstD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="lay2" type="VBoxContainer" parent="firstD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="lay3" type="VBoxContainer" parent="firstD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="secondD" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.93
+anchor_top = 0.321
+anchor_right = 0.985
+anchor_bottom = 0.321
+offset_left = -264.0
+offset_top = -200.0
+offset_bottom = 200.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="lay4" type="VBoxContainer" parent="secondD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="lay5" type="VBoxContainer" parent="secondD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="lay6" type="VBoxContainer" parent="secondD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="thirdD" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -400.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="lay7" type="VBoxContainer" parent="thirdD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="lay8" type="VBoxContainer" parent="thirdD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="lay9" type="VBoxContainer" parent="thirdD"]
+custom_minimum_size = Vector2(100, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4

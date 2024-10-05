@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Godot;
 
@@ -11,7 +13,6 @@ public partial class GamePlay : Control
 	public List<Button> firstDBtn = new List<Button>(); 
 	public List<Button> secondDBtn = new List<Button>(); 
 	public List<Button> thirdDBtn = new List<Button>();
-	public string[] BtnsContent;
 	public override void _Ready()
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
@@ -45,7 +46,7 @@ public partial class GamePlay : Control
 		VBoxContainer lay7 , VBoxContainer lay8, VBoxContainer lay9)
 	{
 		StyleBoxFlat bgColor = new StyleBoxFlat();
-		StyleBoxFlat fgColor = new StyleBoxFlat();
+		//StyleBoxFlat fgColor = new StyleBoxFlat();
 		for (int x = 0; x < 3; x++)
 		{
 			for (int y = 0; y < 3; y++)
@@ -68,21 +69,19 @@ public partial class GamePlay : Control
 					if (y==2 && z == 1) lay8.AddChild(btn);
 					if (y==2 && z == 2) lay9.AddChild(btn);
 				
-					if(x==0) firstDBtn.Add(btn);
-					if(x==1) secondDBtn.Add(btn);
-					if(x==2) thirdDBtn.Add(btn);
+					if(y==0) firstDBtn.Add(btn);
+					if(y==1) secondDBtn.Add(btn);
+					if(y==2) thirdDBtn.Add(btn);
 					
 					bgColor.BgColor = new Color("#d2d2e8");
-					fgColor.BgColor = new Color("#000000");
+					//fgColor.BgColor = new Color("#000000");
 				
 					btn.AddThemeStyleboxOverride("normal",bgColor);
-					btn.AddThemeStyleboxOverride("tint",fgColor);
-				
+					//btn.AddThemeStyleboxOverride("tint",fgColor);
+					
 					tttBtns.Add(btn);
-					btn.Text += BtnsContent;
 					btn.Pressed += () => Logic(btn);
 				}
-
 			}
 		}
 	}
@@ -106,7 +105,9 @@ public partial class GamePlay : Control
 			btn.Text = "O";
 			playerTurn = true;
 		}
-
+		Main main = GetNode<Main>("/root/Main");
+		main.BtnsContent2.Add(btn.Text);
+		Console.WriteLine(String.Join(",, ", main.BtnsContent2));
 		WhoWon();
 	}
 
@@ -180,7 +181,6 @@ public partial class GamePlay : Control
 				winPopUp.Visible = true;
 				winLabel.Visible = true;
 				closeBtn.Visible = true;
-				//GD.Print(wins[i, 0].Text);
 				winLabel.Text = $"Wygrał : {wins[i, 0].Text}";
 				return;
 			}

@@ -14,7 +14,6 @@ offset_right = -550.0
 offset_bottom = -280.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
 
 [node name="closeBtn" type="Button" parent="."]
 visible = false

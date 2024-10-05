@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 namespace threeDTicTacToe;
@@ -5,7 +6,7 @@ namespace threeDTicTacToe;
 public partial class WinPopUp : Control
 {
     public override void _Ready()
-    {
+    { 
         Button closeBtn = GetNode<Button>("closeBtn");
         closeBtn.Pressed += ClosePopUp;
     }

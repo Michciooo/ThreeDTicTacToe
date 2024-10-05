@@ -43,7 +43,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
 script = ExtResource("1_u0mot")
 
 [node name="WinPopUp" parent="." instance=ExtResource("2_pb8ke")]
-visible = true
+top_level = true
+z_as_relative = false
 script = ExtResource("2_0q6in")
 
 [node name="camera" type="Camera3D" parent="."]

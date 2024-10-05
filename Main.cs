@@ -6,11 +6,12 @@ namespace threeDTicTacToe;
 
 public partial class Main : Node3D
 {
+	public List<String> BtnsContent2 = new List<String>();
 	public override void _Ready()
 	{
 		GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay"); 
+		Console.WriteLine(String.Join(", ", BtnsContent2));
 		
-		//GD.Print(gamePlay.BtnsContent);
 		for (int x = 0; x < 3; x++)
 		{
 			for (int y = 0; y < 3; y++)

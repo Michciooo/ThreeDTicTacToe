@@ -8,11 +8,13 @@ namespace threeDTicTacToe;
 
 public partial class GamePlay : Control
 {
-	bool playerTurn = true;
-	public List<Button> tttBtns = new List<Button>();
-	public List<Button> firstDBtn = new List<Button>(); 
-	public List<Button> secondDBtn = new List<Button>(); 
-	public List<Button> thirdDBtn = new List<Button>();
+	bool _playerTurn = true;
+	public List<Button> TttBtns = new List<Button>();
+	public List<Button> FirstDBtn = new List<Button>(); 
+	public List<Button> SecondDBtn = new List<Button>(); 
+	public List<Button> ThirdDBtn = new List<Button>();
+	
+	public List<Label3D> Labels = new List<Label3D>();
 	public override void _Ready()
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
@@ -33,11 +35,17 @@ public partial class GamePlay : Control
 		restartButton.Pressed += RestartGame;
 	}
 
-	private void RestartGame()
+	public void RestartGame()
 	{
-		foreach (Button btn in tttBtns)
+		Main main = GetNode<Main>("/root/Main");
+		foreach (Button btn in TttBtns)
 		{
 			btn.Text = "";
+		}
+
+		foreach (Label3D label in Labels)
+		{
+			label.Text = "";
 		}
 	}
 
@@ -46,7 +54,6 @@ public partial class GamePlay : Control
 		VBoxContainer lay7 , VBoxContainer lay8, VBoxContainer lay9)
 	{
 		StyleBoxFlat bgColor = new StyleBoxFlat();
-		//StyleBoxFlat fgColor = new StyleBoxFlat();
 		for (int x = 0; x < 3; x++)
 		{
 			for (int y = 0; y < 3; y++)
@@ -69,17 +76,15 @@ public partial class GamePlay : Control
 					if (y==2 && z == 1) lay8.AddChild(btn);
 					if (y==2 && z == 2) lay9.AddChild(btn);
 				
-					if(y==0) firstDBtn.Add(btn);
-					if(y==1) secondDBtn.Add(btn);
-					if(y==2) thirdDBtn.Add(btn);
+					if(y==0) FirstDBtn.Add(btn);
+					if(y==1) SecondDBtn.Add(btn);
+					if(y==2) ThirdDBtn.Add(btn);
 					
 					bgColor.BgColor = new Color("#d2d2e8");
-					//fgColor.BgColor = new Color("#000000");
 				
 					btn.AddThemeStyleboxOverride("normal",bgColor);
-					//btn.AddThemeStyleboxOverride("tint",fgColor);
+					TttBtns.Add(btn);
 					
-					tttBtns.Add(btn);
 					btn.Pressed += () => Logic(btn);
 				}
 			}
@@ -88,26 +93,42 @@ public partial class GamePlay : Control
 
 	public void Logic(Button btn)
 	{
+		Main main = GetNode<Main>("/root/Main");
+		for (int i = 0; i < TttBtns.Count; i++)
+		{
+			if (i < 27)
+			{
+				Button button = TttBtns[i];
+				Label3D label = Labels[i];
+				if (!main.BtnAndboxMesLabel3DDictionary.ContainsKey(button))
+				{
+					main.BtnAndboxMesLabel3DDictionary.Add(button, label);
+				}
+			}
+		}
+		main.ButtonConnectionWithVisualisation(main.BtnAndboxMesLabel3DDictionary);
+		
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
+		
+		Label3D label3D = main.BtnAndboxMesLabel3DDictionary[btn];
 		if (btn.Text != "")
 		{
 			return;
 		}
-		if (playerTurn)
+		if (_playerTurn)
 		{
 			playerTurnLabel.Text = "Player Turn : O";
 			btn.Text = "X";
-			playerTurn = false;
+			label3D.Text = btn.Text;
+			_playerTurn = false;
 		}
 		else
 		{
 			playerTurnLabel.Text = "Player Turn : X";
 			btn.Text = "O";
-			playerTurn = true;
+			label3D.Text = btn.Text;
+			_playerTurn = true;
 		}
-		Main main = GetNode<Main>("/root/Main");
-		main.BtnsContent2.Add(btn.Text);
-		Console.WriteLine(String.Join(",, ", main.BtnsContent2));
 		WhoWon();
 	}
 
@@ -120,58 +141,58 @@ public partial class GamePlay : Control
 		Button[,] wins =
 		{
 			// grid 1 H
-			{ firstDBtn[0], firstDBtn[1], firstDBtn[2] },
-			{ firstDBtn[3], firstDBtn[4], firstDBtn[5] },
-			{ firstDBtn[6], firstDBtn[7], firstDBtn[8] },
-			{ firstDBtn[0], firstDBtn[3], firstDBtn[6] },
-			{ firstDBtn[1], firstDBtn[4], firstDBtn[7] },
-			{ firstDBtn[2], firstDBtn[5], firstDBtn[8] },
-			{ firstDBtn[0], firstDBtn[4], firstDBtn[8] },  
-			{ firstDBtn[2], firstDBtn[4], firstDBtn[6] },
+			{ FirstDBtn[0], FirstDBtn[1], FirstDBtn[2] },
+			{ FirstDBtn[3], FirstDBtn[4], FirstDBtn[5] },
+			{ FirstDBtn[6], FirstDBtn[7], FirstDBtn[8] },
+			{ FirstDBtn[0], FirstDBtn[3], FirstDBtn[6] },
+			{ FirstDBtn[1], FirstDBtn[4], FirstDBtn[7] },
+			{ FirstDBtn[2], FirstDBtn[5], FirstDBtn[8] },
+			{ FirstDBtn[0], FirstDBtn[4], FirstDBtn[8] },  
+			{ FirstDBtn[2], FirstDBtn[4], FirstDBtn[6] },
             
 			//grid 2 H
-			{ secondDBtn[0], secondDBtn[1], secondDBtn[2] },
-			{ secondDBtn[3], secondDBtn[4], secondDBtn[5] },
-			{ secondDBtn[6], secondDBtn[7], secondDBtn[8] },
-			{ secondDBtn[0], secondDBtn[3], secondDBtn[6] },
-			{ secondDBtn[1], secondDBtn[4], secondDBtn[7] },
-			{ secondDBtn[2], secondDBtn[5], secondDBtn[8] },
-			{ secondDBtn[0], secondDBtn[4], secondDBtn[8] },  
-			{ secondDBtn[2], secondDBtn[4], secondDBtn[6] },
+			{ SecondDBtn[0], SecondDBtn[1], SecondDBtn[2] },
+			{ SecondDBtn[3], SecondDBtn[4], SecondDBtn[5] },
+			{ SecondDBtn[6], SecondDBtn[7], SecondDBtn[8] },
+			{ SecondDBtn[0], SecondDBtn[3], SecondDBtn[6] },
+			{ SecondDBtn[1], SecondDBtn[4], SecondDBtn[7] },
+			{ SecondDBtn[2], SecondDBtn[5], SecondDBtn[8] },
+			{ SecondDBtn[0], SecondDBtn[4], SecondDBtn[8] },  
+			{ SecondDBtn[2], SecondDBtn[4], SecondDBtn[6] },
             
 			//grid 3 H
-			{ thirdDBtn[0], thirdDBtn[1], thirdDBtn[2] },
-			{ thirdDBtn[3], thirdDBtn[4], thirdDBtn[5] },
-			{ thirdDBtn[6], thirdDBtn[7], thirdDBtn[8] },
-			{ thirdDBtn[0], thirdDBtn[3], thirdDBtn[6] },
-			{ thirdDBtn[1], thirdDBtn[4], thirdDBtn[7] },
-			{ thirdDBtn[2], thirdDBtn[5], thirdDBtn[8] },
-			{ thirdDBtn[0], thirdDBtn[4], thirdDBtn[8] },  
-			{ thirdDBtn[2], thirdDBtn[4], thirdDBtn[6] },
+			{ ThirdDBtn[0], ThirdDBtn[1], ThirdDBtn[2] },
+			{ ThirdDBtn[3], ThirdDBtn[4], ThirdDBtn[5] },
+			{ ThirdDBtn[6], ThirdDBtn[7], ThirdDBtn[8] },
+			{ ThirdDBtn[0], ThirdDBtn[3], ThirdDBtn[6] },
+			{ ThirdDBtn[1], ThirdDBtn[4], ThirdDBtn[7] },
+			{ ThirdDBtn[2], ThirdDBtn[5], ThirdDBtn[8] },
+			{ ThirdDBtn[0], ThirdDBtn[4], ThirdDBtn[8] },  
+			{ ThirdDBtn[2], ThirdDBtn[4], ThirdDBtn[6] },
             
 			//grid 1 V
-			{ firstDBtn[0] , secondDBtn[0] , thirdDBtn[0]},
-			{ firstDBtn[1] , secondDBtn[1] , thirdDBtn[1]},
-			{ firstDBtn[2] , secondDBtn[2] , thirdDBtn[2]},
-			{ firstDBtn[3] , secondDBtn[3] , thirdDBtn[3]},
-			{ firstDBtn[4] , secondDBtn[4] , thirdDBtn[4]},
-			{ firstDBtn[5] , secondDBtn[5] , thirdDBtn[5]},
-			{ firstDBtn[6] , secondDBtn[6] , thirdDBtn[6]},
-			{ firstDBtn[7] , secondDBtn[7] , thirdDBtn[7]},
-			{ firstDBtn[8] , secondDBtn[8] , thirdDBtn[8]},
+			{ FirstDBtn[0] , SecondDBtn[0] , ThirdDBtn[0]},
+			{ FirstDBtn[1] , SecondDBtn[1] , ThirdDBtn[1]},
+			{ FirstDBtn[2] , SecondDBtn[2] , ThirdDBtn[2]},
+			{ FirstDBtn[3] , SecondDBtn[3] , ThirdDBtn[3]},
+			{ FirstDBtn[4] , SecondDBtn[4] , ThirdDBtn[4]},
+			{ FirstDBtn[5] , SecondDBtn[5] , ThirdDBtn[5]},
+			{ FirstDBtn[6] , SecondDBtn[6] , ThirdDBtn[6]},
+			{ FirstDBtn[7] , SecondDBtn[7] , ThirdDBtn[7]},
+			{ FirstDBtn[8] , SecondDBtn[8] , ThirdDBtn[8]},
             
-			{ firstDBtn[6] , secondDBtn[3] , thirdDBtn[0]},
-			{ firstDBtn[7] , secondDBtn[4] , thirdDBtn[1]},
-			{ firstDBtn[8] , secondDBtn[5] , thirdDBtn[2]},
+			{ FirstDBtn[6] , SecondDBtn[3] , ThirdDBtn[0]},
+			{ FirstDBtn[7] , SecondDBtn[4] , ThirdDBtn[1]},
+			{ FirstDBtn[8] , SecondDBtn[5] , ThirdDBtn[2]},
             
-			{ firstDBtn[0] , secondDBtn[3] , thirdDBtn[6]},
-			{ firstDBtn[1] , secondDBtn[4] , thirdDBtn[7]},
-			{ firstDBtn[2] , secondDBtn[5] , thirdDBtn[8]},
+			{ FirstDBtn[0] , SecondDBtn[3] , ThirdDBtn[6]},
+			{ FirstDBtn[1] , SecondDBtn[4] , ThirdDBtn[7]},
+			{ FirstDBtn[2] , SecondDBtn[5] , ThirdDBtn[8]},
             
-			{ firstDBtn[0], secondDBtn[4], thirdDBtn[8]},
-			{ firstDBtn[2], secondDBtn[4], thirdDBtn[6]},
-			{ firstDBtn[6] , secondDBtn[4], thirdDBtn[2]},
-			{ firstDBtn[8] , secondDBtn[4], thirdDBtn[0]},
+			{ FirstDBtn[0], SecondDBtn[4], ThirdDBtn[8]},
+			{ FirstDBtn[2], SecondDBtn[4], ThirdDBtn[6]},
+			{ FirstDBtn[6] , SecondDBtn[4], ThirdDBtn[2]},
+			{ FirstDBtn[8] , SecondDBtn[4], ThirdDBtn[0]},
 		};
 		for (int i = 0; i < wins.GetLength(0); i++)
 		{

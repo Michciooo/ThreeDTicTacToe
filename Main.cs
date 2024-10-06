@@ -22,9 +22,10 @@ public partial class Main : Node3D
 				for (int x = 0; x < 3; x++)
 				{
 					StandardMaterial3D miniMaterial = new StandardMaterial3D();
-					miniMaterial.AlbedoColor = new Color("#d2d2e8");
+					miniMaterial.AlbedoColor = new Color("#000000");
 
 					MeshInstance3D minicube = new MeshInstance3D();
+					Color fgColor = new Color("#FFFFFF");
 					BoxMesh minibox = new BoxMesh();
 
 					minicube.Mesh = minibox;
@@ -35,7 +36,7 @@ public partial class Main : Node3D
 					Label3D label = new Label3D();
 					label.Text = "";
 					label.PixelSize = 1;
-					label.Modulate = new Color(0, 0, 0);
+					label.Modulate = fgColor;
 					label.FontSize = 100;
 					label.Position = new Vector3(80 * x, 80 * y, -80 * z);
 

@@ -80,7 +80,7 @@ public partial class GamePlay : Control
 					if(y==1) SecondDBtn.Add(btn);
 					if(y==2) ThirdDBtn.Add(btn);
 					
-					bgColor.BgColor = new Color("#d2d2e8");
+					bgColor.BgColor = new Color("#000000");
 				
 					btn.AddThemeStyleboxOverride("normal",bgColor);
 					TttBtns.Add(btn);

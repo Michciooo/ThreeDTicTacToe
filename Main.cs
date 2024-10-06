@@ -11,9 +11,10 @@ public partial class Main : Node3D
 	{
 		Create_Visualisation();
 	}
+
 	public void Create_Visualisation()
 	{
-		GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay"); 
+		GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay");
 		for (int y = 0; y < 3; y++)
 		{
 			for (int z = 0; z < 3; z++)
@@ -22,36 +23,29 @@ public partial class Main : Node3D
 				{
 					StandardMaterial3D miniMaterial = new StandardMaterial3D();
 					miniMaterial.AlbedoColor = new Color("#d2d2e8");
-					
+
 					MeshInstance3D minicube = new MeshInstance3D();
 					BoxMesh minibox = new BoxMesh();
-					
+
 					minicube.Mesh = minibox;
 					minibox.Size = new Vector3(50, 50, 50);
 					minicube.Position = new Vector3(80 * x, 80 * y, -80 * z);
 					minicube.MaterialOverride = miniMaterial;
-					
+
 					Label3D label = new Label3D();
 					label.Text = "";
 					label.PixelSize = 1;
 					label.Modulate = new Color(0, 0, 0);
 					label.FontSize = 100;
-					label.Position=new Vector3(80 * x, 80 * y, -80*z);
-					
+					label.Position = new Vector3(80 * x, 80 * y, -80 * z);
+
 					gamePlay.Labels.Add(label);
-					
+
 					this.AddChild(label);
 					this.AddChild(minicube);
 				}
 			}
 		}
-	}
-
-	public void ButtonConnectionWithVisualisation(Dictionary<Button, Label3D> BtnAndLabel3DDictionary)
-	{
-		GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay");
-		//Console.WriteLine(String.Join(" , " , BtnAndboxMeshDictionary));
-		
 	}
 
 	public override void _Process(double delta)

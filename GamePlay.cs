@@ -106,11 +106,10 @@ public partial class GamePlay : Control
 				}
 			}
 		}
-		main.ButtonConnectionWithVisualisation(main.BtnAndboxMesLabel3DDictionary);
 		
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		
 		Label3D label3D = main.BtnAndboxMesLabel3DDictionary[btn];
+		
 		if (btn.Text != "")
 		{
 			return;

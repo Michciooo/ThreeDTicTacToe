@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://crit7oidgfe05"]
+[gd_scene load_steps=5 format=3 uid="uid://crit7oidgfe05"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_u0mot"]
-[ext_resource type="Script" path="res://WinPopUp.cs" id="2_0q6in"]
 [ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://GamePlay.tscn" id="2_8tmtq"]
-[ext_resource type="PackedScene" uid="uid://dlbvgvq6yoc2m" path="res://WinPopUp.tscn" id="2_pb8ke"]
 [ext_resource type="Script" path="res://GamePlay.cs" id="3_3v4gi"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_sg3h7"]
@@ -41,11 +39,6 @@ public partial class GamePlay : HBoxContainer
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
 script = ExtResource("1_u0mot")
-
-[node name="WinPopUp" parent="." instance=ExtResource("2_pb8ke")]
-top_level = true
-z_as_relative = false
-script = ExtResource("2_0q6in")
 
 [node name="camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 100, 300)

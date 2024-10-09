@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://dlbvgvq6yoc2m"]
+[gd_scene load_steps=2 format=3 uid="uid://dlbvgvq6yoc2m"]
+
+[ext_resource type="Script" path="res://WinPopUp.cs" id="1_wbkkr"]
 
 [node name="WinPopUp" type="Control"]
-visible = false
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 3
 anchor_left = 0.94
@@ -14,9 +15,9 @@ offset_right = -550.0
 offset_bottom = -280.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wbkkr")
 
 [node name="closeBtn" type="Button" parent="."]
-visible = false
 custom_minimum_size = Vector2(150, 60)
 layout_mode = 1
 anchors_preset = 5
@@ -31,7 +32,6 @@ mouse_default_cursor_shape = 2
 text = "Play Again"
 
 [node name="winLabel" type="Label" parent="."]
-visible = false
 custom_minimum_size = Vector2(200, 100)
 layout_mode = 1
 anchors_preset = 7

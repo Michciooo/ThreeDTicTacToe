@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dtwsxyg23civd"]
+
+[node name="Camera" type="Node3D"]
+
+[node name="camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 100, 300)
+rotation_order = 0
+h_offset = 500.0
+v_offset = 20.0
+near = 0.1

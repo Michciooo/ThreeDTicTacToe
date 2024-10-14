@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://crit7oidgfe05"]
+[gd_scene load_steps=7 format=3 uid="uid://crit7oidgfe05"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_u0mot"]
+[ext_resource type="PackedScene" uid="uid://dtwsxyg23civd" path="res://Camera.tscn" id="2_1mabv"]
 [ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://GamePlay.tscn" id="2_8tmtq"]
 [ext_resource type="Script" path="res://GamePlay.cs" id="3_3v4gi"]
+[ext_resource type="PackedScene" uid="uid://bvsxm6x1bmqtx" path="res://Visualisation.tscn" id="3_om4m4"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_sg3h7"]
 script/source = "using Godot;
@@ -40,12 +42,9 @@ public partial class GamePlay : HBoxContainer
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
 script = ExtResource("1_u0mot")
 
-[node name="camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 100, 300)
-rotation_order = 0
-h_offset = 500.0
-v_offset = 20.0
-near = 0.1
+[node name="Camera" parent="." instance=ExtResource("2_1mabv")]
+
+[node name="Visualisation" parent="." instance=ExtResource("3_om4m4")]
 
 [node name="rightSide" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(800, 1000)

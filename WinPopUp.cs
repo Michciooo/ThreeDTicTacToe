@@ -12,7 +12,9 @@ public partial class WinPopUp : Control
 	}
 	private void ClosePopUp()
 	{
+		GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay");
 		QueueFree(); // usuwa ci instancje popatrz podczas na te zdalny podgląd jak się tworzy
+		gamePlay.RestartGame();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

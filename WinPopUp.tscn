@@ -3,6 +3,8 @@
 [ext_resource type="Script" path="res://WinPopUp.cs" id="1_wbkkr"]
 
 [node name="WinPopUp" type="Control"]
+show_behind_parent = true
+top_level = true
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 3
 anchor_left = 0.94

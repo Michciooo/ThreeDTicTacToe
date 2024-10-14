@@ -10,7 +10,9 @@ public partial class Main : Node3D
 	private Camera3D camera;
 	private Transform3D initialTransform;
 	
-	public float mouseSensitivity = 0.05f; 
+	private bool shiftLock = false;
+	
+	public float mouseSensitivity = 0.0001f; 
 	private Vector2 mouseDelta = Vector2.Zero;
 	public override void _Ready()
 	{
@@ -18,6 +20,7 @@ public partial class Main : Node3D
 		
 		camera = GetNode<Camera3D>("/root/Main/Camera/camera");
 		initialTransform = camera.Transform; 
+		Input.MouseMode = Input.MouseModeEnum.Confined;
 	}
 
 	public void Create_Visualisation()
@@ -58,41 +61,45 @@ public partial class Main : Node3D
 			}
 		}
 	}
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventMouseMotion mouseEvent)
-		{
-			if (Input.IsMouseButtonPressed(MouseButton.Right))
-			{
-				mouseDelta = mouseEvent.Relative;
-			}
-		}
-	}
 	public override void _Process(double delta)
 	{
 		if (Input.IsPhysicalKeyPressed(Key.Q))
 		{
 			GetTree().Quit();
 		}
-
+		
+		if (Input.IsPhysicalKeyPressed(Key.Shift))
+		{
+			if (shiftLock==false)
+			{
+				Input.MouseMode = Input.MouseModeEnum.Confined;
+				shiftLock = !shiftLock;
+			}
+			else if(shiftLock)
+			{
+				Input.MouseMode = Input.MouseModeEnum.Captured;
+				shiftLock = !shiftLock;
+			}
+		}
 		if (Input.IsPhysicalKeyPressed(Key.R))
 		{
 			var restartCamera = GetNode<Camera3D>("/root/Main/Camera/camera");
 			restartCamera.Transform = initialTransform;
 		}
-		CameraMovement(mouseDelta);
-	}
-	public void CameraMovement(Vector2 delta)
-	{
-		camera = GetNode<Camera3D>("/root/Main/Camera/camera");
-		
-		float horizontalRotation = -delta.X * mouseSensitivity;
-		float verticalRotation = -delta.Y * mouseSensitivity;
-		
-		camera.RotationDegrees = new Vector3(
-			Mathf.Clamp(camera.RotationDegrees.X + verticalRotation, -90, 90), // Ograniczenie kąta pionowego
-			camera.RotationDegrees.Y + horizontalRotation,
-			camera.RotationDegrees.Z
-		);
+		if (Input.MouseMode == Input.MouseModeEnum.Captured)
+		{
+			Vector2 mouseMotion = Input.GetLastMouseVelocity();
+
+			if (mouseMotion != Vector2.Zero)
+			{
+				mouseDelta += mouseMotion * mouseSensitivity;
+
+				camera.RotationDegrees = new Vector3(
+					mouseDelta.Y,
+					-mouseDelta.X,
+					0f 
+				);
+			}
+		}
 	}
 }

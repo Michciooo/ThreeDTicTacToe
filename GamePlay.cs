@@ -10,6 +10,7 @@ public partial class GamePlay : Control
 {
 	bool _playerTurn = true;
 	public List<Button> TttBtns = new List<Button>();
+	private List<Button> AllBtns = new List<Button>();
 	public List<Button> FirstDBtn = new List<Button>();
 	public List<Button> SecondDBtn = new List<Button>();
 	public List<Button> ThirdDBtn = new List<Button>();
@@ -90,7 +91,6 @@ public partial class GamePlay : Control
 			}
 		}
 	}
-
 	public void Logic(Button btn)
 	{
 		Main main = GetNode<Main>("/root/Main");
@@ -133,7 +133,6 @@ public partial class GamePlay : Control
 
 	public void WhoWon()
 	{
-
 		Button[,] wins =
 		{
 			// grid 1 H
@@ -203,7 +202,6 @@ public partial class GamePlay : Control
 				popUpInsant.GetNode<Label>("winLabel").Text = $"Wygrał : {wins[i, 0].Text}";
 				// dodanie na ekran
 				GetTree().Root.AddChild(popUpInsant);
-				return;
 			}
 		}
 	}

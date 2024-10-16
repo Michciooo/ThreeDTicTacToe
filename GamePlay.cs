@@ -189,19 +189,17 @@ public partial class GamePlay : Control
 			{ FirstDBtn[6] , SecondDBtn[4], ThirdDBtn[2]},
 			{ FirstDBtn[8] , SecondDBtn[4], ThirdDBtn[0]},
 		};
+		var popUp = GD.Load<PackedScene>("res://WinPopUp.tscn");
 		for (int i = 0; i < wins.GetLength(0); i++)
 		{
 			if (wins[i, 0].Text == wins[i, 1].Text && wins[i, 1].Text == wins[i, 2].Text &&
 				(wins[i, 0].Text == "X" || wins[i, 0].Text == "O"))
 			{
-				// tutaj pobieram scenę wczytując ją
-				var popUp = GD.Load<PackedScene>("res://WinPopUp.tscn");
-				// inicjalizacja 
-				var popUpInsant = popUp.Instantiate();
 				// dodaje tekst ten co miałeś tylko że po zrobieniu instancji przed dodaniem na ekran
-				popUpInsant.GetNode<Label>("winLabel").Text = $"Wygrał : {wins[i, 0].Text}";
+				var popUpInstant = popUp.Instantiate();
+				popUpInstant.GetNode<Label>("winLabel").Text = $"Wygrał : {wins[i, 0].Text}";
 				// dodanie na ekran
-				GetTree().Root.AddChild(popUpInsant);
+				GetTree().Root.AddChild(popUpInstant);
 			}
 		}
 	}

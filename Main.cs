@@ -7,20 +7,14 @@ namespace threeDTicTacToe;
 public partial class Main : Node3D
 {
 	public Dictionary<Button , Label3D> BtnAndboxMesLabel3DDictionary = new Dictionary<Button,Label3D>();
-	private Camera3D camera;
-	private Transform3D initialTransform;
 	
-	private bool shiftLock = false;
-	
-	public float mouseSensitivity = 0.0001f; 
-	private Vector2 mouseDelta = Vector2.Zero;
+	private bool shiftLock = false; 
+	private float rotationSpeed = 0.05f;
+	private float mouseSensitivity = 0.1f;
+
 	public override void _Ready()
 	{
 		Create_Visualisation();
-		
-		camera = GetNode<Camera3D>("/root/Main/Camera/camera");
-		initialTransform = camera.Transform; 
-		Input.MouseMode = Input.MouseModeEnum.Confined;
 	}
 
 	public void Create_Visualisation()
@@ -54,52 +48,67 @@ public partial class Main : Node3D
 					label.Position = new Vector3(80 * x, 80 * y, -80 * z);
 
 					gamePlay.Labels.Add(label);
-
+					
 					visualisation.AddChild(label);
 					visualisation.AddChild(minicube);
 				}
 			}
 		}
 	}
+	public override void _Input(InputEvent @event)
+	{
+		Node3D visualisation = GetNode<Node3D>("/root/Main/Visualisation");
+		if (@event.IsActionPressed("shift"))
+		{
+			Input.MouseMode = Input.MouseModeEnum.Captured;
+			shiftLock = true;
+		}
+		if (shiftLock && @event.IsActionPressed("control"))
+		{
+			Input.MouseMode = Input.MouseModeEnum.Visible;
+			shiftLock = false;
+		}
+		if (shiftLock)
+		{
+			if (@event is InputEventMouseMotion mouseMotionEvent)
+			{
+				Vector2 mouseDelta = mouseMotionEvent.Relative;
+			
+				visualisation.Translate(new Vector3(mouseDelta.X, -mouseDelta.Y, 0) * mouseSensitivity);
+			}
+		
+			if (Input.IsKeyPressed(Key.W))
+			{
+				visualisation.RotateObjectLocal(Vector3.Right, -rotationSpeed);
+			}
+			if (Input.IsKeyPressed(Key.S))
+			{
+				visualisation.RotateObjectLocal(Vector3.Right, rotationSpeed);
+			}
+			if (Input.IsKeyPressed(Key.A)) 
+			{
+				visualisation.RotateObjectLocal(Vector3.Up, rotationSpeed);
+			}
+			if (Input.IsKeyPressed(Key.D)) 
+			{
+				visualisation.RotateObjectLocal(Vector3.Up, -rotationSpeed);
+			}
+			if (Input.IsKeyPressed(Key.Q)) 
+			{
+				visualisation.RotateObjectLocal(Vector3.Forward, -rotationSpeed);
+			}
+			if (Input.IsKeyPressed(Key.E)) 
+			{
+				visualisation.RotateObjectLocal(Vector3.Forward, rotationSpeed);
+			}
+		}
+	}
+
 	public override void _Process(double delta)
 	{
-		if (Input.IsPhysicalKeyPressed(Key.Q))
+		if (Input.IsPhysicalKeyPressed(Key.Escape))
 		{
 			GetTree().Quit();
-		}
-		
-		if (Input.IsPhysicalKeyPressed(Key.Shift))
-		{
-			if (shiftLock==false)
-			{
-				Input.MouseMode = Input.MouseModeEnum.Confined;
-				shiftLock = !shiftLock;
-			}
-			else if(shiftLock)
-			{
-				Input.MouseMode = Input.MouseModeEnum.Captured;
-				shiftLock = !shiftLock;
-			}
-		}
-		if (Input.IsPhysicalKeyPressed(Key.R))
-		{
-			var restartCamera = GetNode<Camera3D>("/root/Main/Camera/camera");
-			restartCamera.Transform = initialTransform;
-		}
-		if (Input.MouseMode == Input.MouseModeEnum.Captured)
-		{
-			Vector2 mouseMotion = Input.GetLastMouseVelocity();
-
-			if (mouseMotion != Vector2.Zero)
-			{
-				mouseDelta += mouseMotion * mouseSensitivity;
-
-				camera.RotationDegrees = new Vector3(
-					mouseDelta.Y,
-					-mouseDelta.X,
-					0f 
-				);
-			}
 		}
 	}
 }

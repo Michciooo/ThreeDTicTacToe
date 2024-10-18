@@ -30,37 +30,37 @@ mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 20
 text = "Restart"
 
-[node name="firstD" type="HBoxContainer" parent="."]
+[node name="firstD" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.493
 anchor_bottom = 0.493
-offset_left = -12.0
+offset_left = -4.0
 offset_top = -368.0
 offset_right = 296.0
-offset_bottom = 32.0
+offset_bottom = -60.0
 grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 2
 
-[node name="lay1" type="VBoxContainer" parent="firstD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay1" type="HBoxContainer" parent="firstD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="lay2" type="VBoxContainer" parent="firstD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay2" type="HBoxContainer" parent="firstD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="lay3" type="VBoxContainer" parent="firstD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay3" type="HBoxContainer" parent="firstD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="secondD" type="HBoxContainer" parent="."]
+[node name="secondD" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
 anchors_preset = -1
@@ -70,29 +70,29 @@ anchor_right = 0.985
 anchor_bottom = 0.321
 offset_left = -264.0
 offset_top = -200.0
-offset_bottom = 200.0
+offset_bottom = 108.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 
-[node name="lay4" type="VBoxContainer" parent="secondD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay4" type="HBoxContainer" parent="secondD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="lay5" type="VBoxContainer" parent="secondD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay5" type="HBoxContainer" parent="secondD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="lay6" type="VBoxContainer" parent="secondD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay6" type="HBoxContainer" parent="secondD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="thirdD" type="HBoxContainer" parent="."]
+[node name="thirdD" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(300, 300)
 layout_mode = 1
 anchors_preset = 7
@@ -103,21 +103,22 @@ anchor_bottom = 1.0
 offset_left = -108.0
 offset_top = -400.0
 offset_right = 200.0
+offset_bottom = -92.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="lay7" type="VBoxContainer" parent="thirdD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay7" type="HBoxContainer" parent="thirdD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="lay8" type="VBoxContainer" parent="thirdD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay8" type="HBoxContainer" parent="thirdD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="lay9" type="VBoxContainer" parent="thirdD"]
-custom_minimum_size = Vector2(100, 400)
+[node name="lay9" type="HBoxContainer" parent="thirdD"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4

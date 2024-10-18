@@ -16,29 +16,32 @@ public partial class GamePlay : Control
 
 	public List<Label3D> Labels = new List<Label3D>();
 	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>();
+	
 	public override void _Ready()
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
-
-		VBoxContainer lay1 = GetNode<VBoxContainer>("firstD/lay1");
-		VBoxContainer lay2 = GetNode<VBoxContainer>("firstD/lay2");
-		VBoxContainer lay3 = GetNode<VBoxContainer>("firstD/lay3");
-
-		VBoxContainer lay4 = GetNode<VBoxContainer>("secondD/lay4");
-		VBoxContainer lay5 = GetNode<VBoxContainer>("secondD/lay5");
-		VBoxContainer lay6 = GetNode<VBoxContainer>("secondD/lay6");
-
-		VBoxContainer lay7 = GetNode<VBoxContainer>("thirdD/lay7");
-		VBoxContainer lay8 = GetNode<VBoxContainer>("thirdD/lay8");
-		VBoxContainer lay9 = GetNode<VBoxContainer>("thirdD/lay9");
-
-		Create_Dimensions(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9);
 		restartButton.Pressed += RestartGame;
+		
+		HBoxContainer lay1 = GetNode<HBoxContainer>("firstD/lay1");
+		HBoxContainer lay2 = GetNode<HBoxContainer>("firstD/lay2");
+		HBoxContainer lay3 = GetNode<HBoxContainer>("firstD/lay3");
+
+		HBoxContainer lay4 = GetNode<HBoxContainer>("secondD/lay4");
+		HBoxContainer lay5 = GetNode<HBoxContainer>("secondD/lay5");
+		HBoxContainer lay6 = GetNode<HBoxContainer>("secondD/lay6");
+
+		HBoxContainer lay7 = GetNode<HBoxContainer>("thirdD/lay7");
+		HBoxContainer lay8 = GetNode<HBoxContainer>("thirdD/lay8");
+		HBoxContainer lay9 = GetNode<HBoxContainer>("thirdD/lay9");
+		
+		Main main = GetNode<Main>("/root/Main");
+		main.Create_Visualisation();
+		Create_Dimensions(lay1,lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9);
+		
 		OnMouse();
 	}
 	public void RestartGame()
 	{
-		Main main = GetNode<Main>("/root/Main");
 		foreach (Button btn in TttBtns)
 		{
 			btn.Text = "";
@@ -50,9 +53,9 @@ public partial class GamePlay : Control
 		}
 	}
 	
-	public void Create_Dimensions(VBoxContainer lay1, VBoxContainer lay2, VBoxContainer lay3,
-		VBoxContainer lay4, VBoxContainer lay5, VBoxContainer lay6,
-		VBoxContainer lay7, VBoxContainer lay8, VBoxContainer lay9)
+	public void Create_Dimensions(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3,
+		HBoxContainer lay4, HBoxContainer lay5, HBoxContainer lay6,
+		HBoxContainer lay7, HBoxContainer lay8, HBoxContainer lay9)
 	{
 		Main main = GetNode<Main>("/root/Main");
 		for (int x = 0; x < 3; x++)
@@ -96,11 +99,6 @@ public partial class GamePlay : Control
 							miniMaterial.AlbedoColor = new Color("#51ff00");
 							main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
 						}
-						else
-						{
-							GD.Print("Przycisk nie istnieje w BtnAndMeshInstanceDictionary.");
-							//Console.WriteLine(string.Join(" , ",main.BtnAndMeshInstanceDictionary));
-						}
 					};
 
 					btn.MouseExited += () =>
@@ -119,7 +117,7 @@ public partial class GamePlay : Control
 	private void OnMouse()
 	{
 		Main main = GetNode<Main>("/root/Main");
-		GD.Print("console z game play:" + MeshInstances.Count);
+		//GD.Print("console z game play:" + MeshInstances.Count);
 		for (int i = 0; i < MeshInstances.Count; i++)
 		{
 			MeshInstance3D meshInstance3D = MeshInstances[i];

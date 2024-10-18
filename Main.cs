@@ -15,18 +15,17 @@ public partial class Main : Node3D
 
 	public override void _Ready()
 	{
-		Create_Visualisation();
 	}
 
 	public void Create_Visualisation()
 	{
 		GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay");
 		Node3D visualisation = GetNode<Node3D>("/root/Main/Visualisation");
-		for (int y = 0; y < 3; y++)
+		for (int x = 0; x < 3; x++)
 		{
-			for (int z = 0; z < 3; z++)
+			for (int y = 0; y < 3; y++)
 			{
-				for (int x = 0; x < 3; x++)
+				for (int z = 0; z < 3; z++)
 				{
 					StandardMaterial3D miniMaterial = new StandardMaterial3D();
 					miniMaterial.AlbedoColor = new Color("#000000");
@@ -37,7 +36,7 @@ public partial class Main : Node3D
 
 					minicube.Mesh = minibox;
 					minibox.Size = new Vector3(50, 50, 50);
-					minicube.Position = new Vector3(80 * x, 80 * y, -80 * z);
+					minicube.Position = new Vector3(80*x, -80*z, -80 *y);
 					minicube.MaterialOverride = miniMaterial;
 
 					Label3D label = new Label3D();
@@ -46,7 +45,7 @@ public partial class Main : Node3D
 					label.Scale = new Vector3(label.Scale.X, label.Scale.Y, 200.0f);
 					label.PixelSize = 1;
 					label.FontSize = 100;
-					label.Position = new Vector3(80 * x, 80 * y, -80 * z);
+					label.Position = new Vector3(80*x, -80*z, -80 *y);
 
 					gamePlay.Labels.Add(label);
 					gamePlay.MeshInstances.Add(minicube);
@@ -56,7 +55,7 @@ public partial class Main : Node3D
 				}
 			}
 		}
-		GD.Print("Console z main : " +gamePlay.MeshInstances.Count);
+		//GD.Print("Console z main : " +gamePlay.MeshInstances.Count);
 	}
 	public override void _Input(InputEvent @event)
 	{

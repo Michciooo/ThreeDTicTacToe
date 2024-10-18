@@ -10,12 +10,12 @@ public partial class GamePlay : Control
 {
 	bool _playerTurn = true;
 	public List<Button> TttBtns = new List<Button>();
-	private List<Button> AllBtns = new List<Button>();
 	public List<Button> FirstDBtn = new List<Button>();
 	public List<Button> SecondDBtn = new List<Button>();
 	public List<Button> ThirdDBtn = new List<Button>();
 
 	public List<Label3D> Labels = new List<Label3D>();
+	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>();
 	public override void _Ready()
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
@@ -34,8 +34,8 @@ public partial class GamePlay : Control
 
 		Create_Dimensions(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9);
 		restartButton.Pressed += RestartGame;
+		OnMouse();
 	}
-
 	public void RestartGame()
 	{
 		Main main = GetNode<Main>("/root/Main");
@@ -49,12 +49,12 @@ public partial class GamePlay : Control
 			label.Text = "";
 		}
 	}
-
+	
 	public void Create_Dimensions(VBoxContainer lay1, VBoxContainer lay2, VBoxContainer lay3,
 		VBoxContainer lay4, VBoxContainer lay5, VBoxContainer lay6,
 		VBoxContainer lay7, VBoxContainer lay8, VBoxContainer lay9)
 	{
-		StyleBoxFlat bgColor = new StyleBoxFlat();
+		Main main = GetNode<Main>("/root/Main");
 		for (int x = 0; x < 3; x++)
 		{
 			for (int y = 0; y < 3; y++)
@@ -81,12 +81,54 @@ public partial class GamePlay : Control
 					if (y == 1) SecondDBtn.Add(btn);
 					if (y == 2) ThirdDBtn.Add(btn);
 
+					StyleBoxFlat bgColor = new StyleBoxFlat();
 					bgColor.BgColor = new Color("#000000");
-
 					btn.AddThemeStyleboxOverride("normal", bgColor);
-					TttBtns.Add(btn);
 
+					TttBtns.Add(btn);
+					
 					btn.Pressed += () => Logic(btn);
+					btn.MouseEntered += () =>
+					{
+						if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
+						{
+							StandardMaterial3D miniMaterial = new StandardMaterial3D();
+							miniMaterial.AlbedoColor = new Color("#51ff00");
+							main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+						}
+						else
+						{
+							GD.Print("Przycisk nie istnieje w BtnAndMeshInstanceDictionary.");
+							//Console.WriteLine(string.Join(" , ",main.BtnAndMeshInstanceDictionary));
+						}
+					};
+
+					btn.MouseExited += () =>
+					{
+						if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
+						{
+							StandardMaterial3D miniMaterial = new StandardMaterial3D();
+							miniMaterial.AlbedoColor = new Color("#000000");
+							main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+						}
+					};
+				}
+			}
+		}
+	}
+	private void OnMouse()
+	{
+		Main main = GetNode<Main>("/root/Main");
+		GD.Print("console z game play:" + MeshInstances.Count);
+		for (int i = 0; i < MeshInstances.Count; i++)
+		{
+			MeshInstance3D meshInstance3D = MeshInstances[i];
+			Button button = TttBtns[i];
+			if (i < 27)
+			{
+				if (!main.BtnAndMeshInstanceDictionary.ContainsKey(button))
+				{
+					main.BtnAndMeshInstanceDictionary.Add(button , meshInstance3D);
 				}
 			}
 		}
@@ -94,21 +136,22 @@ public partial class GamePlay : Control
 	public void Logic(Button btn)
 	{
 		Main main = GetNode<Main>("/root/Main");
+		
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
 			if (i < 27)
 			{
 				Button button = TttBtns[i];
 				Label3D label = Labels[i];
-				if (!main.BtnAndboxMesLabel3DDictionary.ContainsKey(button))
+				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
 				{
-					main.BtnAndboxMesLabel3DDictionary.Add(button, label);
+					main.BtnAndboxMeshLabel3DDictionary.Add(button, label);
 				}
 			}
 		}
-
+		
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		Label3D label3D = main.BtnAndboxMesLabel3DDictionary[btn];
+		Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
 
 		if (btn.Text != "")
 		{

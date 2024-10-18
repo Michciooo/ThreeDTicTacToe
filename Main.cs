@@ -6,7 +6,8 @@ namespace threeDTicTacToe;
 
 public partial class Main : Node3D
 {
-	public Dictionary<Button , Label3D> BtnAndboxMesLabel3DDictionary = new Dictionary<Button,Label3D>();
+	public Dictionary<Button , Label3D> BtnAndboxMeshLabel3DDictionary = new Dictionary<Button,Label3D>();
+	public Dictionary<Button, MeshInstance3D> BtnAndMeshInstanceDictionary = new Dictionary<Button, MeshInstance3D>();
 	
 	private bool shiftLock = false; 
 	private float rotationSpeed = 0.05f;
@@ -48,12 +49,14 @@ public partial class Main : Node3D
 					label.Position = new Vector3(80 * x, 80 * y, -80 * z);
 
 					gamePlay.Labels.Add(label);
+					gamePlay.MeshInstances.Add(minicube);
 					
 					visualisation.AddChild(label);
 					visualisation.AddChild(minicube);
 				}
 			}
 		}
+		GD.Print("Console z main : " +gamePlay.MeshInstances.Count);
 	}
 	public override void _Input(InputEvent @event)
 	{

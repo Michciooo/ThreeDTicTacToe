@@ -227,7 +227,9 @@ public partial class GamePlay : Control
 			{ FirstDBtn[6], SecondDBtn[4], ThirdDBtn[2] },
 			{ FirstDBtn[8], SecondDBtn[4], ThirdDBtn[0] },
 		};
+		
 		var popUp = GD.Load<PackedScene>("res://WinPopUp.tscn");
+		var scoreScene = GetNode<Score>("/root/Main/leftSide/Score");
 		for (int i = 0; i < wins.GetLength(0); i++)
 		{
 			if (wins[i, 0].Text == wins[i, 1].Text && wins[i, 1].Text == wins[i, 2].Text &&
@@ -237,7 +239,11 @@ public partial class GamePlay : Control
 				var popUpInstant = popUp.Instantiate();
 				win = true;
 				popUpInstant.GetNode<Label>("winLabel").Text = $"Wygrał : {wins[i, 0].Text}";
-				// dodanie na ekran
+				
+				if (wins[i, 0].Text == "X") scoreScene.x_wins = scoreScene.x_wins + 1;
+				else scoreScene.o_wins = scoreScene.o_wins+1;
+				scoreScene.ScoreSystem();
+				
 				GetTree().Root.AddChild(popUpInstant);
 				if (win)
 				{

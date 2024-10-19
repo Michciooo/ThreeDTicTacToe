@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://crit7oidgfe05"]
+[gd_scene load_steps=7 format=3 uid="uid://crit7oidgfe05"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_u0mot"]
 [ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://GamePlay.tscn" id="2_8tmtq"]
 [ext_resource type="Script" path="res://GamePlay.cs" id="3_3v4gi"]
 [ext_resource type="PackedScene" uid="uid://bvsxm6x1bmqtx" path="res://Visualisation.tscn" id="3_om4m4"]
+[ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score.tscn" id="5_esxb4"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_sg3h7"]
 script/source = "using Godot;
@@ -64,10 +65,10 @@ script = ExtResource("3_3v4gi")
 
 [node name="leftSide" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(800, 1000)
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -500.0
 offset_right = 800.0
-offset_bottom = 500.0
-grow_vertical = 2
+offset_bottom = 1000.0
+
+[node name="Score" parent="leftSide" instance=ExtResource("5_esxb4")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0

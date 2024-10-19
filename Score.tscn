@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://yx0xq2fosnco"]
+
+[ext_resource type="Script" path="res://Score.cs" id="1_siee1"]
+
+[node name="Score" type="Control"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 3
+anchor_right = 0.077
+offset_left = 123.0
+offset_right = 499.8
+offset_bottom = 150.0
+script = ExtResource("1_siee1")
+
+[node name="CrossWins" type="Label" parent="."]
+custom_minimum_size = Vector2(500, 75)
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 30
+text = "X won : 0 times"
+
+[node name="CircleWins" type="Label" parent="."]
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 0
+offset_left = -3.0
+offset_top = 18.0
+offset_right = 497.0
+offset_bottom = 93.0
+theme_override_font_sizes/font_size = 30
+text = "O won : 0 times"
+vertical_alignment = 2

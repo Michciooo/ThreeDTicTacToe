@@ -50,7 +50,6 @@ public partial class GamePlay : Control
 		{
 			btn.Text = "";
 		}
-		
 		foreach (Label3D label in Labels)
 		{
 			label.Text = "";
@@ -59,7 +58,9 @@ public partial class GamePlay : Control
 		foreach (var btn in TttBtns)
 		{
 			btn.MouseEntered += () => OnMouseEntered(btn);
+			btn.SetDefaultCursorShape(CursorShape.PointingHand);
 		}
+		restartButton.SetDefaultCursorShape(CursorShape.PointingHand);
 	}
 	
 	public void Create_Dimensions(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3,
@@ -252,6 +253,7 @@ public partial class GamePlay : Control
 		foreach (var button in Buttons)
 		{
 			button.Disabled = disable;
+			button.SetDefaultCursorShape(CursorShape.Arrow);
 		}
 
 		foreach (var btn in TttBtns)

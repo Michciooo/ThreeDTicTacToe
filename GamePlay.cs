@@ -238,7 +238,7 @@ public partial class GamePlay : Control
 				// dodaje tekst ten co miałeś tylko że po zrobieniu instancji przed dodaniem na ekran
 				var popUpInstant = popUp.Instantiate();
 				win = true;
-				popUpInstant.GetNode<Label>("winLabel").Text = $"Wygrał : {wins[i, 0].Text}";
+				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {wins[i, 0].Text}";
 				
 				if (wins[i, 0].Text == "X") scoreScene.x_wins = scoreScene.x_wins + 1;
 				else scoreScene.o_wins = scoreScene.o_wins+1;

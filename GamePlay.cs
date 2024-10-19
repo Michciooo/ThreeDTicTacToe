@@ -96,7 +96,7 @@ public partial class GamePlay : Control
 						if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
 						{
 							StandardMaterial3D miniMaterial = new StandardMaterial3D();
-							miniMaterial.AlbedoColor = new Color("#51ff00");
+							miniMaterial.AlbedoColor = new Color(255, 0, 0);
 							main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
 						}
 					};
@@ -147,7 +147,6 @@ public partial class GamePlay : Control
 				}
 			}
 		}
-		
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 		Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
 
@@ -185,7 +184,7 @@ public partial class GamePlay : Control
 			{ FirstDBtn[2], FirstDBtn[5], FirstDBtn[8] },
 			{ FirstDBtn[0], FirstDBtn[4], FirstDBtn[8] },
 			{ FirstDBtn[2], FirstDBtn[4], FirstDBtn[6] },
-            
+
 			//grid 2 H
 			{ SecondDBtn[0], SecondDBtn[1], SecondDBtn[2] },
 			{ SecondDBtn[3], SecondDBtn[4], SecondDBtn[5] },
@@ -195,7 +194,7 @@ public partial class GamePlay : Control
 			{ SecondDBtn[2], SecondDBtn[5], SecondDBtn[8] },
 			{ SecondDBtn[0], SecondDBtn[4], SecondDBtn[8] },
 			{ SecondDBtn[2], SecondDBtn[4], SecondDBtn[6] },
-            
+
 			//grid 3 H
 			{ ThirdDBtn[0], ThirdDBtn[1], ThirdDBtn[2] },
 			{ ThirdDBtn[3], ThirdDBtn[4], ThirdDBtn[5] },
@@ -205,36 +204,36 @@ public partial class GamePlay : Control
 			{ ThirdDBtn[2], ThirdDBtn[5], ThirdDBtn[8] },
 			{ ThirdDBtn[0], ThirdDBtn[4], ThirdDBtn[8] },
 			{ ThirdDBtn[2], ThirdDBtn[4], ThirdDBtn[6] },
-            
+
 			//grid 1 V
-			{ FirstDBtn[0] , SecondDBtn[0] , ThirdDBtn[0]},
-			{ FirstDBtn[1] , SecondDBtn[1] , ThirdDBtn[1]},
-			{ FirstDBtn[2] , SecondDBtn[2] , ThirdDBtn[2]},
-			{ FirstDBtn[3] , SecondDBtn[3] , ThirdDBtn[3]},
-			{ FirstDBtn[4] , SecondDBtn[4] , ThirdDBtn[4]},
-			{ FirstDBtn[5] , SecondDBtn[5] , ThirdDBtn[5]},
-			{ FirstDBtn[6] , SecondDBtn[6] , ThirdDBtn[6]},
-			{ FirstDBtn[7] , SecondDBtn[7] , ThirdDBtn[7]},
-			{ FirstDBtn[8] , SecondDBtn[8] , ThirdDBtn[8]},
+			{ FirstDBtn[0], SecondDBtn[0], ThirdDBtn[0] },
+			{ FirstDBtn[1], SecondDBtn[1], ThirdDBtn[1] },
+			{ FirstDBtn[2], SecondDBtn[2], ThirdDBtn[2] },
+			{ FirstDBtn[3], SecondDBtn[3], ThirdDBtn[3] },
+			{ FirstDBtn[4], SecondDBtn[4], ThirdDBtn[4] },
+			{ FirstDBtn[5], SecondDBtn[5], ThirdDBtn[5] },
+			{ FirstDBtn[6], SecondDBtn[6], ThirdDBtn[6] },
+			{ FirstDBtn[7], SecondDBtn[7], ThirdDBtn[7] },
+			{ FirstDBtn[8], SecondDBtn[8], ThirdDBtn[8] },
 
-			{ FirstDBtn[6] , SecondDBtn[3] , ThirdDBtn[0]},
-			{ FirstDBtn[7] , SecondDBtn[4] , ThirdDBtn[1]},
-			{ FirstDBtn[8] , SecondDBtn[5] , ThirdDBtn[2]},
+			{ FirstDBtn[6], SecondDBtn[3], ThirdDBtn[0] },
+			{ FirstDBtn[7], SecondDBtn[4], ThirdDBtn[1] },
+			{ FirstDBtn[8], SecondDBtn[5], ThirdDBtn[2] },
 
-			{ FirstDBtn[0] , SecondDBtn[3] , ThirdDBtn[6]},
-			{ FirstDBtn[1] , SecondDBtn[4] , ThirdDBtn[7]},
-			{ FirstDBtn[2] , SecondDBtn[5] , ThirdDBtn[8]},
+			{ FirstDBtn[0], SecondDBtn[3], ThirdDBtn[6] },
+			{ FirstDBtn[1], SecondDBtn[4], ThirdDBtn[7] },
+			{ FirstDBtn[2], SecondDBtn[5], ThirdDBtn[8] },
 
-			{ FirstDBtn[0], SecondDBtn[4], ThirdDBtn[8]},
-			{ FirstDBtn[2], SecondDBtn[4], ThirdDBtn[6]},
-			{ FirstDBtn[6] , SecondDBtn[4], ThirdDBtn[2]},
-			{ FirstDBtn[8] , SecondDBtn[4], ThirdDBtn[0]},
+			{ FirstDBtn[0], SecondDBtn[4], ThirdDBtn[8] },
+			{ FirstDBtn[2], SecondDBtn[4], ThirdDBtn[6] },
+			{ FirstDBtn[6], SecondDBtn[4], ThirdDBtn[2] },
+			{ FirstDBtn[8], SecondDBtn[4], ThirdDBtn[0] },
 		};
 		var popUp = GD.Load<PackedScene>("res://WinPopUp.tscn");
 		for (int i = 0; i < wins.GetLength(0); i++)
 		{
 			if (wins[i, 0].Text == wins[i, 1].Text && wins[i, 1].Text == wins[i, 2].Text &&
-				(wins[i, 0].Text == "X" || wins[i, 0].Text == "O"))
+			    (wins[i, 0].Text == "X" || wins[i, 0].Text == "O"))
 			{
 				// dodaje tekst ten co miałeś tylko że po zrobieniu instancji przed dodaniem na ekran
 				var popUpInstant = popUp.Instantiate();
@@ -244,7 +243,6 @@ public partial class GamePlay : Control
 			}
 		}
 	}
-
 	public override void _Process(double delta)
 	{
 	}

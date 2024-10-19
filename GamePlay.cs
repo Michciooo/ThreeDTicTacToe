@@ -9,10 +9,12 @@ namespace threeDTicTacToe;
 public partial class GamePlay : Control
 {
 	bool _playerTurn = true;
+	bool win = false;
 	public List<Button> TttBtns = new List<Button>();
 	public List<Button> FirstDBtn = new List<Button>();
 	public List<Button> SecondDBtn = new List<Button>();
 	public List<Button> ThirdDBtn = new List<Button>();
+	private List<Button> Buttons = new List<Button>();
 
 	public List<Label3D> Labels = new List<Label3D>();
 	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>();
@@ -38,18 +40,25 @@ public partial class GamePlay : Control
 		main.Create_Visualisation();
 		Create_Dimensions(lay1,lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9);
 		
-		OnMouse();
+		AddToDictionary();
 	}
 	public void RestartGame()
 	{
+		Button restartButton = GetNode<Button>("restartBtn");
+		restartButton.Text = "Restart";
 		foreach (Button btn in TttBtns)
 		{
 			btn.Text = "";
 		}
-
+		
 		foreach (Label3D label in Labels)
 		{
 			label.Text = "";
+		}
+		BlockBtns(false);
+		foreach (var btn in TttBtns)
+		{
+			btn.MouseEntered += () => OnMouseEntered(btn);
 		}
 	}
 	
@@ -57,7 +66,6 @@ public partial class GamePlay : Control
 		HBoxContainer lay4, HBoxContainer lay5, HBoxContainer lay6,
 		HBoxContainer lay7, HBoxContainer lay8, HBoxContainer lay9)
 	{
-		Main main = GetNode<Main>("/root/Main");
 		for (int x = 0; x < 3; x++)
 		{
 			for (int y = 0; y < 3; y++)
@@ -89,46 +97,35 @@ public partial class GamePlay : Control
 					btn.AddThemeStyleboxOverride("normal", bgColor);
 
 					TttBtns.Add(btn);
+					Buttons.Add(btn);
 					
 					btn.Pressed += () => Logic(btn);
-					btn.MouseEntered += () =>
-					{
-						if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
-						{
-							StandardMaterial3D miniMaterial = new StandardMaterial3D();
-							miniMaterial.AlbedoColor = new Color(255, 0, 0);
-							main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
-						}
-					};
-
-					btn.MouseExited += () =>
-					{
-						if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
-						{
-							StandardMaterial3D miniMaterial = new StandardMaterial3D();
-							miniMaterial.AlbedoColor = new Color("#000000");
-							main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
-						}
-					};
+					btn.MouseEntered += () => OnMouseEntered(btn);
+					btn.MouseExited += () => OnMouseExited(btn);
 				}
 			}
 		}
 	}
-	private void OnMouse()
+
+	public void OnMouseExited(Button btn)
 	{
 		Main main = GetNode<Main>("/root/Main");
-		//GD.Print("console z game play:" + MeshInstances.Count);
-		for (int i = 0; i < MeshInstances.Count; i++)
+		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
 		{
-			MeshInstance3D meshInstance3D = MeshInstances[i];
-			Button button = TttBtns[i];
-			if (i < 27)
-			{
-				if (!main.BtnAndMeshInstanceDictionary.ContainsKey(button))
-				{
-					main.BtnAndMeshInstanceDictionary.Add(button , meshInstance3D);
-				}
-			}
+			StandardMaterial3D miniMaterial = new StandardMaterial3D();
+			miniMaterial.AlbedoColor = new Color("#000000");
+			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+		}
+	}
+
+	public void OnMouseEntered(Button btn)
+	{
+		Main main = GetNode<Main>("/root/Main");
+		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
+		{
+			StandardMaterial3D miniMaterial = new StandardMaterial3D();
+			miniMaterial.AlbedoColor = new Color(255, 0, 0);
+			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
 		}
 	}
 	public void Logic(Button btn)
@@ -237,9 +234,46 @@ public partial class GamePlay : Control
 			{
 				// dodaje tekst ten co miałeś tylko że po zrobieniu instancji przed dodaniem na ekran
 				var popUpInstant = popUp.Instantiate();
+				win = true;
 				popUpInstant.GetNode<Label>("winLabel").Text = $"Wygrał : {wins[i, 0].Text}";
 				// dodanie na ekran
 				GetTree().Root.AddChild(popUpInstant);
+				if (win)
+				{
+					BlockBtns(true);
+				}
+			}
+		}
+	}
+	private void BlockBtns(bool disable)
+	{
+		var restartBtn = GetNode<Button>("restartBtn");
+		Buttons.Add(restartBtn);
+		foreach (var button in Buttons)
+		{
+			button.Disabled = disable;
+		}
+
+		foreach (var btn in TttBtns)
+		{
+			btn.MouseEntered += () => OnMouseExited(btn);
+		}
+		win = false;
+	}
+	private void AddToDictionary()
+	{
+		Main main = GetNode<Main>("/root/Main");
+		//GD.Print("console z game play:" + MeshInstances.Count);
+		for (int i = 0; i < MeshInstances.Count; i++)
+		{
+			MeshInstance3D meshInstance3D = MeshInstances[i];
+			Button button = TttBtns[i];
+			if (i < 27)
+			{
+				if (!main.BtnAndMeshInstanceDictionary.ContainsKey(button))
+				{
+					main.BtnAndMeshInstanceDictionary.Add(button , meshInstance3D);
+				}
 			}
 		}
 	}

@@ -90,7 +90,7 @@ public partial class Main : Node3D
                 if (BtnAndboxMeshLabel3DDictionary.ContainsKey(btn))
                 {
                     BtnAndboxMeshLabel3DDictionary[btn].Text = savedTexts[i];
-                    GD.Print("SKIBIDI");
+                    //GD.Print("SKIBIDI");
                 }
             }
         }

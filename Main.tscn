@@ -38,7 +38,7 @@ public partial class GamePlay : HBoxContainer
 "
 
 [node name="Main" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1003.31, 0)
 script = ExtResource("1_u0mot")
 
 [node name="Camera" type="Camera3D" parent="."]

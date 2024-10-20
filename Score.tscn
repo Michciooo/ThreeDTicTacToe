@@ -13,6 +13,7 @@ script = ExtResource("1_siee1")
 
 [node name="CrossWins" type="Label" parent="."]
 custom_minimum_size = Vector2(500, 75)
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 30

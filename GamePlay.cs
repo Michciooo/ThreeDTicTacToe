@@ -77,25 +77,37 @@ public partial class GamePlay : Control
 					btn.SetDefaultCursorShape(CursorShape.PointingHand);
 					btn.CustomMinimumSize = new Vector2(100, 100);
 
-					if (y == 0 && z == 0) lay1.AddChild(btn);
-					if (y == 0 && z == 1) lay2.AddChild(btn);
-					if (y == 0 && z == 2) lay3.AddChild(btn);
-
-					if (y == 1 && z == 0) lay4.AddChild(btn);
-					if (y == 1 && z == 1) lay5.AddChild(btn);
-					if (y == 1 && z == 2) lay6.AddChild(btn);
-
-					if (y == 2 && z == 0) lay7.AddChild(btn);
-					if (y == 2 && z == 1) lay8.AddChild(btn);
-					if (y == 2 && z == 2) lay9.AddChild(btn);
-
-					if (y == 0) FirstDBtn.Add(btn);
-					if (y == 1) SecondDBtn.Add(btn);
-					if (y == 2) ThirdDBtn.Add(btn);
-
 					StyleBoxFlat bgColor = new StyleBoxFlat();
-					bgColor.BgColor = new Color("#000000");
-					btn.AddThemeStyleboxOverride("normal", bgColor);
+					
+					if (y == 0)
+					{
+						if (z == 0) lay1.AddChild(btn);
+						if (z == 1) lay2.AddChild(btn);
+						if (z == 2) lay3.AddChild(btn);
+						FirstDBtn.Add(btn);
+						bgColor.BgColor = new Color("0013ff");
+						btn.AddThemeStyleboxOverride("normal", bgColor);
+					}
+
+					if (y == 1)
+					{
+						if (z == 0) lay4.AddChild(btn);
+						if (z == 1) lay5.AddChild(btn);
+						if (z == 2) lay6.AddChild(btn);
+						SecondDBtn.Add(btn);
+						bgColor.BgColor = new Color("#ff00e8");
+						btn.AddThemeStyleboxOverride("normal", bgColor);
+					}
+
+					if (y == 2)
+					{
+						if (z == 0) lay7.AddChild(btn);
+						if (z == 1) lay8.AddChild(btn);
+						if (z == 2) lay9.AddChild(btn);
+						ThirdDBtn.Add(btn);
+						bgColor.BgColor = new Color("#fff300");
+						btn.AddThemeStyleboxOverride("normal", bgColor);
+					}
 
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
@@ -107,18 +119,6 @@ public partial class GamePlay : Control
 			}
 		}
 	}
-
-	public void OnMouseExited(Button btn)
-	{
-		Main main = GetNode<Main>("/root/Main");
-		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
-		{
-			StandardMaterial3D miniMaterial = new StandardMaterial3D();
-			miniMaterial.AlbedoColor = new Color("#000000");
-			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
-		}
-	}
-
 	public void OnMouseEntered(Button btn)
 	{
 		Main main = GetNode<Main>("/root/Main");
@@ -126,6 +126,16 @@ public partial class GamePlay : Control
 		{
 			StandardMaterial3D miniMaterial = new StandardMaterial3D();
 			miniMaterial.AlbedoColor = new Color(255, 0, 0);
+			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+		}
+	}
+	public void OnMouseExited(Button btn)
+	{
+		Main main = GetNode<Main>("/root/Main");
+		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
+		{
+			StandardMaterial3D miniMaterial = new StandardMaterial3D();
+			miniMaterial.AlbedoColor = new Color("#000000");
 			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
 		}
 	}
@@ -154,14 +164,14 @@ public partial class GamePlay : Control
 		}
 		if (_playerTurn)
 		{
-			playerTurnLabel.Text = "Player Turn : O";
+			playerTurnLabel.Text = "Player turn : O";
 			btn.Text = "X";
 			label3D.Text = btn.Text;
 			_playerTurn = false;
 		}
 		else
 		{
-			playerTurnLabel.Text = "Player Turn : X";
+			playerTurnLabel.Text = "Player turn : X";
 			btn.Text = "O";
 			label3D.Text = btn.Text;
 			_playerTurn = true;

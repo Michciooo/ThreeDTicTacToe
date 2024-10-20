@@ -33,7 +33,7 @@ public partial class Main : Node3D
                 {
                     StandardMaterial3D miniMaterial = new StandardMaterial3D();
                     miniMaterial.AlbedoColor = new Color("#000000");
-
+                    
                     MeshInstance3D minicube = new MeshInstance3D();
                     Color fgColor = new Color("#FFFFFF");
                     BoxMesh minibox = new BoxMesh();
@@ -121,7 +121,8 @@ public partial class Main : Node3D
     {
         if (Input.IsPhysicalKeyPressed(Key.Escape))
         {
-            GetTree().Quit();
+            //var MainScene = GD.Load<PackedScene>("res://MainMenu.tscn");
+            GetTree().ChangeSceneToFile("res://MainMenu.tscn");
         }
     }
 }

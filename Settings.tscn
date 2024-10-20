@@ -1,0 +1,111 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwgj3w8xq84jr"]
+
+[ext_resource type="Script" path="res://Settings.cs" id="1_pamaj"]
+
+[node name="Settings" type="Control"]
+auto_translate_mode = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pamaj")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1600, 800)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -800.0
+offset_right = 800.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Labels" type="VBoxContainer" parent="Main"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Main/Labels"]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Cube rotating"
+
+[node name="Label2" type="Label" parent="Main/Labels"]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Marking fields"
+
+[node name="Label3" type="Label" parent="Main/Labels"]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Restart cube position"
+
+[node name="Label4" type="Label" parent="Main/Labels"]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Main menu"
+
+[node name="Label5" type="Label" parent="Main/Labels"]
+custom_minimum_size = Vector2(800, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "App exit"
+
+[node name="KeysInputs" type="VBoxContainer" parent="Main"]
+custom_minimum_size = Vector2(800, 800)
+layout_mode = 2
+
+[node name="cubeRotating" type="OptionButton" parent="Main/KeysInputs"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+
+[node name="markingFields" type="OptionButton" parent="Main/KeysInputs"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+
+[node name="restartCube" type="OptionButton" parent="Main/KeysInputs"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+
+[node name="mainMenu" type="OptionButton" parent="Main/KeysInputs"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+
+[node name="appExit" type="OptionButton" parent="Main/KeysInputs"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20

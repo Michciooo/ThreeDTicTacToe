@@ -33,7 +33,7 @@ public partial class Main : Node3D
                 {
                     StandardMaterial3D miniMaterial = new StandardMaterial3D();
                     miniMaterial.AlbedoColor = new Color("#000000");
-                    
+
                     MeshInstance3D minicube = new MeshInstance3D();
                     Color fgColor = new Color("#FFFFFF");
                     BoxMesh minibox = new BoxMesh();
@@ -62,67 +62,90 @@ public partial class Main : Node3D
         }
     }
 
+    
+    //tu jest jakas eklsplozja problem chyba tez z wezlami
     public override void _Input(InputEvent @event)
     {
-        GamePlay gamePlay = GetTree().Root.GetNode<GamePlay>("/root/Main/rightSide/GamePlay");
-        Node3D visualisation = GetNode<Node3D>("/root/Main/Visualisation");
-        if (@event.IsActionPressed("shift"))
+        GamePlay gamePlay = GetNodeOrNull<GamePlay>("/root/Main/rightSide/GamePlay");
+        Node3D visualisation = GetNodeOrNull<Node3D>("/root/Main/Visualisation");
+        Settings settings = GetNodeOrNull<Settings>("/root/MainMenu/Settings/Settings");
+        
+        var mainMenu = GetNodeOrNull<OptionButton>("/root/MainMenu/Settings/Settings/Main/KeysInputs/mainMenu");
+        var markingFields = GetNodeOrNull<OptionButton>("/root/MainMenu/Settings/Settings/Main/KeysInputs/markingFields");
+        var cubeRotating = GetNodeOrNull<OptionButton>("/root/MainMenu/Settings/Settings/Main/KeysInputs/cubeRotating");
+        var restartCube = GetNodeOrNull<OptionButton>("/root/MainMenu/Settings/Settings/Main/KeysInputs/restartCube");
+        
+        var key1 = settings.keysList[mainMenu.Selected];
+        var key2 = settings.keysList[cubeRotating.Selected];
+        var key3 = settings.keysList[markingFields.Selected];
+        var key4 = settings.keysList[restartCube.Selected];
+        
+        if (Input.IsPhysicalKeyPressed(key1))
+        {
+            GetTree().ChangeSceneToFile("res://MainMenu.tscn");
+        }
+        if (Input.IsPhysicalKeyPressed(key2))
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
             shiftLock = true;
         }
-
-        if (@event.IsActionPressed("restart"))
+        if (Input.IsPhysicalKeyPressed(key4))
         {
-            List<String> savedTexts = new List<String>();
-            for (int i = 0; i < gamePlay.TttBtns.Count; i++)
-            {
-                Button btn = gamePlay.TttBtns[i];
-                if (BtnAndboxMeshLabel3DDictionary.ContainsKey(btn))
-                {
-                    savedTexts.Add(BtnAndboxMeshLabel3DDictionary[btn].Text);
-                }
-                else
-                {
-                    savedTexts.Add("");
-                }
-                Create_Visualisation();
-                if (BtnAndboxMeshLabel3DDictionary.ContainsKey(btn))
-                {
-                    BtnAndboxMeshLabel3DDictionary[btn].Text = savedTexts[i];
-                    //GD.Print("SKIBIDI");
-                }
-            }
+            HandleRestartCube(gamePlay);
         }
         if (shiftLock)
         {
-            if (@event.IsActionPressed("control"))
+            if (Input.IsPhysicalKeyPressed(key3))
             {
                 Input.MouseMode = Input.MouseModeEnum.Visible;
                 shiftLock = false;
             }
             if (@event is InputEventMouseMotion mouseMotionEvent)
             {
-                Vector2 mouseDelta = mouseMotionEvent.Relative;
-
-                if (mouseDelta.X != 0)
-                {
-                    visualisation.RotateObjectLocal(Vector3.Up, -mouseDelta.X * mouseSensitivity);
-                }
-
-                if (mouseDelta.Y != 0)
-                {
-                    visualisation.RotateObjectLocal(Vector3.Right, -mouseDelta.Y * mouseSensitivity);
-                }
+                HandleMouseMotion(mouseMotionEvent, visualisation);
             }
+        }
+    }
+    private void HandleRestartCube(GamePlay gamePlay)
+    {
+        List<string> savedTexts = new List<string>();
+        for (int i = 0; i < gamePlay.TttBtns.Count; i++)
+        {
+            Button btn = gamePlay.TttBtns[i];
+            if (BtnAndboxMeshLabel3DDictionary.ContainsKey(btn))
+            {
+                savedTexts.Add(BtnAndboxMeshLabel3DDictionary[btn].Text);
+            }
+            else
+            {
+                savedTexts.Add("");
+            }
+        }
+        Create_Visualisation();
+        for (int i = 0; i < gamePlay.TttBtns.Count; i++)
+        {
+            Button btn = gamePlay.TttBtns[i];
+            if (BtnAndboxMeshLabel3DDictionary.ContainsKey(btn))
+            {
+                BtnAndboxMeshLabel3DDictionary[btn].Text = savedTexts[i];
+            }
+        }
+    }
+    private void HandleMouseMotion(InputEventMouseMotion mouseMotionEvent, Node3D visualisation)
+    {
+        Vector2 mouseDelta = mouseMotionEvent.Relative;
+
+        if (mouseDelta.X != 0)
+        {
+            visualisation.RotateObjectLocal(Vector3.Up, -mouseDelta.X * mouseSensitivity);
+        }
+
+        if (mouseDelta.Y != 0)
+        {
+            visualisation.RotateObjectLocal(Vector3.Right, -mouseDelta.Y * mouseSensitivity);
         }
     }
     public override void _Process(double delta)
     {
-        if (Input.IsPhysicalKeyPressed(Key.Escape))
-        {
-            //var MainScene = GD.Load<PackedScene>("res://MainMenu.tscn");
-            GetTree().ChangeSceneToFile("res://MainMenu.tscn");
-        }
     }
 }

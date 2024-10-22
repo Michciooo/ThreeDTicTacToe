@@ -32,21 +32,8 @@ namespace threeDTicTacToe
 
         public override void _Process(double delta)
         {
-            //nie wiem co wpisac 
-            Settings settings = GetNode<Settings>("");
-            if (settings != null)
-            {
-                var appExit = GetNode<OptionButton>("");
-                
-                if (appExit != null)
-                {
-                    var key = settings.keysList[appExit.Selected];
-                    if (Input.IsPhysicalKeyPressed(key))
-                    {
-                        GetTree().Quit();
-                    }
-                }
-            }
+            //Settings settings = GetNode<Settings>("");
+            if(Input.IsActionPressed("appExit")) GetTree().Quit();
         }
     }
 }

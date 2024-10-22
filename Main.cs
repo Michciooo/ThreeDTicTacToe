@@ -61,41 +61,27 @@ public partial class Main : Node3D
             }
         }
     }
-
-    
-    //tu jest jakas eklsplozja problem chyba tez z wezlami
     public override void _Input(InputEvent @event)
     {
         GamePlay gamePlay = GetNodeOrNull<GamePlay>("/root/Main/rightSide/GamePlay");
         Node3D visualisation = GetNodeOrNull<Node3D>("/root/Main/Visualisation");
-        Settings settings = GetNodeOrNull<Settings>("/root/MainMenu/Settings/Settings");
         
-        var mainMenu = GetNodeOrNull<OptionButton>("/root/MainMenu/Settings/Settings/Main/KeysInputs/mainMenu");
-        var markingFields = GetNodeOrNull<OptionButton>("/root/MainMenu/Settings/Settings/Main/KeysInputs/markingFields");
-        var cubeRotating = GetNodeOrNull<OptionButton>("/root/MainMenu/Settings/Settings/Main/KeysInputs/cubeRotating");
-        var restartCube = GetNodeOrNull<OptionButton>("/root/MainMenu/Settings/Settings/Main/KeysInputs/restartCube");
-        
-        var key1 = settings.keysList[mainMenu.Selected];
-        var key2 = settings.keysList[cubeRotating.Selected];
-        var key3 = settings.keysList[markingFields.Selected];
-        var key4 = settings.keysList[restartCube.Selected];
-        
-        if (Input.IsPhysicalKeyPressed(key1))
+        if (Input.IsActionPressed("mainMenu"))
         {
             GetTree().ChangeSceneToFile("res://MainMenu.tscn");
         }
-        if (Input.IsPhysicalKeyPressed(key2))
+        if (Input.IsActionPressed("shiftLock"))
         {
             Input.MouseMode = Input.MouseModeEnum.Captured;
             shiftLock = true;
         }
-        if (Input.IsPhysicalKeyPressed(key4))
+        if (Input.IsActionPressed("resetPosCube"))
         {
             HandleRestartCube(gamePlay);
         }
         if (shiftLock)
         {
-            if (Input.IsPhysicalKeyPressed(key3))
+            if (Input.IsActionPressed("unshiftLock"))
             {
                 Input.MouseMode = Input.MouseModeEnum.Visible;
                 shiftLock = false;

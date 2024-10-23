@@ -38,94 +38,142 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Labels" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(800, 800)
+custom_minimum_size = Vector2(700, 800)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Main/Labels"]
-custom_minimum_size = Vector2(800, 100)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Cube rotating"
 
 [node name="Label2" type="Label" parent="Main/Labels"]
-custom_minimum_size = Vector2(800, 100)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Marking fields"
 
 [node name="Label3" type="Label" parent="Main/Labels"]
-custom_minimum_size = Vector2(800, 100)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Restart cube position"
 
 [node name="Label4" type="Label" parent="Main/Labels"]
-custom_minimum_size = Vector2(800, 100)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Main menu"
 
 [node name="Label5" type="Label" parent="Main/Labels"]
-custom_minimum_size = Vector2(800, 100)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "App exit"
 
-[node name="KeysInputs" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(800, 800)
+[node name="KeysInput" type="VBoxContainer" parent="Main"]
 layout_mode = 2
 
-[node name="shiftLock" type="TextEdit" parent="Main/KeysInputs"]
+[node name="shiftLock" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
-placeholder_text = "Enter any key"
+placeholder_text = "Press any key"
+editable = false
 selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="unShifTLock" type="TextEdit" parent="Main/KeysInputs"]
+[node name="unShiftLock" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
-placeholder_text = "Enter any key"
+placeholder_text = "Press any key"
+editable = false
 selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="restartPosCube" type="TextEdit" parent="Main/KeysInputs"]
+[node name="restartPosCube" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
-placeholder_text = "Enter any key"
+placeholder_text = "Press any key"
+editable = false
 selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="mainMenu" type="TextEdit" parent="Main/KeysInputs"]
+[node name="mainMenu" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
-placeholder_text = "Enter any key"
+placeholder_text = "Press any key"
+editable = false
 selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="appExit" type="TextEdit" parent="Main/KeysInputs"]
+[node name="appExit" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 45
-placeholder_text = "Enter any key"
+placeholder_text = "Press any key"
+editable = false
 selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
+
+[node name="RestartBtns" type="VBoxContainer" parent="Main"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="btn1" type="Button" parent="Main/RestartBtns"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 35
+text = "Reset key"
+
+[node name="btn2" type="Button" parent="Main/RestartBtns"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 35
+text = "Reset key"
+
+[node name="btn3" type="Button" parent="Main/RestartBtns"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 35
+text = "Reset key"
+
+[node name="btn4" type="Button" parent="Main/RestartBtns"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 35
+text = "Reset key"
+
+[node name="btn5" type="Button" parent="Main/RestartBtns"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 35
+text = "Reset key"

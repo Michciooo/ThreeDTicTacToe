@@ -7,8 +7,8 @@ namespace threeDTicTacToe
     {
         public override void _Ready()
         {
-            TextureButton settings = GetNode<TextureButton>("Settings/SettingsBtn");
-            Button friendGameButton = GetNode<Button>("MainContainer/Container/FriendPlay");
+            TextureButton settings = GetNode<TextureButton>("Main/Settings/SettingsBtn");
+            Button friendGameButton = GetNode<Button>("Main/MainContainer/Container/FriendPlay");
             Input.MouseMode = Input.MouseModeEnum.Confined;
             
             if (settings != null)

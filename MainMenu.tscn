@@ -10,8 +10,33 @@ bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
 script = ExtResource("1_1sb5v")
 
-[node name="Settings" type="VBoxContainer" parent="."]
+[node name="Main" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Main"]
+custom_minimum_size = Vector2(800, 200)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -452.0
+offset_right = 500.0
+offset_bottom = 400.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 70
+text = "TIC TAC TOE 3D
+Choose player"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="VBoxContainer" parent="Main"]
 custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -19,49 +44,42 @@ offset_left = -200.0
 offset_bottom = 200.0
 grow_horizontal = 0
 
-[node name="SettingsBtn" type="TextureButton" parent="Settings"]
+[node name="SettingsBtn" type="TextureButton" parent="Main/Settings"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_tyc5d")
 stretch_mode = 3
 
-[node name="MainContainer" type="VBoxContainer" parent="."]
+[node name="MainContainer" type="VBoxContainer" parent="Main"]
 custom_minimum_size = Vector2(800, 600)
-anchors_preset = 8
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 offset_left = -402.0
-offset_top = -302.0
+offset_top = -600.0
 offset_right = 402.0
-offset_bottom = 302.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
-[node name="Label" type="Label" parent="MainContainer"]
-custom_minimum_size = Vector2(800, 200)
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "TIC TAC TOE 3D
-Choose player"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Container" type="HBoxContainer" parent="MainContainer"]
+[node name="Container" type="HBoxContainer" parent="Main/MainContainer"]
 custom_minimum_size = Vector2(800, 400)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="FriendPlay" type="Button" parent="MainContainer/Container"]
+[node name="FriendPlay" type="Button" parent="Main/MainContainer/Container"]
 custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 size_flags_vertical = 0
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_46m8i")
-text = "Friend"
+text = "Offline"
 
-[node name="ComputerPlay" type="Button" parent="MainContainer/Container"]
+[node name="ComputerPlay" type="Button" parent="Main/MainContainer/Container"]
 custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 size_flags_vertical = 0

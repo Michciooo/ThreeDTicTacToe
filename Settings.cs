@@ -70,6 +70,7 @@ namespace threeDTicTacToe
             if (btn1.IsPressed())
             {
                 shiftLockTextInput.Text = "Shift";
+                keysList.Remove(global.shiftLockKey);
                 global.shiftLockKey = (Key)OS.FindKeycodeFromString(shiftLockTextInput.Text);
                 keysList.Add(global.shiftLockKey);
                 AddKeyToAction("shiftLock" , Key.Shift);
@@ -77,6 +78,7 @@ namespace threeDTicTacToe
             if (btn2.IsPressed())
             {
                 unshiftLockTextInput.Text = "Ctrl";
+                keysList.Remove(global.unShiftLockKey);
                 global.unShiftLockKey = (Key)OS.FindKeycodeFromString(unshiftLockTextInput.Text);
                 keysList.Add(global.unShiftLockKey);
                 AddKeyToAction("unshiftLock" , Key.Ctrl);
@@ -84,6 +86,7 @@ namespace threeDTicTacToe
             if (btn3.IsPressed())
             {
                 restartPosCubeTextInput.Text = "R";
+                keysList.Remove(global.restartPosCubeKey);
                 global.restartPosCubeKey = (Key)OS.FindKeycodeFromString(restartPosCubeTextInput.Text);
                 keysList.Add(global.restartPosCubeKey);
                 AddKeyToAction("resetPosCube" , Key.R);
@@ -91,6 +94,7 @@ namespace threeDTicTacToe
             if (btn4.IsPressed())
             {
                 mainMenuTextInput.Text = "Escape";
+                keysList.Remove(global.mainMenuKey);
                 global.mainMenuKey = (Key)OS.FindKeycodeFromString(mainMenuTextInput.Text);
                 keysList.Add(global.mainMenuKey);
                 AddKeyToAction("mainMenu" , Key.Escape);
@@ -98,6 +102,7 @@ namespace threeDTicTacToe
             if (btn5.IsPressed())
             {
                 appExitTextInput.Text = "Q";
+                keysList.Remove(global.appExitKey);
                 global.appExitKey = (Key)OS.FindKeycodeFromString(appExitTextInput.Text);
                 keysList.Add(global.appExitKey);
                 AddKeyToAction("appExit" , Key.Q);

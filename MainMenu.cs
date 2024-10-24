@@ -9,6 +9,7 @@ namespace threeDTicTacToe
         {
             TextureButton settings = GetNode<TextureButton>("Settings/SettingsBtn");
             Button friendGameButton = GetNode<Button>("MainContainer/Container/FriendPlay");
+            Input.MouseMode = Input.MouseModeEnum.Confined;
             
             if (settings != null)
             {
@@ -32,7 +33,6 @@ namespace threeDTicTacToe
 
         public override void _Process(double delta)
         {
-            //Settings settings = GetNode<Settings>("");
             if(Input.IsActionPressed("appExit")) GetTree().Quit();
         }
     }

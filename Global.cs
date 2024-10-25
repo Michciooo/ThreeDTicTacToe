@@ -9,4 +9,6 @@ public partial class Global : Node
     public Key restartPosCubeKey = Key.R;
     public Key shiftLockKey = Key.Shift;
     public Key unShiftLockKey = Key.Ctrl;
+
+    public String buttonName;
 }

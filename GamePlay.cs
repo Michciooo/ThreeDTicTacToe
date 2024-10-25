@@ -67,6 +67,7 @@ public partial class GamePlay : Control
 		HBoxContainer lay4, HBoxContainer lay5, HBoxContainer lay6,
 		HBoxContainer lay7, HBoxContainer lay8, HBoxContainer lay9)
 	{
+		Global global = GetNode<Global>("/root/Global");
 		for (int x = 0; x < 3; x++)
 		{
 			for (int y = 0; y < 3; y++)
@@ -111,14 +112,28 @@ public partial class GamePlay : Control
 
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
-					
-					btn.Pressed += () => Logic(btn);
+
+					if (global.buttonName == "OfflineBtn")
+					{
+						btn.Pressed += () => LogicOffline(btn);
+					}
+
+					if (global.buttonName == "ComputerBtn")
+					{
+						btn.Pressed += () => LogicComputer(btn);
+					}
 					btn.MouseEntered += () => OnMouseEntered(btn);
 					btn.MouseExited += () => OnMouseExited(btn);
 				}
 			}
 		}
 	}
+
+	private void LogicComputer(Button btn)
+	{
+		GD.Print("skibidi");
+	}
+
 	public void OnMouseEntered(Button btn)
 	{
 		Main main = GetNode<Main>("/root/Main");
@@ -139,7 +154,7 @@ public partial class GamePlay : Control
 			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
 		}
 	}
-	public void Logic(Button btn)
+	public void LogicOffline(Button btn)
 	{
 		Main main = GetNode<Main>("/root/Main");
 		

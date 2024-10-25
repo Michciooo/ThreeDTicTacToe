@@ -9,7 +9,6 @@ public partial class Score : Control
 	public override void _Ready()
 	{
 	}
-
 	public void ScoreSystem()
 	{
 		Label xWinsLabel = GetNode<Label>("CrossWins");
@@ -17,8 +16,6 @@ public partial class Score : Control
 		xWinsLabel.Text = $"X won : {x_wins} times";
 		oWinsLabel.Text = $"O won : {o_wins} times";
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 	}

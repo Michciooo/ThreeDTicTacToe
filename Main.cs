@@ -9,10 +9,10 @@ public partial class Main : Node3D
     public Dictionary<Button, Label3D> BtnAndboxMeshLabel3DDictionary = new Dictionary<Button, Label3D>();
     public Dictionary<Button, MeshInstance3D> BtnAndMeshInstanceDictionary = new Dictionary<Button, MeshInstance3D>();
     private List<Godot.Vector3> LabelPositions = new List<Godot.Vector3>();
-    
+
     private PackedScene visScene = GD.Load<PackedScene>("res://Visualisation.tscn");
     private Node3D visRoot;
-    
+
     private bool shiftLock = false;
     private float mouseSensitivity = 0.001f;
 
@@ -65,7 +65,7 @@ public partial class Main : Node3D
     {
         GamePlay gamePlay = GetNodeOrNull<GamePlay>("/root/Main/rightSide/GamePlay");
         Node3D visualisation = GetNodeOrNull<Node3D>("/root/Main/Visualisation");
-        
+
         if (Input.IsActionPressed("mainMenu"))
         {
             GetTree().ChangeSceneToFile("res://MainMenu.tscn");
@@ -94,6 +94,7 @@ public partial class Main : Node3D
     }
     private void HandleRestartCube(GamePlay gamePlay)
     {
+        GetNode<Node3D>("Visualisation").Rotation = new Vector3(0, 0, 0); //XDDD to wszystko co zrobiłem pozdro - https://docs.godotengine.org/en/stable/classes/class_node3d.html#class-node3d-method-rotate
         List<string> savedTexts = new List<string>();
         for (int i = 0; i < gamePlay.TttBtns.Count; i++)
         {

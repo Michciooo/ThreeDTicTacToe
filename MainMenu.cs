@@ -29,7 +29,6 @@ namespace threeDTicTacToe
 			var offlineBtn = GetNode<Button>("Main/MainContainer/Container/OfflineBtn");
 
 			global.buttonName = offlineBtn.Name;
-			GD.Print(global.buttonName);
 			GetTree().ChangeSceneToFile("res://Main.tscn");
 		}
 

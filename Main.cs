@@ -63,12 +63,15 @@ public partial class Main : Node3D
     }
     public override void _Input(InputEvent @event)
     {
-        GamePlay gamePlay = GetNodeOrNull<GamePlay>("/root/Main/rightSide/GamePlay");
         Node3D visualisation = GetNodeOrNull<Node3D>("/root/Main/Visualisation");
-
+        WinPopUp popUp = GetNodeOrNull<WinPopUp>("/root/WinPopUp");
         if (Input.IsActionPressed("mainMenu"))
         {
             GetTree().ChangeSceneToFile("res://MainMenu.tscn");
+            if (popUp != null)
+            {
+                popUp.QueueFree();
+            }
         }
         if (Input.IsActionPressed("shiftLock"))
         {
@@ -77,7 +80,7 @@ public partial class Main : Node3D
         }
         if (Input.IsActionPressed("resetPosCube"))
         {
-            HandleRestartCube(gamePlay);
+            GetNode<Node3D>("Visualisation").Rotation = new Vector3(0, 0, 0);
         }
         if (shiftLock)
         {
@@ -89,32 +92,6 @@ public partial class Main : Node3D
             if (@event is InputEventMouseMotion mouseMotionEvent)
             {
                 HandleMouseMotion(mouseMotionEvent, visualisation);
-            }
-        }
-    }
-    private void HandleRestartCube(GamePlay gamePlay)
-    {
-        GetNode<Node3D>("Visualisation").Rotation = new Vector3(0, 0, 0); //XDDD to wszystko co zrobiłem pozdro - https://docs.godotengine.org/en/stable/classes/class_node3d.html#class-node3d-method-rotate
-        List<string> savedTexts = new List<string>();
-        for (int i = 0; i < gamePlay.TttBtns.Count; i++)
-        {
-            Button btn = gamePlay.TttBtns[i];
-            if (BtnAndboxMeshLabel3DDictionary.ContainsKey(btn))
-            {
-                savedTexts.Add(BtnAndboxMeshLabel3DDictionary[btn].Text);
-            }
-            else
-            {
-                savedTexts.Add("");
-            }
-        }
-        Create_Visualisation();
-        for (int i = 0; i < gamePlay.TttBtns.Count; i++)
-        {
-            Button btn = gamePlay.TttBtns[i];
-            if (BtnAndboxMeshLabel3DDictionary.ContainsKey(btn))
-            {
-                BtnAndboxMeshLabel3DDictionary[btn].Text = savedTexts[i];
             }
         }
     }

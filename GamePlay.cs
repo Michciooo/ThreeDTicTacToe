@@ -44,23 +44,30 @@ public partial class GamePlay : Control
 	}
 	public void RestartGame()
 	{
-		Button restartButton = GetNode<Button>("restartBtn");
-		restartButton.Text = "Restart";
-		foreach (Button btn in TttBtns)
+		foreach (Button button in TttBtns)
 		{
-			btn.Text = "";
+			button.Text = "";
 		}
+
 		foreach (Label3D label in Labels)
 		{
 			label.Text = "";
 		}
+		_playerTurn = !_playerTurn;
+    
+		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
+		playerTurnLabel.Text = _playerTurn ? "Player turn: X" : "Player turn: O";
+		
 		BlockBtns(false);
 		foreach (var btn in TttBtns)
 		{
 			btn.MouseEntered += () => OnMouseEntered(btn);
 			btn.SetDefaultCursorShape(CursorShape.PointingHand);
 		}
-		restartButton.SetDefaultCursorShape(CursorShape.PointingHand);
+		if (!_playerTurn) 
+		{
+			LogicComputer(); 
+		}
 	}
 	
 	public void Create_Dimensions(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3,
@@ -120,7 +127,8 @@ public partial class GamePlay : Control
 
 					if (global.buttonName == "ComputerBtn")
 					{
-						btn.Pressed += () => LogicComputer(btn);
+						Button capturedButton = btn; 
+						capturedButton.Pressed += () => LogicComputer(capturedButton);
 					}
 					btn.MouseEntered += () => OnMouseEntered(btn);
 					btn.MouseExited += () => OnMouseExited(btn);
@@ -128,31 +136,51 @@ public partial class GamePlay : Control
 			}
 		}
 	}
-
-	private void LogicComputer(Button btn)
-	{
-		GD.Print("skibidi");
-	}
-
-	public void OnMouseEntered(Button btn)
+	private void LogicComputer(Button btn = null)
 	{
 		Main main = GetNode<Main>("/root/Main");
-		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
+
+		for (int i = 0; i < TttBtns.Count; i++)
 		{
-			StandardMaterial3D miniMaterial = new StandardMaterial3D();
-			miniMaterial.AlbedoColor = new Color(255, 0, 0);
-			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+			if (i < 27)
+			{
+				Button button = TttBtns[i];
+				Label3D label = Labels[i];
+				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
+				{
+					main.BtnAndboxMeshLabel3DDictionary.Add(button, label);
+				}
+			}
 		}
-	}
-	public void OnMouseExited(Button btn)
-	{
-		Main main = GetNode<Main>("/root/Main");
-		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
+
+		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
+		
+		if (_playerTurn && btn != null)
 		{
-			StandardMaterial3D miniMaterial = new StandardMaterial3D();
-			miniMaterial.AlbedoColor = new Color("#000000");
-			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+			if (btn.Text == "")
+			{
+				btn.Text = "X";
+				Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
+				label3D.Text = "X";
+				playerTurnLabel.Text = "Player turn: O";
+				_playerTurn = false;
+			}
 		}
+		if(!_playerTurn)
+		{
+			Random random = new Random();
+			List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
+        
+			if (availableButtons.Count > 0)
+			{
+				Button computerMove = availableButtons[random.Next(availableButtons.Count)];
+				computerMove.Text = "O";
+				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "O";
+				playerTurnLabel.Text = "Player turn: X";
+				_playerTurn = true;
+			}
+		}
+		WhoWon();
 	}
 	public void LogicOffline(Button btn)
 	{
@@ -188,12 +216,31 @@ public partial class GamePlay : Control
 		{
 			playerTurnLabel.Text = "Player turn : X";
 			btn.Text = "O";
-			label3D.Text = btn.Text;
 			_playerTurn = true;
+			label3D.Text = btn.Text;
 		}
 		WhoWon();
 	}
-
+	public void OnMouseEntered(Button btn)
+	{
+		Main main = GetNode<Main>("/root/Main");
+		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
+		{
+			StandardMaterial3D miniMaterial = new StandardMaterial3D();
+			miniMaterial.AlbedoColor = new Color(255, 0, 0);
+			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+		}
+	}
+	public void OnMouseExited(Button btn)
+	{
+		Main main = GetNode<Main>("/root/Main");
+		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
+		{
+			StandardMaterial3D miniMaterial = new StandardMaterial3D();
+			miniMaterial.AlbedoColor = new Color("#000000");
+			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+		}
+	}
 	public void WhoWon()
 	{
 		Button[,] wins =
@@ -267,7 +314,6 @@ public partial class GamePlay : Control
 				if (wins[i, 0].Text == "X") scoreScene.x_wins = scoreScene.x_wins + 1;
 				else scoreScene.o_wins = scoreScene.o_wins+1;
 				scoreScene.ScoreSystem();
-				
 				GetTree().Root.AddChild(popUpInstant);
 				if (win)
 				{

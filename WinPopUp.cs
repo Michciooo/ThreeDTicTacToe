@@ -10,7 +10,7 @@ public partial class WinPopUp : Control
 		Button closeBtn = GetNode<Button>("closeBtn");
 		closeBtn.Pressed += ClosePopUp;
 	}
-	private void ClosePopUp()
+	public void ClosePopUp()
 	{
 		GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay");
 		QueueFree(); // usuwa ci instancje popatrz podczas na te zdalny podgląd jak się tworzy

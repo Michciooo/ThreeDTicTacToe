@@ -11,6 +11,7 @@ public partial class GamePlay : Control
 	bool _playerTurn = true;
 	bool computerTurn = false;
 	bool win = false;
+	private int clicks = 0;
 	public List<Button> TttBtns = new List<Button>();
 	public List<Button> FirstDBtn = new List<Button>();
 	public List<Button> SecondDBtn = new List<Button>();
@@ -44,7 +45,8 @@ public partial class GamePlay : Control
 	}
 	public void RestartGame()
 	{
-		var scoreScene = GetNode<Score>("/root/Main/leftSide/Score");
+		Global global = GetNode<Global>("/root/Global");
+		clicks += 1;
 		foreach (Button button in TttBtns)
 		{
 			button.Text = "";
@@ -55,14 +57,17 @@ public partial class GamePlay : Control
 			label.Text = "";
 		}
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		var games = scoreScene.x_wins + scoreScene.o_wins;
-		if (games % 2 == 0)
+		if (global.buttonName == "ComputerBtn")
 		{
-			computerTurn = false;
-		}
-		else
-		{
-			computerTurn = true;
+			if (clicks % 2 == 0)
+			{
+				computerTurn = false;
+			}
+			else
+			{
+				computerTurn = true;
+				LogicComputer();
+			}
 		}
 		playerTurnLabel.Text = _playerTurn ? "Player turn : X" : "Player turn : O";
 		
@@ -135,8 +140,12 @@ public partial class GamePlay : Control
 			}
 		}
 	}
-	private void LogicComputer(Button btn = null)
+	public void LogicComputer(Button btn = null)
 	{
+		if (win || WhoWon())
+		{
+			return;
+		}
 		Main main = GetNode<Main>("/root/Main");
 
 		for (int i = 0; i < TttBtns.Count; i++)
@@ -147,29 +156,29 @@ public partial class GamePlay : Control
 				Label3D label = Labels[i];
 				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
 				{
-					main.BtnAndboxMeshLabel3DDictionary.Add(button, label);
+					main.BtnAndboxMeshLabel3DDictionary[button] = label;
 				}
 			}
 		}
+
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 		
-		if (_playerTurn && computerTurn==false && btn != null)
+		if (_playerTurn && btn != null && btn.Text == "")
 		{
-			if (btn.Text == "")
-			{
-				btn.Text = "X";
-				Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
-				label3D.Text = "X";
-				playerTurnLabel.Text = "Player turn : O";
-				_playerTurn = false;
-				computerTurn = true;
-			}
+			btn.Text = "X";
+			Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
+			label3D.Text = "X";
+			playerTurnLabel.Text = "Player turn : O";
+			_playerTurn = false;
+			computerTurn = true;
+			
+			if (WhoWon()) return;
 		}
-		if(computerTurn)
+		if (!_playerTurn && computerTurn)
 		{
 			Random random = new Random();
 			List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
-    
+        
 			if (availableButtons.Count > 0)
 			{
 				Button computerMove = availableButtons[random.Next(availableButtons.Count)];
@@ -177,10 +186,10 @@ public partial class GamePlay : Control
 				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "O";
 				playerTurnLabel.Text = "Player turn : X";
 				_playerTurn = true;
-				computerTurn = false;
+				
+				if (WhoWon()) return;
 			}
 		}
-		WhoWon();
 	}
 	public void LogicOffline(Button btn)
 	{
@@ -240,7 +249,7 @@ public partial class GamePlay : Control
 			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
 		}
 	}
-	public void WhoWon()
+	public bool WhoWon()
 	{
 		Button[,] wins =
 		{
@@ -309,17 +318,18 @@ public partial class GamePlay : Control
 				var popUpInstant = popUp.Instantiate();
 				win = true;
 				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {wins[i, 0].Text}";
-				
-				if (wins[i, 0].Text == "X") scoreScene.x_wins = scoreScene.x_wins + 1;
-				else scoreScene.o_wins = scoreScene.o_wins+1;
+
+				if (wins[i, 0].Text == "X") 
+					scoreScene.x_wins += 1;
+				else 
+					scoreScene.o_wins += 1;
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
-				if (win)
-				{ 
-					BlockBtns(true);
-				}
+				BlockBtns(true);
+				return true;  
 			}
 		}
+		return false;
 	}
 	private void BlockBtns(bool disable)
 	{

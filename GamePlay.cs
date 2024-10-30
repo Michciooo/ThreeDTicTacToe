@@ -9,7 +9,6 @@ namespace threeDTicTacToe;
 public partial class GamePlay : Control
 {
 	bool _playerTurn = true;
-	bool computerTurn = false;
 	bool win = false;
 	private int clicks = 0;
 	public List<Button> TttBtns = new List<Button>();
@@ -43,10 +42,11 @@ public partial class GamePlay : Control
 		
 		AddToDictionary();
 	}
+
 	public void RestartGame()
 	{
-		Global global = GetNode<Global>("/root/Global");
 		clicks += 1;
+		Global global = GetNode<Global>("/root/Global");
 		foreach (Button button in TttBtns)
 		{
 			button.Text = "";
@@ -56,27 +56,39 @@ public partial class GamePlay : Control
 		{
 			label.Text = "";
 		}
-		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		if (global.buttonName == "ComputerBtn")
+
+		if (global.buttonName == "EasyModeBtn")
 		{
-			if (clicks % 2 == 0)
+			if (clicks % 2 != 0)
 			{
-				computerTurn = false;
+				EasyComputer();
 			}
 			else
 			{
-				computerTurn = true;
-				LogicComputer();
+				EasyComputer();
 			}
 		}
-		playerTurnLabel.Text = _playerTurn ? "Player turn : X" : "Player turn : O";
-		
-		BlockBtns(false);
-		foreach (var btn in TttBtns)
+
+		if (global.buttonName == "AiModeBtn")
 		{
-			btn.MouseEntered += () => OnMouseEntered(btn);
-			btn.SetDefaultCursorShape(CursorShape.PointingHand);
+			if (clicks % 2 != 0)
+			{
+				AiComputer();
+			}
+			else
+			{
+				AiComputer();
+			}
 		}
+		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
+			playerTurnLabel.Text = _playerTurn ? "Player turn : X" : "Player turn : O";
+
+			BlockBtns(false);
+			foreach (var btn in TttBtns)
+			{
+				btn.MouseEntered += () => OnMouseEntered(btn);
+				btn.SetDefaultCursorShape(CursorShape.PointingHand);
+			}
 	}
 	public void Create_Dimensions(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3,
 		HBoxContainer lay4, HBoxContainer lay5, HBoxContainer lay6,
@@ -128,11 +140,17 @@ public partial class GamePlay : Control
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
 
-					if (global.buttonName == "OfflineBtn") btn.Pressed += () => LogicOffline(btn);
-					if (global.buttonName == "ComputerBtn")
+					if (global.buttonName == "OfflineBtn") btn.Pressed += () => Offline(btn);
+					if (global.buttonName == "EasyModeBtn")
 					{
 						Button capturedButton = btn; 
-						capturedButton.Pressed += () => LogicComputer(capturedButton);
+						capturedButton.Pressed += () => EasyComputer(capturedButton);
+					}
+
+					if (global.buttonName == "AiModeBtn")
+					{
+						Button capturedButton = btn; 
+						capturedButton.Pressed += () => AiComputer(capturedButton);
 					}
 					btn.MouseEntered += () => OnMouseEntered(btn);
 					btn.MouseExited += () => OnMouseExited(btn);
@@ -140,14 +158,13 @@ public partial class GamePlay : Control
 			}
 		}
 	}
-	public void LogicComputer(Button btn = null)
+	public void EasyComputer(Button btn = null)
 	{
 		if (win || WhoWon())
 		{
 			return;
 		}
 		Main main = GetNode<Main>("/root/Main");
-
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
 			if (i < 27)
@@ -162,7 +179,6 @@ public partial class GamePlay : Control
 		}
 
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		
 		if (_playerTurn && btn != null && btn.Text == "")
 		{
 			btn.Text = "X";
@@ -170,15 +186,15 @@ public partial class GamePlay : Control
 			label3D.Text = "X";
 			playerTurnLabel.Text = "Player turn : O";
 			_playerTurn = false;
-			computerTurn = true;
-			
+
 			if (WhoWon()) return;
 		}
-		if (!_playerTurn && computerTurn)
+
+		if (!_playerTurn)
 		{
 			Random random = new Random();
 			List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
-        
+
 			if (availableButtons.Count > 0)
 			{
 				Button computerMove = availableButtons[random.Next(availableButtons.Count)];
@@ -186,12 +202,12 @@ public partial class GamePlay : Control
 				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "O";
 				playerTurnLabel.Text = "Player turn : X";
 				_playerTurn = true;
-				
+
 				if (WhoWon()) return;
 			}
 		}
 	}
-	public void LogicOffline(Button btn)
+	public void Offline(Button btn)
 	{
 		Main main = GetNode<Main>("/root/Main");
 		
@@ -228,6 +244,11 @@ public partial class GamePlay : Control
 		}
 
 		WhoWon();
+	}
+
+	private void AiComputer(Button btn = null)
+	{
+		GD.Print("AI Computer");
 	}
 	public void OnMouseEntered(Button btn)
 	{

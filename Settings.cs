@@ -7,27 +7,26 @@ namespace threeDTicTacToe
     public partial class Settings : Control
     {
         private List<Key> keysList = new List<Key>();
+
         public override void _Ready()
         {
-            var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
-            var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
-            var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
-            var appExitTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
-            var mainMenuTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
-            
+            Binding();
+            SetupButtons();
+        }
+
+        private void SetupButtons()
+        {
             var btn1 = this.GetNode<Button>("Main/RestartBtns/btn1");
             var btn2 = this.GetNode<Button>("Main/RestartBtns/btn2");
             var btn3 = this.GetNode<Button>("Main/RestartBtns/btn3");
             var btn4 = this.GetNode<Button>("Main/RestartBtns/btn4");
             var btn5 = this.GetNode<Button>("Main/RestartBtns/btn5");
-            
-            Binding();
 
-            btn1.Pressed += btnPress;
-            btn2.Pressed += btnPress;
-            btn3.Pressed += btnPress;
-            btn4.Pressed += btnPress;
-            btn5.Pressed += btnPress;
+            btn1.Pressed += () => btnPress(btn1);
+            btn2.Pressed += () => btnPress(btn2);
+            btn3.Pressed += () => btnPress(btn3);
+            btn4.Pressed += () => btnPress(btn4);
+            btn5.Pressed += () => btnPress(btn5);
         }
 
         private void Binding()
@@ -38,14 +37,14 @@ namespace threeDTicTacToe
             var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
             var appExitTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
             var mainMenuTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
-            
 
             shiftLockTextInput.Text = global.shiftLockKey.ToString();
             unshiftLockTextInput.Text = global.unShiftLockKey.ToString();
             restartPosCubeTextInput.Text = global.restartPosCubeKey.ToString();
             appExitTextInput.Text = global.appExitKey.ToString();
             mainMenuTextInput.Text = global.mainMenuKey.ToString();
-            
+
+            keysList.Clear();
             keysList.Add(global.shiftLockKey);
             keysList.Add(global.unShiftLockKey);
             keysList.Add(global.restartPosCubeKey);
@@ -53,62 +52,53 @@ namespace threeDTicTacToe
             keysList.Add(global.appExitKey);
         }
 
-        private void btnPress()
+        private void btnPress(Button button)
         {
             Global global = (Global)GetNode("/root/Global");
-            var btn1 = this.GetNode<Button>("Main/RestartBtns/btn1");
-            var btn2 = this.GetNode<Button>("Main/RestartBtns/btn2");
-            var btn3 = this.GetNode<Button>("Main/RestartBtns/btn3");
-            var btn4 = this.GetNode<Button>("Main/RestartBtns/btn4");
-            var btn5 = this.GetNode<Button>("Main/RestartBtns/btn5");
-            
-            var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
-            var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
-            var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
-            var appExitTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
-            var mainMenuTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
-            if (btn1.IsPressed())
+            TextEdit targetTextInput = null;
+            Key oldKey = Key.Unknown;
+
+            if (button.Name == "btn1")
             {
-                shiftLockTextInput.Text = "Shift";
-                keysList.Remove(global.shiftLockKey);
-                global.shiftLockKey = (Key)OS.FindKeycodeFromString(shiftLockTextInput.Text);
-                keysList.Add(global.shiftLockKey);
-                AddKeyToAction("shiftLock" , Key.Shift);
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
+                oldKey = global.shiftLockKey;
             }
-            if (btn2.IsPressed())
+            else if (button.Name == "btn2")
             {
-                unshiftLockTextInput.Text = "Ctrl";
-                keysList.Remove(global.unShiftLockKey);
-                global.unShiftLockKey = (Key)OS.FindKeycodeFromString(unshiftLockTextInput.Text);
-                keysList.Add(global.unShiftLockKey);
-                AddKeyToAction("unshiftLock" , Key.Ctrl);
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
+                oldKey = global.unShiftLockKey;
             }
-            if (btn3.IsPressed())
+            else if (button.Name == "btn3")
             {
-                restartPosCubeTextInput.Text = "R";
-                keysList.Remove(global.restartPosCubeKey);
-                global.restartPosCubeKey = (Key)OS.FindKeycodeFromString(restartPosCubeTextInput.Text);
-                keysList.Add(global.restartPosCubeKey);
-                AddKeyToAction("resetPosCube" , Key.R);
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
+                oldKey = global.restartPosCubeKey;
             }
-            if (btn4.IsPressed())
+            else if (button.Name == "btn4")
             {
-                mainMenuTextInput.Text = "Escape";
-                keysList.Remove(global.mainMenuKey);
-                global.mainMenuKey = (Key)OS.FindKeycodeFromString(mainMenuTextInput.Text);
-                keysList.Add(global.mainMenuKey);
-                AddKeyToAction("mainMenu" , Key.Escape);
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
+                oldKey = global.mainMenuKey;
             }
-            if (btn5.IsPressed())
+            else if (button.Name == "btn5")
             {
-                appExitTextInput.Text = "Q";
-                keysList.Remove(global.appExitKey);
-                global.appExitKey = (Key)OS.FindKeycodeFromString(appExitTextInput.Text);
-                keysList.Add(global.appExitKey);
-                AddKeyToAction("appExit" , Key.Q);
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
+                oldKey = global.appExitKey;
+            }
+
+            if (targetTextInput != null)
+            {
+                UpdateKeyBinding(targetTextInput, button.Name, global, oldKey);
             }
         }
 
+        private void UpdateKeyBinding(TextEdit textInput, string actionName, Global global, Key oldKey)
+        {
+            if (oldKey != Key.Unknown)
+            {
+                keysList.Remove(oldKey);
+            }
+
+            textInput.Text = "";
+        }
 
         public override void _Input(InputEvent @event)
         {
@@ -118,105 +108,61 @@ namespace threeDTicTacToe
             var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
             var appExitTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
             var mainMenuTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
+
             if (@event is InputEventKey eventKey && eventKey.Pressed)
             {
                 if (shiftLockTextInput.HasFocus())
                 {
-                    if (eventKey.Keycode == keysList[0] || eventKey.Keycode == keysList[1] ||
-                        eventKey.Keycode == keysList[2] || eventKey.Keycode == keysList[3] ||
-                        eventKey.Keycode == keysList[4])
-                    {
-                        shiftLockTextInput.Text = shiftLockTextInput.Text;
-                    }
-                    else
-                    {
-                        shiftLockTextInput.Text = OS.GetKeycodeString(eventKey.Keycode);
-                        keysList.Remove(global.shiftLockKey);
-                        global.shiftLockKey = (Key)OS.FindKeycodeFromString(shiftLockTextInput.Text);
-                        keysList.Add(global.shiftLockKey);
-                        AddKeyToAction("shiftLock" , eventKey.Keycode);
-                    }
+                    AssignKey(eventKey, shiftLockTextInput, ref global.shiftLockKey);
                 }
-                if (unshiftLockTextInput.HasFocus())
+                else if (unshiftLockTextInput.HasFocus())
                 {
-                    if (eventKey.Keycode == keysList[0] || eventKey.Keycode == keysList[1] ||
-                        eventKey.Keycode == keysList[2] || eventKey.Keycode == keysList[3] ||
-                        eventKey.Keycode == keysList[4])
-                    {
-                        unshiftLockTextInput.Text = unshiftLockTextInput.Text;
-                    }
-                    else
-                    {
-                        unshiftLockTextInput.Text = OS.GetKeycodeString(eventKey.Keycode);
-                        keysList.Remove(global.unShiftLockKey);
-                        global.unShiftLockKey = (Key)OS.FindKeycodeFromString(unshiftLockTextInput.Text);
-                        keysList.Add(global.unShiftLockKey);
-                        AddKeyToAction("unshiftLock", eventKey.Keycode);
-                    }
+                    AssignKey(eventKey, unshiftLockTextInput, ref global.unShiftLockKey);
                 }
-                if (restartPosCubeTextInput.HasFocus())
+                else if (restartPosCubeTextInput.HasFocus())
                 {
-                    if (eventKey.Keycode == keysList[0] || eventKey.Keycode == keysList[1] ||
-                        eventKey.Keycode == keysList[2] || eventKey.Keycode == keysList[3] ||
-                        eventKey.Keycode == keysList[4])
-                    {
-                        restartPosCubeTextInput.Text = restartPosCubeTextInput.Text;
-                    }
-                    else
-                    {
-                        restartPosCubeTextInput.Text = OS.GetKeycodeString(eventKey.Keycode);
-                        keysList.Remove(global.restartPosCubeKey);
-                        global.restartPosCubeKey = (Key)OS.FindKeycodeFromString(restartPosCubeTextInput.Text);
-                        keysList.Add(global.restartPosCubeKey);
-                        AddKeyToAction("resetPosCube", eventKey.Keycode);
-                    }
+                    AssignKey(eventKey, restartPosCubeTextInput, ref global.restartPosCubeKey);
                 }
-                if (mainMenuTextInput.HasFocus())
+                else if (mainMenuTextInput.HasFocus())
                 {
-                    if (eventKey.Keycode == keysList[0] || eventKey.Keycode == keysList[1] ||
-                        eventKey.Keycode == keysList[2] || eventKey.Keycode == keysList[3] ||
-                        eventKey.Keycode == keysList[4])
-                    {
-                        mainMenuTextInput.Text = mainMenuTextInput.Text;
-                    }
-                    else
-                    {
-                        mainMenuTextInput.Text = OS.GetKeycodeString(eventKey.Keycode);
-                        keysList.Remove(global.mainMenuKey);
-                        global.mainMenuKey = (Key)OS.FindKeycodeFromString(mainMenuTextInput.Text);
-                        keysList.Add(global.mainMenuKey);
-                        AddKeyToAction("mainMenu" , eventKey.Keycode);
-                    }
+                    AssignKey(eventKey, mainMenuTextInput, ref global.mainMenuKey);
                 }
-                if (appExitTextInput.HasFocus())
+                else if (appExitTextInput.HasFocus())
                 {
-                    if (eventKey.Keycode == keysList[0] || eventKey.Keycode == keysList[1] ||
-                        eventKey.Keycode == keysList[2] || eventKey.Keycode == keysList[3] ||
-                        eventKey.Keycode == keysList[4])
-                    {
-                        appExitTextInput.Text = appExitTextInput.Text;
-                    }
-                    else
-                    {
-                        appExitTextInput.Text = OS.GetKeycodeString(eventKey.Keycode);
-                        keysList.Remove(global.appExitKey);
-                        global.appExitKey = (Key)OS.FindKeycodeFromString(appExitTextInput.Text);
-                        keysList.Add(global.appExitKey);
-                        AddKeyToAction("appExit", eventKey.Keycode);
-                    }
+                    AssignKey(eventKey, appExitTextInput, ref global.appExitKey);
                 }
             }
-            
         }
 
-        private void AddKeyToAction(string actionName, Key keycode)
+        private void AssignKey(InputEventKey eventKey, TextEdit focusedTextInput, ref Key globalKey)
+        {
+            Key newKey = (Key)eventKey.Keycode;
+            if (!keysList.Contains(newKey))
+            {
+                if (globalKey != Key.Unknown) 
+                {
+                    keysList.Remove(globalKey);
+                    RemoveKeyFromAction(focusedTextInput.Name, globalKey);
+                }
+                focusedTextInput.Text = OS.GetKeycodeString(eventKey.Keycode);
+                keysList.Add(newKey);
+                globalKey = newKey;
+                AddKeyToAction(focusedTextInput.Name, newKey);
+            }
+        }
+
+        private void AddKeyToAction(string actionName, Key key)
+        {
+            InputMap.AddAction(actionName);
+            InputEventKey inputEventKey = new InputEventKey { Keycode = key };
+            InputMap.ActionAddEvent(actionName, inputEventKey);
+        }
+
+        private void RemoveKeyFromAction(string actionName, Key key)
         {
             if (InputMap.HasAction(actionName))
             {
                 InputMap.ActionEraseEvents(actionName);
-                InputEventKey inputEventKey = new InputEventKey();
-                inputEventKey.Keycode = keycode;
-                InputMap.ActionAddEvent(actionName, inputEventKey);
             }
         }
 

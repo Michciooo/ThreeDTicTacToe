@@ -253,7 +253,6 @@ public partial class GamePlay : Control
 	{
 		Button[,] wins =
 		{
-			// grid 1 H
 			{ FirstDBtn[0], FirstDBtn[1], FirstDBtn[2] },
 			{ FirstDBtn[3], FirstDBtn[4], FirstDBtn[5] },
 			{ FirstDBtn[6], FirstDBtn[7], FirstDBtn[8] },
@@ -262,8 +261,7 @@ public partial class GamePlay : Control
 			{ FirstDBtn[2], FirstDBtn[5], FirstDBtn[8] },
 			{ FirstDBtn[0], FirstDBtn[4], FirstDBtn[8] },
 			{ FirstDBtn[2], FirstDBtn[4], FirstDBtn[6] },
-
-			//grid 2 H
+			
 			{ SecondDBtn[0], SecondDBtn[1], SecondDBtn[2] },
 			{ SecondDBtn[3], SecondDBtn[4], SecondDBtn[5] },
 			{ SecondDBtn[6], SecondDBtn[7], SecondDBtn[8] },
@@ -272,8 +270,7 @@ public partial class GamePlay : Control
 			{ SecondDBtn[2], SecondDBtn[5], SecondDBtn[8] },
 			{ SecondDBtn[0], SecondDBtn[4], SecondDBtn[8] },
 			{ SecondDBtn[2], SecondDBtn[4], SecondDBtn[6] },
-
-			//grid 3 H
+			
 			{ ThirdDBtn[0], ThirdDBtn[1], ThirdDBtn[2] },
 			{ ThirdDBtn[3], ThirdDBtn[4], ThirdDBtn[5] },
 			{ ThirdDBtn[6], ThirdDBtn[7], ThirdDBtn[8] },
@@ -282,30 +279,39 @@ public partial class GamePlay : Control
 			{ ThirdDBtn[2], ThirdDBtn[5], ThirdDBtn[8] },
 			{ ThirdDBtn[0], ThirdDBtn[4], ThirdDBtn[8] },
 			{ ThirdDBtn[2], ThirdDBtn[4], ThirdDBtn[6] },
-
-			//grid 1 V
-			{ FirstDBtn[0], SecondDBtn[0], ThirdDBtn[0] },
-			{ FirstDBtn[1], SecondDBtn[1], ThirdDBtn[1] },
-			{ FirstDBtn[2], SecondDBtn[2], ThirdDBtn[2] },
-			{ FirstDBtn[3], SecondDBtn[3], ThirdDBtn[3] },
-			{ FirstDBtn[4], SecondDBtn[4], ThirdDBtn[4] },
-			{ FirstDBtn[5], SecondDBtn[5], ThirdDBtn[5] },
-			{ FirstDBtn[6], SecondDBtn[6], ThirdDBtn[6] },
-			{ FirstDBtn[7], SecondDBtn[7], ThirdDBtn[7] },
-			{ FirstDBtn[8], SecondDBtn[8], ThirdDBtn[8] },
-
-			{ FirstDBtn[6], SecondDBtn[3], ThirdDBtn[0] },
-			{ FirstDBtn[7], SecondDBtn[4], ThirdDBtn[1] },
-			{ FirstDBtn[8], SecondDBtn[5], ThirdDBtn[2] },
-
-			{ FirstDBtn[0], SecondDBtn[3], ThirdDBtn[6] },
-			{ FirstDBtn[1], SecondDBtn[4], ThirdDBtn[7] },
-			{ FirstDBtn[2], SecondDBtn[5], ThirdDBtn[8] },
-
-			{ FirstDBtn[0], SecondDBtn[4], ThirdDBtn[8] },
-			{ FirstDBtn[2], SecondDBtn[4], ThirdDBtn[6] },
-			{ FirstDBtn[6], SecondDBtn[4], ThirdDBtn[2] },
-			{ FirstDBtn[8], SecondDBtn[4], ThirdDBtn[0] },
+			
+			{FirstDBtn[0] , SecondDBtn[0] , ThirdDBtn[0]},
+			{FirstDBtn[1] , SecondDBtn[1] , ThirdDBtn[1]},
+			{FirstDBtn[2] , SecondDBtn[2] , ThirdDBtn[2]},
+			{FirstDBtn[3] , SecondDBtn[3] , ThirdDBtn[3]},
+			{FirstDBtn[4] , SecondDBtn[4] , ThirdDBtn[4]},
+			{FirstDBtn[5] , SecondDBtn[5] , ThirdDBtn[5]},
+			{FirstDBtn[6] , SecondDBtn[6] , ThirdDBtn[6]},
+			{FirstDBtn[7] , SecondDBtn[7] , ThirdDBtn[7]},
+			{FirstDBtn[8] , SecondDBtn[8] , ThirdDBtn[8]},
+			
+			{FirstDBtn[0] , SecondDBtn[1] , ThirdDBtn[2]},
+			{FirstDBtn[2] , SecondDBtn[1] , ThirdDBtn[0]},
+			
+			{FirstDBtn[3] , SecondDBtn[4] , ThirdDBtn[5]},
+			{FirstDBtn[5] , SecondDBtn[4] , ThirdDBtn[3]},
+			
+			{FirstDBtn[6] , SecondDBtn[7] , ThirdDBtn[8]},
+			{FirstDBtn[8] , SecondDBtn[7] , ThirdDBtn[6]},
+			
+			{FirstDBtn[0] , SecondDBtn[3] , ThirdDBtn[6]},
+			{FirstDBtn[6] , SecondDBtn[3] , ThirdDBtn[0]},
+			
+			{FirstDBtn[1] , SecondDBtn[4] , ThirdDBtn[7]},
+			{FirstDBtn[7] , SecondDBtn[4] , ThirdDBtn[1]},
+			
+			{FirstDBtn[2] , SecondDBtn[5] , ThirdDBtn[8]},
+			{FirstDBtn[8] , SecondDBtn[5] , ThirdDBtn[2]},
+			
+			{FirstDBtn[0] , SecondDBtn[4] , ThirdDBtn[8]},
+			{FirstDBtn[8] , SecondDBtn[4] , ThirdDBtn[0]},
+			{FirstDBtn[2] , SecondDBtn[4] , ThirdDBtn[6]},
+			{FirstDBtn[6] , SecondDBtn[4] , ThirdDBtn[2]},
 		};
 		
 		var popUp = GD.Load<PackedScene>("res://WinPopUp.tscn");

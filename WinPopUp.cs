@@ -12,7 +12,7 @@ public partial class WinPopUp : Control
 	}
 	public void ClosePopUp()
 	{
-		GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay");
+		GamePlay gamePlay = GetNode<GamePlay>("/root/TTT3D/rightSide/GamePlay");
 		QueueFree(); // usuwa ci instancje popatrz podczas na te zdalny podgląd jak się tworzy
 		gamePlay.RestartGame();
 	}

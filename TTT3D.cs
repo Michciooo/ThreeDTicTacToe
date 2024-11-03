@@ -4,7 +4,7 @@ using Godot;
 
 namespace threeDTicTacToe;
 
-public partial class Main : Node3D
+public partial class TTT3D : Node3D
 {
     public Dictionary<Button, Label3D> BtnAndboxMeshLabel3DDictionary = new Dictionary<Button, Label3D>();
     public Dictionary<Button, MeshInstance3D> BtnAndMeshInstanceDictionary = new Dictionary<Button, MeshInstance3D>();
@@ -67,9 +67,9 @@ public partial class Main : Node3D
         WinPopUp popUp = GetNodeOrNull<WinPopUp>("/root/WinPopUp");
         Button mainMenu = GetNode<Button>("leftSide/mainMenu");
         
-        if (Input.IsActionPressed("mainMenu") || mainMenu.IsPressed())
+        if (mainMenu.IsPressed())
         {
-            GetTree().ChangeSceneToFile("res://MainMenu.tscn");
+            GetTree().ChangeSceneToFile("res://MainMenu3D.tscn");
             if (popUp != null)
             {
                 popUp.QueueFree();

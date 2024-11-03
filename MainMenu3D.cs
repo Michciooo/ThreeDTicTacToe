@@ -3,7 +3,7 @@ using System;
 
 namespace threeDTicTacToe
 {
-	public partial class MainMenu : Node3D
+	public partial class MainMenu3D : Node3D
 	{
 		private Global global;
 		public override void _Ready()
@@ -74,7 +74,7 @@ namespace threeDTicTacToe
 		}
 		public override void _Process(double delta)
 		{
-			if (Input.IsActionPressed("appExit")) GetTree().Quit();
+			if (Input.IsActionPressed("mainMenu")) GetTree().ChangeSceneToFile("res://MainMenu.tscn");
 		}
 	}
 }

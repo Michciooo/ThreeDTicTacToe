@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://crit7oidgfe05"]
 
-[ext_resource type="Script" path="res://Main.cs" id="1_u0mot"]
-[ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://GamePlay.tscn" id="2_8tmtq"]
-[ext_resource type="Script" path="res://GamePlay.cs" id="3_3v4gi"]
-[ext_resource type="PackedScene" uid="uid://bvsxm6x1bmqtx" path="res://Visualisation.tscn" id="3_om4m4"]
-[ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score.tscn" id="5_esxb4"]
+[ext_resource type="Script" path="res://TTT3D.cs" id="1_q1i13"]
+[ext_resource type="PackedScene" uid="uid://bvsxm6x1bmqtx" path="res://Visualisation.tscn" id="2_e5hhc"]
+[ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://GamePlay.tscn" id="3_j3bv6"]
+[ext_resource type="Script" path="res://GamePlay.cs" id="4_2v7lt"]
+[ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score.tscn" id="5_euh6n"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_sg3h7"]
 script/source = "using Godot;
@@ -56,14 +56,14 @@ corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
 
-[node name="Main" type="Node3D"]
+[node name="TTT3D" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
-script = ExtResource("1_u0mot")
+script = ExtResource("1_q1i13")
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, -70, 350)
 
-[node name="Visualisation" parent="." instance=ExtResource("3_om4m4")]
+[node name="Visualisation" parent="." instance=ExtResource("2_e5hhc")]
 
 [node name="rightSide" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(700, 1000)
@@ -78,12 +78,12 @@ grow_vertical = 2
 size_flags_horizontal = 8
 script = SubResource("CSharpScript_sg3h7")
 
-[node name="GamePlay" parent="rightSide" instance=ExtResource("2_8tmtq")]
+[node name="GamePlay" parent="rightSide" instance=ExtResource("3_j3bv6")]
 custom_minimum_size = Vector2(700, 1000)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 1
-script = ExtResource("3_3v4gi")
+script = ExtResource("4_2v7lt")
 
 [node name="leftSide" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(900, 1000)
@@ -102,7 +102,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_gn1mk")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4xn28")
 text = "Main Menu"
 
-[node name="Score" parent="leftSide" instance=ExtResource("5_esxb4")]
+[node name="Score" parent="leftSide" instance=ExtResource("5_euh6n")]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0

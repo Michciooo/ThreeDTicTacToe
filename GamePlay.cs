@@ -36,7 +36,7 @@ public partial class GamePlay : Control
 		HBoxContainer lay8 = GetNode<HBoxContainer>("thirdD/lay8");
 		HBoxContainer lay9 = GetNode<HBoxContainer>("thirdD/lay9");
 		
-		Main main = GetNode<Main>("/root/Main");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		main.Create_Visualisation();
 		Create_Dimensions(lay1,lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9);
 		
@@ -81,14 +81,14 @@ public partial class GamePlay : Control
 			}
 		}
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-			playerTurnLabel.Text = _playerTurn ? "Player turn : X" : "Player turn : O";
+		playerTurnLabel.Text = _playerTurn ? "Player turn : X" : "Player turn : O";
 
-			BlockBtns(false);
-			foreach (var btn in TttBtns)
-			{
-				btn.MouseEntered += () => OnMouseEntered(btn);
-				btn.SetDefaultCursorShape(CursorShape.PointingHand);
-			}
+		BlockBtns(false);
+		foreach (var btn in TttBtns)
+		{
+			btn.MouseEntered += () => OnMouseEntered(btn);
+			btn.SetDefaultCursorShape(CursorShape.PointingHand);
+		}
 	}
 	public void Create_Dimensions(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3,
 		HBoxContainer lay4, HBoxContainer lay5, HBoxContainer lay6,
@@ -164,7 +164,7 @@ public partial class GamePlay : Control
 		{
 			return;
 		}
-		Main main = GetNode<Main>("/root/Main");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
 			if (i < 27)
@@ -209,7 +209,7 @@ public partial class GamePlay : Control
 	}
 	public void Offline(Button btn)
 	{
-		Main main = GetNode<Main>("/root/Main");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
@@ -252,7 +252,7 @@ public partial class GamePlay : Control
 	}
 	public void OnMouseEntered(Button btn)
 	{
-		Main main = GetNode<Main>("/root/Main");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
 		{
 			StandardMaterial3D miniMaterial = new StandardMaterial3D();
@@ -262,7 +262,7 @@ public partial class GamePlay : Control
 	}
 	public void OnMouseExited(Button btn)
 	{
-		Main main = GetNode<Main>("/root/Main");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
 		{
 			StandardMaterial3D miniMaterial = new StandardMaterial3D();
@@ -336,7 +336,7 @@ public partial class GamePlay : Control
 		};
 		
 		var popUp = GD.Load<PackedScene>("res://WinPopUp.tscn");
-		var scoreScene = GetNode<Score>("/root/Main/leftSide/Score");
+		var scoreScene = GetNode<Score>("/root/TTT3D/leftSide/Score");
 		for (int i = 0; i < wins.GetLength(0); i++)
 		{
 			if (wins[i, 0].Text == wins[i, 1].Text && wins[i, 1].Text == wins[i, 2].Text &&
@@ -376,7 +376,7 @@ public partial class GamePlay : Control
 	}
 	private void AddToDictionary()
 	{
-		Main main = GetNode<Main>("/root/Main");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		for (int i = 0; i < MeshInstances.Count; i++)
 		{
 			MeshInstance3D meshInstance3D = MeshInstances[i];

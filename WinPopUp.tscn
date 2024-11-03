@@ -1,6 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://dlbvgvq6yoc2m"]
+[gd_scene load_steps=5 format=3 uid="uid://dlbvgvq6yoc2m"]
 
 [ext_resource type="Script" path="res://WinPopUp.cs" id="1_wbkkr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt7gh"]
+bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5b17e"]
+bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e42g0"]
+bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
 
 [node name="WinPopUp" type="Control"]
 show_behind_parent = true
@@ -32,6 +59,9 @@ offset_bottom = 60.0
 grow_horizontal = 2
 mouse_filter = 1
 mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxFlat_rt7gh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5b17e")
+theme_override_styles/normal = SubResource("StyleBoxFlat_e42g0")
 text = "Play Again"
 
 [node name="winLabel" type="Label" parent="."]

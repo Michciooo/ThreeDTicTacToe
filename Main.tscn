@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://crit7oidgfe05"]
+[gd_scene load_steps=9 format=3 uid="uid://crit7oidgfe05"]
 
 [ext_resource type="Script" path="res://Main.cs" id="1_u0mot"]
 [ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://GamePlay.tscn" id="2_8tmtq"]
@@ -38,6 +38,24 @@ public partial class GamePlay : HBoxContainer
 }
 "
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gn1mk"]
+bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xn28"]
+bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
 [node name="Main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
 script = ExtResource("1_u0mot")
@@ -72,7 +90,19 @@ custom_minimum_size = Vector2(900, 1000)
 offset_right = 800.0
 offset_bottom = 1000.0
 
+[node name="mainMenu" type="Button" parent="leftSide"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/hover = SubResource("StyleBoxFlat_gn1mk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gn1mk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_4xn28")
+text = "Main Menu"
+
 [node name="Score" parent="leftSide" instance=ExtResource("5_esxb4")]
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 10
 size_flags_vertical = 0

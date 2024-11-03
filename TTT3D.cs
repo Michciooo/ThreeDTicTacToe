@@ -22,8 +22,8 @@ public partial class Main : Node3D
 
     public void Create_Visualisation()
     {
-        Node3D visualisation = GetNode<Node3D>("/root/Main/Visualisation");
-        GamePlay gamePlay = GetNode<GamePlay>("/root/Main/rightSide/GamePlay");
+        Node3D visualisation = GetNode<Node3D>("/root/TTT3D/Visualisation");
+        GamePlay gamePlay = GetNode<GamePlay>("/root/TTT3D/rightSide/GamePlay");
 
         for (int x = 0; x < 3; x++)
         {
@@ -63,7 +63,7 @@ public partial class Main : Node3D
     }
     public override void _Input(InputEvent @event)
     {
-        Node3D visualisation = GetNodeOrNull<Node3D>("/root/Main/Visualisation");
+        Node3D visualisation = GetNodeOrNull<Node3D>("/root/TTT3D/Visualisation");
         WinPopUp popUp = GetNodeOrNull<WinPopUp>("/root/WinPopUp");
         Button mainMenu = GetNode<Button>("leftSide/mainMenu");
         

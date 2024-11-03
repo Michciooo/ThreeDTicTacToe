@@ -57,7 +57,7 @@ namespace threeDTicTacToe
 			var offlineBtn = GetNode<Button>("Main/MainContainer/Container/OfflineBtn");
 
 			global.buttonName = offlineBtn.Name;
-			GetTree().ChangeSceneToFile("res://Main.tscn");
+			GetTree().ChangeSceneToFile("res://TTT3D.tscn");
 		}
 
 		private void ComputerGamePressed()
@@ -70,7 +70,7 @@ namespace threeDTicTacToe
 			if(easyModeBtn.IsPressed()) global.buttonName = easyModeBtn.Name;
 			if(aiModeBtn.IsPressed()) global.buttonName = aiModeBtn.Name;
 			
-			GetTree().ChangeSceneToFile("res://Main.tscn");
+			GetTree().ChangeSceneToFile("res://TTT3D.tscn");
 		}
 		public override void _Process(double delta)
 		{

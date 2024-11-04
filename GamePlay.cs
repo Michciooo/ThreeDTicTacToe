@@ -335,7 +335,7 @@ public partial class GamePlay : Control
 			{FirstDBtn[6] , SecondDBtn[4] , ThirdDBtn[2]},
 		};
 		
-		var popUp = GD.Load<PackedScene>("res://WinPopUp.tscn");
+		var popUp = GD.Load<PackedScene>("res://WinPopUp/WinPopUp.tscn");
 		var scoreScene = GetNode<Score>("/root/TTT3D/leftSide/Score");
 		for (int i = 0; i < wins.GetLength(0); i++)
 		{

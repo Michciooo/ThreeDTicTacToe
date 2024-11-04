@@ -170,7 +170,7 @@ namespace threeDTicTacToe
         {
             if (Input.IsActionPressed("mainMenu"))
             {
-                GetTree().ChangeSceneToFile("res://MainMenu.tscn");
+                GetTree().ChangeSceneToFile("res://MainMenu/MainMenu.tscn");
             }
         }
     }

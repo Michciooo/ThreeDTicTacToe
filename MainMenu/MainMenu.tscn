@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bo6mw80fwl675"]
 
-[ext_resource type="Script" path="res://MainMenu.cs" id="1_1sb5v"]
+[ext_resource type="Script" path="res://MainMenu/MainMenu.cs" id="1_keaxb"]
 
 [sub_resource type="SystemFont" id="SystemFont_dar7v"]
 font_names = PackedStringArray("Kristen ITC")
@@ -36,7 +36,7 @@ shadow_size = 25
 shadow_offset = Vector2(20, 20)
 
 [node name="MainMenu" type="Node3D"]
-script = ExtResource("1_1sb5v")
+script = ExtResource("1_keaxb")
 
 [node name="MainContainer" type="Control" parent="."]
 layout_mode = 3

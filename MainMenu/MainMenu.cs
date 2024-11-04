@@ -12,7 +12,7 @@ public partial class MainMenu : Node3D
 		//Button twoDBtn = GetNode<Button>("MainContainer/Modes/leftSide/twoDBtn");
 		Button threeDBtn = GetNode<Button>("MainContainer/Modes/rightSide/threeDBtn");
 		Button ExitBtn = GetNode<Button>("MainContainer/ExitBtn");
-		if(threeDBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenu3D.tscn");
+		if(threeDBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenu3D/MainMenu3D.tscn");
 		if (Input.IsActionPressed("appExit") || ExitBtn.IsPressed()) GetTree().Quit();
 	}
 }

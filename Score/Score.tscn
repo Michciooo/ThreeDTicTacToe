@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://yx0xq2fosnco"]
 
-[ext_resource type="Script" path="res://Score.cs" id="1_siee1"]
+[ext_resource type="Script" path="res://Score/Score.cs" id="1_siee1"]
 
 [node name="Score" type="Control"]
 custom_minimum_size = Vector2(500, 150)

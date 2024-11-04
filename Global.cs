@@ -11,11 +11,7 @@ public partial class Global : Node
     public Key shiftLockKey = Key.Shift;
     public Key unShiftLockKey = Key.Ctrl;
 
-    public String buttonName;
-
-    public const char PLAYER = 'X';
-    public const char COMPUTER = 'O';
-    public const char EMPTY = ' ';
-    char[,,] board3D = new char[3, 3, 3];
+    public String buttonName2D;
+    public String buttonName3D;
 
 }

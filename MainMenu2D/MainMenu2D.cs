@@ -3,7 +3,7 @@ using System;
 
 namespace threeDTicTacToe
 {
-	public partial class MainMenu3D : Node3D
+	public partial class MainMenu2D : Control
 	{
 		private Global global;
 		public override void _Ready()
@@ -48,7 +48,8 @@ namespace threeDTicTacToe
 		
 		private void SettingsPress()
 		{
-			GetTree().ChangeSceneToFile("res://MainMenu3D/Settings.tscn");
+			//GetTree().ChangeSceneToFile("res://MainMenu3D/Settings.tscn");
+			GD.Print("settings");
 		}
 
 		private void OfflineGameBtnPressed()
@@ -56,8 +57,8 @@ namespace threeDTicTacToe
 			global = GetNode<Global>("/root/Global");
 			var offlineBtn = GetNode<Button>("Main/MainContainer/Container/OfflineBtn");
 
-			global.buttonName3D = offlineBtn.Name;
-			GetTree().ChangeSceneToFile("res://MainMenu3D/TTT3D.tscn");
+			global.buttonName2D = offlineBtn.Name;
+			GetTree().ChangeSceneToFile("res://MainMenu2D/TTT2D.tscn");
 		}
 
 		private void ComputerGamePressed()
@@ -67,10 +68,10 @@ namespace threeDTicTacToe
 			var easyModeBtn = GetNode<Button>("Main/MainContainer/Container/miniBtnsBox/EasyModeBtn");
 			var aiModeBtn = GetNode<Button>("Main/MainContainer/Container/miniBtnsBox/AiModeBtn");
 			
-			if(easyModeBtn.IsPressed()) global.buttonName3D = easyModeBtn.Name;
-			if(aiModeBtn.IsPressed()) global.buttonName3D = aiModeBtn.Name;
+			if(easyModeBtn.IsPressed()) global.buttonName2D = easyModeBtn.Name;
+			if(aiModeBtn.IsPressed()) global.buttonName2D = aiModeBtn.Name;
 			
-			GetTree().ChangeSceneToFile("res://MainMenu3D/TTT3D.tscn");
+			GetTree().ChangeSceneToFile("res://MainMenu2D/TTT2D.tscn");
 		}
 		public override void _Process(double delta)
 		{

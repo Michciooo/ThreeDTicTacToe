@@ -134,11 +134,11 @@ text = "PLAY"
 [node name="ExitBtn" type="Button" parent="MainContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.85
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.85
 offset_left = -100.0
 offset_top = -60.0
 offset_right = 100.0

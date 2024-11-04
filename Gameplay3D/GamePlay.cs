@@ -57,7 +57,7 @@ public partial class GamePlay : Control
 			label.Text = "";
 		}
 
-		if (global.buttonName == "EasyModeBtn")
+		if (global.buttonName3D == "EasyModeBtn")
 		{
 			if (clicks % 2 != 0)
 			{
@@ -69,7 +69,7 @@ public partial class GamePlay : Control
 			}
 		}
 
-		if (global.buttonName == "AiModeBtn")
+		if (global.buttonName3D == "AiModeBtn")
 		{
 			if (clicks % 2 != 0)
 			{
@@ -140,14 +140,14 @@ public partial class GamePlay : Control
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
 
-					if (global.buttonName == "OfflineBtn") btn.Pressed += () => Offline(btn);
-					if (global.buttonName == "EasyModeBtn")
+					if (global.buttonName3D == "OfflineBtn") btn.Pressed += () => Offline(btn);
+					if (global.buttonName3D == "EasyModeBtn")
 					{
 						Button capturedButton = btn; 
 						capturedButton.Pressed += () => EasyComputer(capturedButton);
 					}
 
-					if (global.buttonName == "AiModeBtn")
+					if (global.buttonName3D == "AiModeBtn")
 					{
 						Button capturedButton = btn; 
 						capturedButton.Pressed += () => AiComputer(capturedButton);

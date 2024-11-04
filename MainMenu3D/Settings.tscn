@@ -1,6 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwgj3w8xq84jr"]
+[gd_scene load_steps=4 format=3 uid="uid://dsxbjvka16uen"]
 
-[ext_resource type="Script" path="res://Settings.cs" id="1_pamaj"]
+[ext_resource type="Script" path="res://MainMenu3D/Settings.cs" id="1_j0pv6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iw2kd"]
+bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1wdw"]
+bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
 
 [node name="Settings" type="Control"]
 auto_translate_mode = 1
@@ -10,7 +28,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_pamaj")
+script = ExtResource("1_j0pv6")
+
+[node name="mainMenu" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.05
+anchor_right = 0.2
+anchor_bottom = 0.05
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_iw2kd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_iw2kd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_y1wdw")
+text = "Main Menu"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -31,15 +70,16 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -800.0
+offset_left = -754.0
 offset_top = -800.0
-offset_right = 800.0
+offset_right = 754.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Labels" type="VBoxContainer" parent="Main"]
 custom_minimum_size = Vector2(700, 800)
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
@@ -73,6 +113,7 @@ text = "App exit"
 
 [node name="KeysInput" type="VBoxContainer" parent="Main"]
 layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="shiftLock" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
@@ -137,6 +178,7 @@ middle_mouse_paste_enabled = false
 [node name="RestartBtns" type="VBoxContainer" parent="Main"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="btn1" type="Button" parent="Main/RestartBtns"]
 custom_minimum_size = Vector2(250, 100)

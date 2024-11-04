@@ -168,10 +168,8 @@ namespace threeDTicTacToe
 
         public override void _Process(double delta)
         {
-            if (Input.IsActionPressed("mainMenu"))
-            {
-                GetTree().ChangeSceneToFile("res://MainMenu/MainMenu.tscn");
-            }
+            var mainMenuBtn = this.GetNode<Button>("mainMenu");
+            if (mainMenuBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenu3D/MainMenu3D.tscn");
         }
     }
 }

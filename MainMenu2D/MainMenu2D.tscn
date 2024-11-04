@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dq8dugkwfmjvf"]
+[gd_scene load_steps=12 format=3 uid="uid://dem4nsow1b8vr"]
 
-[ext_resource type="Script" path="res://MainMenu3D/MainMenu3D.cs" id="1_np6uj"]
-[ext_resource type="Texture2D" uid="uid://c5bopv88cs5gt" path="res://icons/settings.png" id="2_2ydsw"]
+[ext_resource type="Texture2D" uid="uid://c5bopv88cs5gt" path="res://icons/settings.png" id="1_atkay"]
+[ext_resource type="Script" path="res://MainMenu2D/MainMenu2D.cs" id="1_pwlts"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdej7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p76s8"]
 bg_color = Color(0.537739, 0.0829499, 0.877413, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -12,7 +12,7 @@ corner_radius_bottom_left = 20
 shadow_size = 25
 shadow_offset = Vector2(20, 20)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8n5v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2m677"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -21,7 +21,7 @@ corner_radius_bottom_left = 20
 shadow_size = 25
 shadow_offset = Vector2(20, 20)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46m8i"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtbeo"]
 resource_local_to_scene = true
 bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
 corner_radius_top_left = 20
@@ -31,7 +31,7 @@ corner_radius_bottom_left = 20
 shadow_size = 25
 shadow_offset = Vector2(20, 20)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u4tx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_201yx"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -40,7 +40,7 @@ corner_radius_bottom_left = 20
 shadow_size = 10
 shadow_offset = Vector2(10, 10)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lpbl7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5cuu"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -49,7 +49,7 @@ corner_radius_bottom_left = 20
 shadow_size = 10
 shadow_offset = Vector2(10, 10)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dk8u8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cv5e1"]
 bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -58,7 +58,7 @@ corner_radius_bottom_left = 20
 shadow_size = 10
 shadow_offset = Vector2(10, 10)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jo08"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kddt0"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -67,7 +67,7 @@ corner_radius_bottom_left = 20
 shadow_size = 10
 shadow_offset = Vector2(10, 10)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16ccj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0l8hh"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -76,7 +76,7 @@ corner_radius_bottom_left = 20
 shadow_size = 10
 shadow_offset = Vector2(10, 10)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwo3n"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ul5oj"]
 bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -85,12 +85,17 @@ corner_radius_bottom_left = 20
 shadow_size = 10
 shadow_offset = Vector2(10, 10)
 
-[node name="MainMenu3D" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
-script = ExtResource("1_np6uj")
+[node name="MainMenu2D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pwlts")
 
 [node name="Main" type="Control" parent="."]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -108,7 +113,7 @@ offset_right = 500.0
 offset_bottom = 400.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 70
-text = "TIC TAC TOE 3D
+text = "TIC TAC TOE 2D
 Choose mode"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -126,7 +131,7 @@ grow_horizontal = 0
 [node name="SettingsBtn" type="TextureButton" parent="Main/Settings"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("2_2ydsw")
+texture_normal = ExtResource("1_atkay")
 stretch_mode = 3
 
 [node name="MainContainer" type="VBoxContainer" parent="Main"]
@@ -155,9 +160,9 @@ layout_mode = 2
 size_flags_vertical = 0
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 50
-theme_override_styles/hover = SubResource("StyleBoxFlat_fdej7")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_l8n5v")
-theme_override_styles/normal = SubResource("StyleBoxFlat_46m8i")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p76s8")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2m677")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qtbeo")
 text = "Friend"
 
 [node name="ComputerBtn" type="Button" parent="Main/MainContainer/Container"]
@@ -166,7 +171,7 @@ layout_mode = 2
 size_flags_vertical = 0
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_46m8i")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qtbeo")
 text = "Computer"
 
 [node name="miniBtnsBox" type="VBoxContainer" parent="Main/MainContainer/Container"]
@@ -180,9 +185,9 @@ custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_6u4tx")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_lpbl7")
-theme_override_styles/normal = SubResource("StyleBoxFlat_dk8u8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_201yx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_p5cuu")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cv5e1")
 text = "Easy mode"
 
 [node name="AiModeBtn" type="Button" parent="Main/MainContainer/Container/miniBtnsBox"]
@@ -191,7 +196,7 @@ custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_8jo08")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_16ccj")
-theme_override_styles/normal = SubResource("StyleBoxFlat_pwo3n")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kddt0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0l8hh")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ul5oj")
 text = "AI mode"

@@ -81,16 +81,19 @@ layout_mode = 2
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="btn2" type="Button" parent="rightSide/Main/Grid/FirstLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="btn3" type="Button" parent="rightSide/Main/Grid/FirstLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="SecondLayer" type="HBoxContainer" parent="rightSide/Main/Grid"]
 custom_minimum_size = Vector2(600, 200)
@@ -100,16 +103,19 @@ layout_mode = 2
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="btn5" type="Button" parent="rightSide/Main/Grid/SecondLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="btn6" type="Button" parent="rightSide/Main/Grid/SecondLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="ThirdLayer" type="HBoxContainer" parent="rightSide/Main/Grid"]
 custom_minimum_size = Vector2(600, 200)
@@ -119,16 +125,19 @@ layout_mode = 2
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="btn8" type="Button" parent="rightSide/Main/Grid/ThirdLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="btn9" type="Button" parent="rightSide/Main/Grid/ThirdLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
+mouse_default_cursor_shape = 2
 
 [node name="Info" type="HBoxContainer" parent="rightSide"]
 custom_minimum_size = Vector2(500, 200)
@@ -149,6 +158,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 0
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 20
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gpkqx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_feflx")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_feflx")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gpkqx")

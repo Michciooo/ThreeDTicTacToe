@@ -70,10 +70,7 @@ public partial class TTT3D : Node3D
         if (mainMenu.IsPressed())
         {
             GetTree().ChangeSceneToFile("res://MainMenu3D/MainMenu3D.tscn");
-            if (popUp != null)
-            {
-                popUp.QueueFree();
-            }
+            if (popUp != null) popUp.QueueFree();
         }
         if (Input.IsActionPressed("shiftLock"))
         {

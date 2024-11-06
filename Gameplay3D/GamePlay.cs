@@ -11,6 +11,7 @@ public partial class GamePlay : Control
 	bool _playerTurn = true;
 	bool win = false;
 	private int clicks = 0;
+	private int moves = 27;
 	public List<Button> TttBtns = new List<Button>();
 	public List<Button> FirstDBtn = new List<Button>();
 	public List<Button> SecondDBtn = new List<Button>();
@@ -185,8 +186,9 @@ public partial class GamePlay : Control
 			Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
 			label3D.Text = "X";
 			playerTurnLabel.Text = "Player turn : O";
-			_playerTurn = false;
 
+			moves -= 1;
+			_playerTurn = false;
 			if (WhoWon()) return;
 		}
 
@@ -201,8 +203,9 @@ public partial class GamePlay : Control
 				computerMove.Text = "O";
 				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "O";
 				playerTurnLabel.Text = "Player turn : X";
-				_playerTurn = true;
 
+				moves -= 1;
+				_playerTurn = true;
 				if (WhoWon()) return;
 			}
 		}
@@ -232,12 +235,14 @@ public partial class GamePlay : Control
 				btn.Text = "X";
 				playerTurnLabel.Text = "Player turn : O";
 				label3D.Text = btn.Text;
+				moves -= 1;
 				_playerTurn = false;
 			}
 			else
 			{
 				btn.Text = "O";
 				playerTurnLabel.Text = "Player turn : X";
+				moves -= 1;
 				_playerTurn = true;
 				label3D.Text = btn.Text;
 			}
@@ -339,21 +344,30 @@ public partial class GamePlay : Control
 		var scoreScene = GetNode<Score>("/root/TTT3D/leftSide/Score");
 		for (int i = 0; i < wins.GetLength(0); i++)
 		{
+			var popUpInstant = popUp.Instantiate();
 			if (wins[i, 0].Text == wins[i, 1].Text && wins[i, 1].Text == wins[i, 2].Text &&
 			    (wins[i, 0].Text == "X" || wins[i, 0].Text == "O"))
 			{
-				var popUpInstant = popUp.Instantiate();
 				win = true;
 				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {wins[i, 0].Text}";
 
-				if (wins[i, 0].Text == "X") 
-					scoreScene.x_wins += 1;
-				else 
-					scoreScene.o_wins += 1;
+				if (wins[i, 0].Text == "X") scoreScene.x_wins += 1;
+				else scoreScene.o_wins += 1;
+				
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
 				BlockBtns(true);
 				return true;  
+			}
+
+			if ((wins[i, 0].Text != wins[i, 1].Text && wins[i, 1].Text != wins[i, 2].Text &&
+			     (wins[i, 0].Text == "X" || wins[i, 0].Text == "O")) && moves == 0)
+			{
+				win = false;
+				popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
+				GetTree().Root.AddChild(popUpInstant);
+				BlockBtns(true);
+				return true;
 			}
 		}
 		return false;

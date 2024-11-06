@@ -13,5 +13,5 @@ public partial class Global : Node
 
     public String buttonName2D;
     public String buttonName3D;
-
+    public String Mode;
 }

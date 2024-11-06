@@ -48,7 +48,7 @@ namespace threeDTicTacToe
 		
 		private void SettingsPress()
 		{
-			GetTree().ChangeSceneToFile("res://MainMenu3D/Settings.tscn");
+			GetTree().ChangeSceneToFile("res://MainMenu3D/Settings3D.tscn");
 		}
 
 		private void OfflineGameBtnPressed()

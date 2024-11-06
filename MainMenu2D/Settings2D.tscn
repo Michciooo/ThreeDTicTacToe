@@ -1,0 +1,146 @@
+[gd_scene load_steps=4 format=3 uid="uid://blvf4x7pgqn8u"]
+
+[ext_resource type="Script" path="res://MainMenu2D/Settings2D.cs" id="1_8pgod"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_havq2"]
+bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bdfas"]
+bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8pgod")
+
+[node name="mainMenu" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.05
+anchor_right = 0.2
+anchor_bottom = 0.05
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_havq2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_havq2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bdfas")
+text = "Main Menu"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 130.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1600, 800)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -754.0
+offset_top = -800.0
+offset_right = 754.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Labels" type="VBoxContainer" parent="Main"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label4" type="Label" parent="Main/Labels"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 50
+text = "Main menu"
+
+[node name="Label5" type="Label" parent="Main/Labels"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 50
+text = "App exit"
+
+[node name="KeysInput" type="VBoxContainer" parent="Main"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="mainMenu" type="TextEdit" parent="Main/KeysInput"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 45
+placeholder_text = "Press any key"
+editable = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="appExit" type="TextEdit" parent="Main/KeysInput"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 45
+placeholder_text = "Press any key"
+editable = false
+selecting_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="RestartBtns" type="VBoxContainer" parent="Main"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="btn1" type="Button" parent="Main/RestartBtns"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 35
+text = "Reset key"
+
+[node name="btn2" type="Button" parent="Main/RestartBtns"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 35
+text = "Reset key"

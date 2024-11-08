@@ -153,8 +153,7 @@ public partial class TTT2D : Control
 				return true;
 			}
 
-			if ((wins[i, 0].Text != wins[i, 1].Text && wins[i, 1].Text != wins[i, 2].Text &&
-			    (wins[i, 0].Text == "X" || wins[i, 0].Text == "O")) && moves == 0)
+			if (moves == 0)
 			{
 				win = false;
 				var popUpInstant = popUp.Instantiate();

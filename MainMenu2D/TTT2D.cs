@@ -13,108 +13,139 @@ public partial class TTT2D : Control
 	bool win = false;
 	private int moves = 9;
 	private int clicks = 0;
+	private bool aiModeEnabled = false;
 	
-	private Dictionary<String , int> MiniMaxScore = new Dictionary<String , int>();
-	
-	private List<Button> AvaiableButtons()
+	Button[,] board = new Button[3, 3];
+	int[] bestMove = new int[2];
+	private int EvaluateBoard(Button[,] tttBoard)
 	{
-		List<Button> avaiableButtons = new List<Button>();
-		foreach (var button in ticTacToeButtons)
+		for (int i = 0; i < 3; i++)
 		{
-			if (button.Text == "")
+			if (tttBoard[i, 0].Text == tttBoard[i, 1].Text && tttBoard[i, 1].Text == tttBoard[i, 2].Text)
 			{
-				avaiableButtons.Add(button);
+				if (tttBoard[i, 0].Text == "O") return 10;
+				if (tttBoard[i, 0].Text == "X") return -10;
+			}
+			if (tttBoard[0, i].Text == tttBoard[1, i].Text && tttBoard[1, i].Text == tttBoard[2, i].Text)
+			{
+				if (tttBoard[0, i].Text == "O") return 10;
+				if (tttBoard[0, i].Text == "X") return -10;
 			}
 		}
-		GD.Print(string.Join(',', avaiableButtons));
-		return avaiableButtons;
+		if (tttBoard[0, 0].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 2].Text)
+		{
+			if (tttBoard[0, 0].Text == "O") return 10;
+			if (tttBoard[0, 0].Text == "X") return -10;
+		}
+		if (tttBoard[0, 2].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 0].Text)
+		{
+			if (tttBoard[0, 2].Text == "O") return 10;
+			if (tttBoard[0, 2].Text == "X") return -10;
+		}
+		return 0;
 	}
 
-	private int EvaluateBoard()
+	private int MiniMax(Button[,] tttBoard, int depth, bool isMaximizing)
 	{
-		int[,] board = new int[3, 3];
-		int player = 1;
-		int ai = -1;
-		int draw = 0;
+	    int score = EvaluateBoard(board);
+	    
+	    if (score == 10 || score == -10) return score;
+	    if (!tttBoard.Cast<Button>().Any(b => b.Text == "")) return 0;
+	    
+	    if (isMaximizing)
+	    {
+	        int bestScore = -1000;
+
+	        for (int i = 0; i < 3; i++)
+	        {
+	            for (int j = 0; j < 3; j++)
+	            {
+	                if (tttBoard[i, j].Text == "")
+	                {
+		                tttBoard[i, j].Text = "O";
+	                    bestScore = Math.Max(bestScore, MiniMax(tttBoard, depth + 1, false));
+	                    tttBoard[i, j].Text = "";
+	                }
+	            }
+	        }
+	        return bestScore;
+	    }
+	    else
+	    {
+	        int bestScore = 1000;
+
+	        for (int i = 0; i < 3; i++)
+	        {
+	            for (int j = 0; j < 3; j++)
+	            {
+	                if (tttBoard[i, j].Text == "")
+	                {
+		                tttBoard[i, j].Text = "X";
+	                    bestScore = Math.Min(bestScore, MiniMax(tttBoard, depth + 1, true));
+	                    tttBoard[i, j].Text = "";
+	                }
+	            }
+	        }
+	        return bestScore;
+	    }
+	}
+
+	private Button BestMove()
+	{
+	    int bestScore = -1000;
+
+	    for (int i = 0; i < 3; i++)
+	    {
+	        for (int j = 0; j < 3; j++)
+	        {
+	            if (board[i, j].Text == "")
+	            {
+	                board[i, j].Text = "O";
+	                int moveScore = MiniMax(board, 0, false);
+	                board[i, j].Text = "";
+	                if (moveScore > bestScore)
+	                {
+	                    bestScore = moveScore;
+	                    bestMove[0] = i;
+	                    bestMove[1] = j;
+	                }
+	            }
+	        }
+	    }
+	    var aiButton = board[bestMove[0], bestMove[1]];
+	    aiButton.Text = "O";
+	    return aiButton;
+	}
+	private void AddBtnsToList()
+	{
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/FirstLayer/btn1"));
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/FirstLayer/btn2"));
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/FirstLayer/btn3"));
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/SecondLayer/btn4"));
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/SecondLayer/btn5"));
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/SecondLayer/btn6"));
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/ThirdLayer/btn7"));
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/ThirdLayer/btn8"));
+		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/ThirdLayer/btn9"));
 		
 		for (int i = 0; i < 3; i++)
 		{
-			if (board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2])
+			for (int j = 0; j < 3; j++)
 			{
-				if (board[i, 0] == player)
-				{
-					MiniMaxScore.Add("X", player);
-					return player;
-				}
-
-				if (board[i, 0] == ai)
-				{
-					MiniMaxScore.Add("O", ai);
-					return ai;
-				}
-			}
-
-			if (board[i, 0] == board[i, 1] && board[i, 1] == board[i, 2])
-			{
-				if (board[0, i] == player)
-				{
-					MiniMaxScore.Add("X", player);
-					return player;
-				}
-				if (board[0, i] == ai)
-				{
-					MiniMaxScore.Add("O", ai);
-					return ai;
-				}
+				board[i, j] = ticTacToeButtons[i * 3 + j];
 			}
 		}
-
-		if (board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2])
-		{
-			if (board[0, 0] == player) 
-			{
-				MiniMaxScore.Add("X", player);
-				return player;
-			}
-			if (board[0, 0] == ai)
-			{
-				MiniMaxScore.Add("O", ai);
-				return ai;
-			}
-		}
-
-		if (board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0])
-		{
-			if (board[0, 2] == player)
-			{
-				MiniMaxScore.Add("X", player);
-				return player;
-			}
-			if (board[0, 2] == ai)
-			{
-				MiniMaxScore.Add("O", ai);
-				return ai;
-			}
-		}
-
-		return draw;
-	}
-
-	private int MiniMax(int depth, bool isMaximizingPlayer)
-	{
-		int score = EvaluateBoard();
-
-		return score;
 	}
 	public override void _Ready()
 	{
 		AddBtnsToList();
 		var global = GetNode<Global>("/root/Global");
+		aiModeEnabled = (global.buttonName2D == "AiModeBtn");
+		
 		foreach (var button in ticTacToeButtons)
 		{
-			if (global.buttonName2D == "OfflineBtn") button.Pressed += () => Offline(button);
+			if (global.buttonName2D == "OfflineBtn" || aiModeEnabled) button.Pressed += () => Offline(button);
 			if (global.buttonName2D == "EasyModeBtn") button.Pressed += () => EasyComputer(button);
-			if (global.buttonName2D == "AiModeBtn") button.Pressed += () => AiComputer(button);
 		}
 
 		var restartBtn = GetNode<Button>("rightSide/Info/restartBtn");
@@ -147,7 +178,7 @@ public partial class TTT2D : Control
 				EasyComputer();
 			}
 		}
-		if (global.buttonName2D == "AiModeBtn")
+		if (aiModeEnabled)
 		{
 			if (clicks % 2 != 0)
 			{
@@ -162,23 +193,55 @@ public partial class TTT2D : Control
 	private void Offline(Button button)
 	{
 		var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
-		if (button.Text != "") return;
-		
-		if (playerTurn)
+
+		if (button.Text == "")
 		{
-			button.Text = "X";
-			playerTurnLabel.Text = "Player Turn : O";
-			playerTurn = false;
-			moves -= 1;
-			if (WhoWon()) BlockBtns(true, CursorShape.Arrow);
-		}
-		else
-		{
-			button.Text = "O";
-			playerTurnLabel.Text = "Player Turn : X";
-			playerTurn = true;
-			moves -= 1;
-			if(WhoWon()) BlockBtns(true , CursorShape.Arrow);
+			if (!aiModeEnabled)
+			{
+				if (playerTurn)
+				{
+					button.Text = "X";
+					playerTurnLabel.Text = "Player Turn : O";
+					playerTurn = false;
+					moves -= 1;
+					if (WhoWon())
+					{
+						BlockBtns(true, CursorShape.Arrow);
+						return;
+					}
+				}
+				else
+				{
+					button.Text = "O";
+					playerTurnLabel.Text = "Player Turn : X";
+					playerTurn = true;
+					moves -= 1;
+					if (WhoWon())
+					{
+						BlockBtns(true, CursorShape.Arrow);
+						return;
+					}
+				}
+			}
+			else if(aiModeEnabled)
+			{
+				if (playerTurn)
+				{
+					button.Text = "X";
+					playerTurnLabel.Text = "Player Turn : X";
+					playerTurn = false;
+					moves -= 1;
+					if (WhoWon())
+					{
+						BlockBtns(true, CursorShape.Arrow);
+						return;
+					}
+				}
+				if(!playerTurn)
+				{
+					AiComputer();
+				}
+			}
 		}
 	}
 	private void EasyComputer(Button button = null)
@@ -215,15 +278,23 @@ public partial class TTT2D : Control
 		}
 	}
 
-	private void AiComputer(Button button = null)
+	private void AiComputer()
 	{
-		button.Text = "X";
-		var avaiableMoves = AvaiableButtons();
-		foreach (var element in MiniMaxScore)
+		if (!playerTurn)
 		{
-			GD.Print($"Klucz : {element.Key} , Wartosc : {element.Value}");
+			Button aiBtn = BestMove();
+			if (aiBtn != null)
+			{
+				aiBtn.Text = "O";
+				moves -= 1;
+				playerTurn = true;
+
+				if (WhoWon())
+				{
+					BlockBtns(true, CursorShape.Arrow);
+				}
+			}
 		}
-		MiniMax(avaiableMoves.Count , true);
 	}
 	private void BlockBtns(bool block , CursorShape cursor)
 	{
@@ -281,19 +352,6 @@ public partial class TTT2D : Control
 
 		return false;
 	}
-	private void AddBtnsToList()
-	{
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/FirstLayer/btn1"));
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/FirstLayer/btn2"));
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/FirstLayer/btn3"));
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/SecondLayer/btn4"));
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/SecondLayer/btn5"));
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/SecondLayer/btn6"));
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/ThirdLayer/btn7"));
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/ThirdLayer/btn8"));
-		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/ThirdLayer/btn9"));
-	}
-	
 	public override void _Process(double delta)
 	{
 		var mainMenuBtn = this.GetNode<Button>("leftSide/mainMenu");

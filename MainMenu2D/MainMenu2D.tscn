@@ -1,18 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dem4nsow1b8vr"]
+[gd_scene load_steps=6 format=3 uid="uid://dem4nsow1b8vr"]
 
 [ext_resource type="Texture2D" uid="uid://c5bopv88cs5gt" path="res://icons/settings.png" id="1_atkay"]
 [ext_resource type="Script" path="res://MainMenu2D/MainMenu2D.cs" id="1_pwlts"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p76s8"]
-bg_color = Color(0.537739, 0.0829499, 0.877413, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_size = 25
-shadow_offset = Vector2(20, 20)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2m677"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdq3n"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -21,7 +12,16 @@ corner_radius_bottom_left = 20
 shadow_size = 25
 shadow_offset = Vector2(20, 20)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtbeo"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fiib4"]
+bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 25
+shadow_offset = Vector2(20, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikyjr"]
 resource_local_to_scene = true
 bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
 corner_radius_top_left = 20
@@ -30,60 +30,6 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 25
 shadow_offset = Vector2(20, 20)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_201yx"]
-bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_size = 10
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5cuu"]
-bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_size = 10
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cv5e1"]
-bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_size = 10
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kddt0"]
-bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_size = 10
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0l8hh"]
-bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_size = 10
-shadow_offset = Vector2(10, 10)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ul5oj"]
-bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
-corner_radius_top_left = 20
-corner_radius_top_right = 20
-corner_radius_bottom_right = 20
-corner_radius_bottom_left = 20
-shadow_size = 10
-shadow_offset = Vector2(10, 10)
 
 [node name="MainMenu2D" type="Control"]
 layout_mode = 3
@@ -135,13 +81,12 @@ texture_normal = ExtResource("1_atkay")
 stretch_mode = 3
 
 [node name="MainContainer" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(800, 600)
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.9
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.9
 offset_left = -402.0
 offset_top = -600.0
 offset_right = 402.0
@@ -152,51 +97,64 @@ grow_vertical = 0
 custom_minimum_size = Vector2(800, 400)
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="left" type="VBoxContainer" parent="Main/MainContainer/Container"]
+layout_mode = 2
+size_flags_horizontal = 6
 size_flags_vertical = 4
 
-[node name="OfflineBtn" type="Button" parent="Main/MainContainer/Container"]
-custom_minimum_size = Vector2(400, 200)
+[node name="Label" type="Label" parent="Main/MainContainer/Container/left"]
 layout_mode = 2
-size_flags_vertical = 0
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/hover = SubResource("StyleBoxFlat_p76s8")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_2m677")
-theme_override_styles/normal = SubResource("StyleBoxFlat_qtbeo")
-text = "Friend"
+theme_override_font_sizes/font_size = 40
+text = "Player 1"
 
-[node name="ComputerBtn" type="Button" parent="Main/MainContainer/Container"]
-custom_minimum_size = Vector2(400, 200)
+[node name="playerOneBtn" type="OptionButton" parent="Main/MainContainer/Container/left"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_vertical = 0
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 50
-theme_override_styles/normal = SubResource("StyleBoxFlat_qtbeo")
-text = "Computer"
+selected = 0
+item_count = 3
+popup/item_0/text = "Human"
+popup/item_1/text = "Easy Computer"
+popup/item_1/id = 1
+popup/item_2/text = "AI Computer"
+popup/item_2/id = 2
 
-[node name="miniBtnsBox" type="VBoxContainer" parent="Main/MainContainer/Container"]
+[node name="right" type="VBoxContainer" parent="Main/MainContainer/Container"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 6
+size_flags_vertical = 4
 
-[node name="EasyModeBtn" type="Button" parent="Main/MainContainer/Container/miniBtnsBox"]
-visible = false
-custom_minimum_size = Vector2(400, 100)
+[node name="Label" type="Label" parent="Main/MainContainer/Container/right"]
 layout_mode = 2
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_201yx")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_p5cuu")
-theme_override_styles/normal = SubResource("StyleBoxFlat_cv5e1")
-text = "Easy mode"
+theme_override_font_sizes/font_size = 40
+text = "Player 2
+"
 
-[node name="AiModeBtn" type="Button" parent="Main/MainContainer/Container/miniBtnsBox"]
-visible = false
-custom_minimum_size = Vector2(400, 100)
+[node name="playerTwoBtn" type="OptionButton" parent="Main/MainContainer/Container/right"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Human"
+popup/item_1/text = "Easy Computer"
+popup/item_1/id = 1
+popup/item_2/text = "AICocmputer"
+popup/item_2/id = 2
+
+[node name="playBtn" type="Button" parent="Main/MainContainer"]
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+size_flags_horizontal = 4
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_kddt0")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_0l8hh")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ul5oj")
-text = "AI mode"
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_sdq3n")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fiib4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ikyjr")
+text = "PLAY"
+
+[node name="warningLabel" type="Label" parent="Main/MainContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1

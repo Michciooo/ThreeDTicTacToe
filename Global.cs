@@ -11,7 +11,8 @@ public partial class Global : Node
     public Key shiftLockKey = Key.Shift;
     public Key unShiftLockKey = Key.Ctrl;
 
-    public String buttonName2D;
+    public String player12D;
+    public String player22D;
     public String buttonName3D;
     public String Mode;
 }

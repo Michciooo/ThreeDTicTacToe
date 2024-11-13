@@ -9,10 +9,9 @@ public partial class TTT2D : Control
 {	
 	private List<Button> ticTacToeButtons = new List<Button>(9);
 	private List<Button> allBtns = new List<Button>();
-	private bool playerTurn = true;
+	private bool playerTurn;
 	bool win = false;
 	private int moves = 9;
-	private int clicks = 0;
 	private bool aiModeEnabled = false;
 	
 	Button[,] board = new Button[3, 3];
@@ -23,24 +22,24 @@ public partial class TTT2D : Control
 		{
 			if (tttBoard[i, 0].Text == tttBoard[i, 1].Text && tttBoard[i, 1].Text == tttBoard[i, 2].Text)
 			{
-				if (tttBoard[i, 0].Text == "O") return 10;
-				if (tttBoard[i, 0].Text == "X") return -10;
+				if (tttBoard[i, 0].Text == "O") return 1;
+				if (tttBoard[i, 0].Text == "X") return -1;
 			}
 			if (tttBoard[0, i].Text == tttBoard[1, i].Text && tttBoard[1, i].Text == tttBoard[2, i].Text)
 			{
-				if (tttBoard[0, i].Text == "O") return 10;
-				if (tttBoard[0, i].Text == "X") return -10;
+				if (tttBoard[0, i].Text == "O") return 1;
+				if (tttBoard[0, i].Text == "X") return -1;
 			}
 		}
 		if (tttBoard[0, 0].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 2].Text)
 		{
-			if (tttBoard[0, 0].Text == "O") return 10;
-			if (tttBoard[0, 0].Text == "X") return -10;
+			if (tttBoard[0, 0].Text == "O") return 1;
+			if (tttBoard[0, 0].Text == "X") return -1;
 		}
 		if (tttBoard[0, 2].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 0].Text)
 		{
-			if (tttBoard[0, 2].Text == "O") return 10;
-			if (tttBoard[0, 2].Text == "X") return -10;
+			if (tttBoard[0, 2].Text == "O") return 1;
+			if (tttBoard[0, 2].Text == "X") return -1;
 		}
 		return 0;
 	}
@@ -49,12 +48,12 @@ public partial class TTT2D : Control
 	{
 	    int score = EvaluateBoard(board);
 	    
-	    if (score == 10 || score == -10) return score;
+	    if (score == 1 || score == -1) return score;
 	    if (!tttBoard.Cast<Button>().Any(b => b.Text == "")) return 0;
 	    
 	    if (isMaximizing)
 	    {
-	        int bestScore = -1000;
+	        int bestScore = -1;
 
 	        for (int i = 0; i < 3; i++)
 	        {
@@ -72,7 +71,7 @@ public partial class TTT2D : Control
 	    }
 	    else
 	    {
-	        int bestScore = 1000;
+	        int bestScore = 1;
 
 	        for (int i = 0; i < 3; i++)
 	        {
@@ -92,7 +91,7 @@ public partial class TTT2D : Control
 
 	private Button BestMove()
 	{
-	    int bestScore = -1000;
+	    int bestScore = -1;
 
 	    for (int i = 0; i < 3; i++)
 	    {
@@ -140,12 +139,14 @@ public partial class TTT2D : Control
 	{
 		AddBtnsToList();
 		var global = GetNode<Global>("/root/Global");
-		aiModeEnabled = (global.buttonName2D == "AiModeBtn");
 		
 		foreach (var button in ticTacToeButtons)
 		{
-			if (global.buttonName2D == "OfflineBtn" || aiModeEnabled) button.Pressed += () => Offline(button);
-			if (global.buttonName2D == "EasyModeBtn") button.Pressed += () => EasyComputer(button);
+			if (global.player12D == "Human" && global.player22D=="Human" ) button.Pressed += () => Human(button);
+			if ((global.player12D == "Human" && global.player22D=="Easy Computer") ||
+			    (global.player12D=="Easy Computer" && global.player22D=="Human")) button.Pressed += () => EasyComputer(button);
+			if ((global.player12D == "Human" && global.player22D=="AI Computer") ||
+			    (global.player12D=="AI Computer" && global.player22D=="Human")) button.Pressed +=AiComputer;
 		}
 
 		var restartBtn = GetNode<Button>("rightSide/Info/restartBtn");
@@ -167,41 +168,24 @@ public partial class TTT2D : Control
 		BlockBtns(false , CursorShape.PointingHand);
 		moves = 9;
 		
-		if (global.buttonName2D == "EasyModeBtn")
+		if ((global.player12D == "Human" && global.player22D=="Easy Computer") ||
+		    (global.player12D=="Easy Computer" && global.player22D=="Human"))
 		{
-			if (clicks % 2 != 0)
-			{
-				EasyComputer();
-			}
-			else
-			{
-				EasyComputer();
-			}
-		}
-		if (aiModeEnabled)
-		{
-			if (clicks % 2 != 0)
-			{
-				AiComputer();
-			}
-			else
-			{
-				AiComputer();
-			}
+			EasyComputer();
 		}
 	}
-	private void Offline(Button button)
+	private void Human(Button button)
 	{
 		var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
-
+		var global = GetNode<Global>("/root/Global");
 		if (button.Text == "")
 		{
-			if (!aiModeEnabled)
+			if (global.player12D!="AI Computer" || global.player22D!="AI Computer")
 			{
 				if (playerTurn)
 				{
-					button.Text = "X";
-					playerTurnLabel.Text = "Player Turn : O";
+					button.Text = "O";
+					playerTurnLabel.Text = "Player Turn : X";
 					playerTurn = false;
 					moves -= 1;
 					if (WhoWon())
@@ -212,8 +196,8 @@ public partial class TTT2D : Control
 				}
 				else
 				{
-					button.Text = "O";
-					playerTurnLabel.Text = "Player Turn : X";
+					button.Text = "X";
+					playerTurnLabel.Text = "Player Turn : O";
 					playerTurn = true;
 					moves -= 1;
 					if (WhoWon())
@@ -223,7 +207,7 @@ public partial class TTT2D : Control
 					}
 				}
 			}
-			else if(aiModeEnabled)
+			else if(global.player12D=="AI Computer" || global.player22D=="AI Computer")
 			{
 				if (playerTurn)
 				{
@@ -246,6 +230,14 @@ public partial class TTT2D : Control
 	}
 	private void EasyComputer(Button button = null)
 	{
+		var global = GetNode<Global>("/root/Global");
+		if(global.player12D=="Human") playerTurn = true;
+		if (global.player12D == "EasyComputer")
+		{
+			playerTurn = false;
+			EasyComputer();
+		}
+		
 		if (playerTurn && button != null && button.Text == "")
 		{
 			button.Text = "X";

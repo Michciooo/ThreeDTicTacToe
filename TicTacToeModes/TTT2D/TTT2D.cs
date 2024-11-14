@@ -232,7 +232,7 @@ public partial class TTT2D : Control
 	{
 		var global = GetNode<Global>("/root/Global");
 		if(global.player12D=="Human") playerTurn = true;
-		if (global.player12D == "EasyComputer")
+		if (global.player12D == "Easy Computer")
 		{
 			playerTurn = false;
 			EasyComputer();
@@ -351,7 +351,7 @@ public partial class TTT2D : Control
 		if (mainMenuBtn.IsPressed())
 		{
 			WinPopUp popUp = GetNodeOrNull<WinPopUp>("/root/WinPopUp");
-			GetTree().ChangeSceneToFile("res://MainMenu2D/MainMenu2D.tscn");
+			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu2D/MainMenu2D.tscn");
 			if(popUp != null) popUp.QueueFree();
 		}
 	}

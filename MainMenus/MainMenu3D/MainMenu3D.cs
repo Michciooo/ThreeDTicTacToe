@@ -48,7 +48,7 @@ namespace threeDTicTacToe
 		
 		private void SettingsPress()
 		{
-			GetTree().ChangeSceneToFile("res://MainMenu3D/Settings3D.tscn");
+			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu3D/Settings3D.tscn");
 		}
 
 		private void OfflineGameBtnPressed()
@@ -57,7 +57,7 @@ namespace threeDTicTacToe
 			var offlineBtn = GetNode<Button>("Main/MainContainer/Container/OfflineBtn");
 
 			global.buttonName3D = offlineBtn.Name;
-			GetTree().ChangeSceneToFile("res://MainMenu3D/TTT3D.tscn");
+			GetTree().ChangeSceneToFile("res://TicTacToeModes/TTT3D/TTT3D.tscn");
 		}
 
 		private void ComputerGamePressed()
@@ -70,11 +70,11 @@ namespace threeDTicTacToe
 			if(easyModeBtn.IsPressed()) global.buttonName3D = easyModeBtn.Name;
 			if(aiModeBtn.IsPressed()) global.buttonName3D = aiModeBtn.Name;
 			
-			GetTree().ChangeSceneToFile("res://MainMenu3D/TTT3D.tscn");
+			GetTree().ChangeSceneToFile("res://TicTacToeModes/TTT3D/TTT3D.tscn");
 		}
 		public override void _Process(double delta)
 		{
-			if (Input.IsActionPressed("mainMenu")) GetTree().ChangeSceneToFile("res://MainMenu/MainMenu.tscn");
+			if (Input.IsActionPressed("mainMenu")) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
 		}
 	}
 }

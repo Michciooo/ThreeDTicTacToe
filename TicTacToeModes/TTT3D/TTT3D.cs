@@ -10,7 +10,7 @@ public partial class TTT3D : Node3D
     public Dictionary<Button, MeshInstance3D> BtnAndMeshInstanceDictionary = new Dictionary<Button, MeshInstance3D>();
     private List<Godot.Vector3> LabelPositions = new List<Godot.Vector3>();
 
-    private PackedScene visScene = GD.Load<PackedScene>("res://MainMenu3D/Visualisation.tscn");
+    private PackedScene visScene = GD.Load<PackedScene>("res://TicTacToeModes/TTT3D/Visualisation.tscn");
     private Node3D visRoot;
 
     private bool shiftLock = false;
@@ -69,7 +69,7 @@ public partial class TTT3D : Node3D
         
         if (mainMenu.IsPressed())
         {
-            GetTree().ChangeSceneToFile("res://MainMenu3D/MainMenu3D.tscn");
+            GetTree().ChangeSceneToFile("res://MainMenus/MainMenu3D/MainMenu3D.tscn");
             if (popUp != null) popUp.QueueFree();
         }
         if (Input.IsActionPressed("shiftLock"))

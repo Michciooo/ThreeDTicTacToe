@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bo6mw80fwl675"]
 
-[ext_resource type="Script" path="res://MainMenu/MainMenu.cs" id="1_keaxb"]
+[ext_resource type="Script" path="res://MainMenus/MainMenu.cs" id="1_keaxb"]
 
 [sub_resource type="SystemFont" id="SystemFont_dar7v"]
 font_names = PackedStringArray("Kristen ITC")

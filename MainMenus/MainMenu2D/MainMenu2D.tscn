@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dem4nsow1b8vr"]
 
-[ext_resource type="Texture2D" uid="uid://c5bopv88cs5gt" path="res://icons/settings.png" id="1_atkay"]
-[ext_resource type="Script" path="res://MainMenu2D/MainMenu2D.cs" id="1_pwlts"]
+[ext_resource type="Script" path="res://MainMenus/MainMenu2D/MainMenu2D.cs" id="1_dej4q"]
+[ext_resource type="Texture2D" uid="uid://c5bopv88cs5gt" path="res://icons/settings.png" id="2_p70r4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdq3n"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -38,7 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_pwlts")
+script = ExtResource("1_dej4q")
 
 [node name="Main" type="Control" parent="."]
 layout_mode = 1
@@ -77,7 +77,7 @@ grow_horizontal = 0
 [node name="SettingsBtn" type="TextureButton" parent="Main/Settings"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("1_atkay")
+texture_normal = ExtResource("2_p70r4")
 stretch_mode = 3
 
 [node name="MainContainer" type="VBoxContainer" parent="Main"]
@@ -139,7 +139,7 @@ item_count = 3
 popup/item_0/text = "Human"
 popup/item_1/text = "Easy Computer"
 popup/item_1/id = 1
-popup/item_2/text = "AICocmputer"
+popup/item_2/text = "AI Computer"
 popup/item_2/id = 2
 
 [node name="playBtn" type="Button" parent="Main/MainContainer"]

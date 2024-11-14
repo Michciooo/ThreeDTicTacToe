@@ -53,7 +53,7 @@ namespace threeDTicTacToe
 			{
 				global.player12D = playersTypes[1];
 				global.player22D = playersTypes[2];
-				GetTree().ChangeSceneToFile("res://MainMenu2D/TTT2D.tscn");
+				GetTree().ChangeSceneToFile("res://TicTacToeModes/TTT2D/TTT2D.tscn");
 			}
 		}
 
@@ -93,11 +93,11 @@ namespace threeDTicTacToe
 
 		private void SettingsPress()
 		{
-			GetTree().ChangeSceneToFile("res://MainMenu2D/Settings2D.tscn");
+			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu2D/Settings2D.tscn");
 		}
 		public override void _Process(double delta)
 		{
-			if (Input.IsActionPressed("mainMenu")) GetTree().ChangeSceneToFile("res://MainMenu/MainMenu.tscn");
+			if (Input.IsActionPressed("mainMenu")) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
 		}
 	}
 }

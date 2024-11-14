@@ -16,13 +16,13 @@ public partial class MainMenu : Node3D
 
 		if (twoDBtn.IsPressed())
 		{
-			GetTree().ChangeSceneToFile("res://MainMenu2D/MainMenu2D.tscn");
+			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu2D/MainMenu2D.tscn");
 			global.Mode = "2D";
 		}
 
 		if (threeDBtn.IsPressed())
 		{
-			GetTree().ChangeSceneToFile("res://MainMenu3D/MainMenu3D.tscn");
+			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu3D/MainMenu3D.tscn");
 			global.Mode = "3D";
 		}
 		if (Input.IsActionPressed("appExit") || exitBtn.IsPressed()) GetTree().Quit();

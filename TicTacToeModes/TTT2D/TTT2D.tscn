@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ceuuvmonyrepa"]
 
 [ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score/Score.tscn" id="1_kvdgh"]
-[ext_resource type="Script" path="res://MainMenu2D/TTT2D.cs" id="1_xbx7s"]
+[ext_resource type="Script" path="res://TicTacToeModes/TTT2D/TTT2D.cs" id="1_xbx7s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feflx"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)

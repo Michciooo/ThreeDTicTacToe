@@ -11,15 +11,15 @@ offset_right = 499.8
 offset_bottom = 150.0
 script = ExtResource("1_siee1")
 
-[node name="CrossWins" type="Label" parent="."]
+[node name="CircleWins" type="Label" parent="."]
 custom_minimum_size = Vector2(500, 75)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 500.0
+offset_bottom = 75.0
 theme_override_font_sizes/font_size = 30
-text = "X won : 0 times"
+text = "O won : 0 times"
 
-[node name="CircleWins" type="Label" parent="."]
+[node name="CrossWins" type="Label" parent="."]
 custom_minimum_size = Vector2(500, 75)
 layout_mode = 0
 offset_left = -3.0
@@ -27,5 +27,5 @@ offset_top = 18.0
 offset_right = 497.0
 offset_bottom = 93.0
 theme_override_font_sizes/font_size = 30
-text = "O won : 0 times"
+text = "X won : 0 times"
 vertical_alignment = 2

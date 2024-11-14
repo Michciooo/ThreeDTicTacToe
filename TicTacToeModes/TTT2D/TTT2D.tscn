@@ -149,7 +149,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 30
-text = "Player turn : X"
+text = "Player Turn : O"
 
 [node name="restartBtn" type="Button" parent="rightSide/Info"]
 custom_minimum_size = Vector2(200, 60)

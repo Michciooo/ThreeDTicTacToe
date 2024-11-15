@@ -13,6 +13,9 @@ public partial class Global : Node
 
     public String player12D;
     public String player22D;
-    public String buttonName3D;
+    public String player13D;
+    public String player23D;
+    public String player33D;
+    public String player3DMode;
     public String Mode;
 }

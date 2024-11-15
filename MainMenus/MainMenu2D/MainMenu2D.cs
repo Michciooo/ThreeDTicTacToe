@@ -30,14 +30,7 @@ namespace threeDTicTacToe
 		{
 			var global = GetNode<Global>("/root/Global");
 			var warningLabel = GetNode<Label>("Main/MainContainer/warningLabel");
-			if (!playersTypes.ContainsKey(1))
-			{
-				playersTypes[1] = "Human";
-			}
-			if (!playersTypes.ContainsKey(2))
-			{
-				playersTypes[2] = "Human";
-			}
+
 			if ((playersTypes[1] == playersTypes[2] && playersTypes[1] == "Easy Computer") || 
 			    (playersTypes[1] == playersTypes[2] && playersTypes[1] == "AI Computer") || 
 			    (playersTypes[1] == "Easy Computer" && playersTypes[2] == "AI Computer") ||  

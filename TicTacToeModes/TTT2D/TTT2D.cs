@@ -217,11 +217,11 @@ public partial class TTT2D : Control
 		{
 			if (global.player12D=="Human" && global.player22D=="Human")
 			{
-				if (playerTurn)
+				if (!playerTurn)
 				{
 					button.Text = "O";
 					playerTurnLabel.Text = "Player Turn : X";
-					playerTurn = false;
+					playerTurn = true;
 					moves -= 1;
 					if (WhoWon())
 					{
@@ -233,7 +233,7 @@ public partial class TTT2D : Control
 				{
 					button.Text = "X";
 					playerTurnLabel.Text = "Player Turn : O";
-					playerTurn = true;
+					playerTurn = false;
 					moves -= 1;
 					if (WhoWon())
 					{

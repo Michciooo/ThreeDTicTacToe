@@ -10,8 +10,7 @@ public partial class GamePlay : Control
 {
 	bool _playerTurn = true;
 	bool win = false;
-	private int clicks = 0;
-	private int moves = 27;
+	private int moves = 64;
 	public List<Button> TttBtns = new List<Button>();
 	public List<Button> FirstDBtn = new List<Button>();
 	public List<Button> SecondDBtn = new List<Button>();
@@ -24,29 +23,37 @@ public partial class GamePlay : Control
 	public override void _Ready()
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
+		var global = GetNode<Global>("/root/Global");
 		restartButton.Pressed += RestartGame;
+		
 		HBoxContainer lay1 = GetNode<HBoxContainer>("firstD/lay1");
 		HBoxContainer lay2 = GetNode<HBoxContainer>("firstD/lay2");
 		HBoxContainer lay3 = GetNode<HBoxContainer>("firstD/lay3");
-
-		HBoxContainer lay4 = GetNode<HBoxContainer>("secondD/lay4");
+		HBoxContainer lay4 = GetNode<HBoxContainer>("firstD/lay4");
+		
 		HBoxContainer lay5 = GetNode<HBoxContainer>("secondD/lay5");
 		HBoxContainer lay6 = GetNode<HBoxContainer>("secondD/lay6");
-
-		HBoxContainer lay7 = GetNode<HBoxContainer>("thirdD/lay7");
-		HBoxContainer lay8 = GetNode<HBoxContainer>("thirdD/lay8");
+		HBoxContainer lay7 = GetNode<HBoxContainer>("secondD/lay7");
+		HBoxContainer lay8 = GetNode<HBoxContainer>("secondD/lay8");
+		
 		HBoxContainer lay9 = GetNode<HBoxContainer>("thirdD/lay9");
+		HBoxContainer lay10 = GetNode<HBoxContainer>("thirdD/lay10");
+		HBoxContainer lay11 = GetNode<HBoxContainer>("thirdD/lay11");
+		HBoxContainer lay12 = GetNode<HBoxContainer>("thirdD/lay12");
 		
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
-		main.Create_Visualisation();
-		Create_Dimensions(lay1,lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9);
-		
+		if (global.player3DMode == "4x4x4")
+		{
+			main.Create_Visualisation();
+			Create_Dimensions(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9, lay10, lay11, lay12);
+		}
+		if(global.player3DMode == "3x3x3") GD.Print("3x3x3");
+
 		AddToDictionary();
 	}
 
 	public void RestartGame()
 	{
-		clicks += 1;
 		Global global = GetNode<Global>("/root/Global");
 		foreach (Button button in TttBtns)
 		{
@@ -58,31 +65,8 @@ public partial class GamePlay : Control
 			label.Text = "";
 		}
 
-		if (global.buttonName3D == "EasyModeBtn")
-		{
-			if (clicks % 2 != 0)
-			{
-				EasyComputer();
-			}
-			else
-			{
-				EasyComputer();
-			}
-		}
-
-		if (global.buttonName3D == "AiModeBtn")
-		{
-			if (clicks % 2 != 0)
-			{
-				AiComputer();
-			}
-			else
-			{
-				AiComputer();
-			}
-		}
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		playerTurnLabel.Text = _playerTurn ? "Player turn : X" : "Player turn : O";
+		playerTurnLabel.Text = _playerTurn ? "Player turn : O" : "Player turn : X";
 
 		BlockBtns(false);
 		foreach (var btn in TttBtns)
@@ -91,16 +75,17 @@ public partial class GamePlay : Control
 			btn.SetDefaultCursorShape(CursorShape.PointingHand);
 		}
 	}
-	public void Create_Dimensions(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3,
-		HBoxContainer lay4, HBoxContainer lay5, HBoxContainer lay6,
-		HBoxContainer lay7, HBoxContainer lay8, HBoxContainer lay9)
+	public void Create_Dimensions(HBoxContainer lay1, HBoxContainer lay2, 
+		HBoxContainer lay3, HBoxContainer lay4, HBoxContainer lay5,
+		HBoxContainer lay6, HBoxContainer lay7, HBoxContainer lay8, HBoxContainer lay9 ,
+		HBoxContainer lay10, HBoxContainer lay11, HBoxContainer lay12)
 	{
 		Global global = GetNode<Global>("/root/Global");
-		for (int x = 0; x < 3; x++)
+		for (int x = 0; x < 4; x++)
 		{
-			for (int y = 0; y < 3; y++)
+			for (int y = 0; y < 4; y++)
 			{
-				for (int z = 0; z < 3; z++)
+				for (int z = 0; z < 4; z++)
 				{
 					Button btn = new Button();
 					btn.SetDefaultCursorShape(CursorShape.PointingHand);
@@ -113,6 +98,7 @@ public partial class GamePlay : Control
 						if (z == 0) lay1.AddChild(btn);
 						if (z == 1) lay2.AddChild(btn);
 						if (z == 2) lay3.AddChild(btn);
+						if (z == 3) lay4.AddChild(btn);
 						FirstDBtn.Add(btn);
 						bgColor.BgColor = new Color("0013ff");
 						btn.AddThemeStyleboxOverride("normal", bgColor);
@@ -120,9 +106,10 @@ public partial class GamePlay : Control
 
 					if (y == 1)
 					{
-						if (z == 0) lay4.AddChild(btn);
-						if (z == 1) lay5.AddChild(btn);
-						if (z == 2) lay6.AddChild(btn);
+						if (z == 0) lay5.AddChild(btn);
+						if (z == 1) lay6.AddChild(btn);
+						if (z == 2) lay7.AddChild(btn);
+						if (z == 3) lay8.AddChild(btn);
 						SecondDBtn.Add(btn);
 						bgColor.BgColor = new Color("#ff00e8");
 						btn.AddThemeStyleboxOverride("normal", bgColor);
@@ -130,9 +117,10 @@ public partial class GamePlay : Control
 
 					if (y == 2)
 					{
-						if (z == 0) lay7.AddChild(btn);
-						if (z == 1) lay8.AddChild(btn);
-						if (z == 2) lay9.AddChild(btn);
+						if (z == 0) lay9.AddChild(btn);
+						if (z == 1) lay10.AddChild(btn);
+						if (z == 2) lay11.AddChild(btn);
+						if (z == 3) lay12.AddChild(btn);
 						ThirdDBtn.Add(btn);
 						bgColor.BgColor = new Color("#fff300");
 						btn.AddThemeStyleboxOverride("normal", bgColor);
@@ -141,14 +129,14 @@ public partial class GamePlay : Control
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
 
-					if (global.buttonName3D == "OfflineBtn") btn.Pressed += () => Offline(btn);
-					if (global.buttonName3D == "EasyModeBtn")
+					if (global.player13D == "Human" && global.player23D=="Human") btn.Pressed += () => Offline(btn);
+					if (global.player12D == "EasyModeBtn")
 					{
 						Button capturedButton = btn; 
 						capturedButton.Pressed += () => EasyComputer(capturedButton);
 					}
-
-					if (global.buttonName3D == "AiModeBtn")
+				
+					if (global.player12D == "AiModeBtn")
 					{
 						Button capturedButton = btn; 
 						capturedButton.Pressed += () => AiComputer(capturedButton);
@@ -168,7 +156,7 @@ public partial class GamePlay : Control
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
-			if (i < 27)
+			if (i < 64)
 			{
 				Button button = TttBtns[i];
 				Label3D label = Labels[i];
@@ -182,10 +170,10 @@ public partial class GamePlay : Control
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 		if (_playerTurn && btn != null && btn.Text == "")
 		{
-			btn.Text = "X";
+			btn.Text = "O";
 			Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
-			label3D.Text = "X";
-			playerTurnLabel.Text = "Player turn : O";
+			label3D.Text = "O";
+			playerTurnLabel.Text = "Player turn : X";
 
 			moves -= 1;
 			_playerTurn = false;
@@ -200,9 +188,9 @@ public partial class GamePlay : Control
 			if (availableButtons.Count > 0)
 			{
 				Button computerMove = availableButtons[random.Next(availableButtons.Count)];
-				computerMove.Text = "O";
-				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "O";
-				playerTurnLabel.Text = "Player turn : X";
+				computerMove.Text = "X";
+				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "X";
+				playerTurnLabel.Text = "Player turn : O";
 
 				moves -= 1;
 				_playerTurn = true;
@@ -216,7 +204,7 @@ public partial class GamePlay : Control
 		
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
-			if (i < 27)
+			if (i < 64)
 			{
 				Button button = TttBtns[i];
 				Label3D label = Labels[i];
@@ -232,16 +220,16 @@ public partial class GamePlay : Control
 		{
 			if (_playerTurn)
 			{
-				btn.Text = "X";
-				playerTurnLabel.Text = "Player turn : O";
+				btn.Text = "O";
+				playerTurnLabel.Text = "Player turn : X";
 				label3D.Text = btn.Text;
 				moves -= 1;
 				_playerTurn = false;
 			}
 			else
 			{
-				btn.Text = "O";
-				playerTurnLabel.Text = "Player turn : X";
+				btn.Text = "X";
+				playerTurnLabel.Text = "Player turn : O";
 				moves -= 1;
 				_playerTurn = true;
 				label3D.Text = btn.Text;
@@ -395,7 +383,7 @@ public partial class GamePlay : Control
 		{
 			MeshInstance3D meshInstance3D = MeshInstances[i];
 			Button button = TttBtns[i];
-			if (i < 27)
+			if (i < 64)
 			{
 				if (!main.BtnAndMeshInstanceDictionary.ContainsKey(button))
 				{

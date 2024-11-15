@@ -21,11 +21,14 @@ text = "O won : 0 times"
 
 [node name="CrossWins" type="Label" parent="."]
 custom_minimum_size = Vector2(500, 75)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.011
+anchor_right = 0.023
 offset_left = -3.0
 offset_top = 18.0
 offset_right = 497.0
 offset_bottom = 93.0
 theme_override_font_sizes/font_size = 30
 text = "X won : 0 times"
-vertical_alignment = 2
+vertical_alignment = 1

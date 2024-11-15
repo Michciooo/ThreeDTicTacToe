@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://crit7oidgfe05"]
 
 [ext_resource type="Script" path="res://TicTacToeModes/TTT3D/TTT3D.cs" id="1_ysiwb"]
-[ext_resource type="PackedScene" uid="uid://bvsxm6x1bmqtx" path="res://TicTacToeModes/TTT3D/Visualisation.tscn" id="2_e5hhc"]
+[ext_resource type="PackedScene" uid="uid://bvsxm6x1bmqtx" path="res://TicTacToeModes/TTT3D/Visualisation4x4x4.tscn" id="2_e5hhc"]
 [ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://TicTacToeModes/TTT3D/GamePlay.tscn" id="3_j3bv6"]
 [ext_resource type="Script" path="res://TicTacToeModes/TTT3D/GamePlay.cs" id="4_xicxi"]
 [ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score/Score.tscn" id="5_euh6n"]
@@ -29,12 +29,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
 script = ExtResource("1_ysiwb")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 250, -70, 350)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 400, -70, 400)
 
-[node name="Visualisation" parent="." instance=ExtResource("2_e5hhc")]
+[node name="Visualisation4x4x4" parent="." instance=ExtResource("2_e5hhc")]
 
 [node name="leftSide" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(900, 1000)
+custom_minimum_size = Vector2(700, 1000)
 anchors_preset = -1
 anchor_top = 0.01
 anchor_bottom = 0.01
@@ -57,7 +57,7 @@ text = "Main Menu"
 layout_mode = 2
 
 [node name="rightSide" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(700, 1000)
+custom_minimum_size = Vector2(900, 1000)
 anchors_preset = -1
 anchor_left = 0.9
 anchor_top = 0.01

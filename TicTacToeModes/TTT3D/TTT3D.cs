@@ -10,7 +10,7 @@ public partial class TTT3D : Node3D
     public Dictionary<Button, MeshInstance3D> BtnAndMeshInstanceDictionary = new Dictionary<Button, MeshInstance3D>();
     private List<Godot.Vector3> LabelPositions = new List<Godot.Vector3>();
 
-    private PackedScene visScene = GD.Load<PackedScene>("res://TicTacToeModes/TTT3D/Visualisation.tscn");
+    private PackedScene visScene = GD.Load<PackedScene>("res://TicTacToeModes/TTT3D/Visualisation4x4x4.tscn");
     private Node3D visRoot;
 
     private bool shiftLock = false;
@@ -22,14 +22,14 @@ public partial class TTT3D : Node3D
 
     public void Create_Visualisation()
     {
-        Node3D visualisation = GetNode<Node3D>("/root/TTT3D/Visualisation");
+        Node3D visualisation = GetNode<Node3D>("/root/TTT3D/Visualisation4x4x4");
         GamePlay gamePlay = GetNode<GamePlay>("/root/TTT3D/rightSide/GamePlay");
 
-        for (int x = 0; x < 3; x++)
+        for (int x = 0; x < 4; x++)
         {
-            for (int y = 0; y < 3; y++)
+            for (int y = 0; y < 4; y++)
             {
-                for (int z = 0; z < 3; z++)
+                for (int z = 0; z < 4; z++)
                 {
                     StandardMaterial3D miniMaterial = new StandardMaterial3D();
                     miniMaterial.AlbedoColor = new Color("#000000");
@@ -63,7 +63,7 @@ public partial class TTT3D : Node3D
     }
     public override void _Input(InputEvent @event)
     {
-        Node3D visualisation = GetNodeOrNull<Node3D>("/root/TTT3D/Visualisation");
+        Node3D visualisation = GetNodeOrNull<Node3D>("/root/TTT3D/Visualisation4x4x4");
         WinPopUp popUp = GetNodeOrNull<WinPopUp>("/root/WinPopUp");
         Button mainMenu = GetNode<Button>("leftSide/mainMenu");
         
@@ -79,7 +79,7 @@ public partial class TTT3D : Node3D
         }
         if (Input.IsActionPressed("resetPosCube"))
         {
-            GetNode<Node3D>("Visualisation").Rotation = new Vector3(0, 0, 0);
+            GetNode<Node3D>("Visualisation4x4x4").Rotation = new Vector3(0, 0, 0);
         }
         if (shiftLock)
         {

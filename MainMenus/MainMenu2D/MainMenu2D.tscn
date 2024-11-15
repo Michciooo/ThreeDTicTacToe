@@ -1,7 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dem4nsow1b8vr"]
+[gd_scene load_steps=9 format=3 uid="uid://dem4nsow1b8vr"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu2D/MainMenu2D.cs" id="1_dej4q"]
 [ext_resource type="Texture2D" uid="uid://c5bopv88cs5gt" path="res://icons/settings.png" id="2_p70r4"]
+
+[sub_resource type="SystemFont" id="SystemFont_x2cwt"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_fqy74"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_etell"]
+font_names = PackedStringArray("Kristen ITC")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdq3n"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -58,9 +67,11 @@ offset_left = -452.0
 offset_right = 500.0
 offset_bottom = 400.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = SubResource("SystemFont_x2cwt")
 theme_override_font_sizes/font_size = 70
 text = "TIC TAC TOE 2D
-Choose mode"
+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -94,7 +105,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Container" type="HBoxContainer" parent="Main/MainContainer"]
-custom_minimum_size = Vector2(800, 400)
+custom_minimum_size = Vector2(800, 250)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -106,6 +117,7 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Main/MainContainer/Container/left"]
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fqy74")
 theme_override_font_sizes/font_size = 40
 text = "Player 1"
 
@@ -127,6 +139,7 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Main/MainContainer/Container/right"]
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_etell")
 theme_override_font_sizes/font_size = 40
 text = "Player 2
 "

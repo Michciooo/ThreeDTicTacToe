@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace threeDTicTacToe;
 
@@ -18,4 +19,111 @@ public partial class Global : Node
     public String player33D;
     public String player3DMode;
     public String Mode;
+    
+    public List<Button> FirstDBtn = new List<Button>(16);
+    public List<Button> SecondDBtn = new List<Button>(16);
+    public List<Button> ThirdDBtn = new List<Button>(16);
+    public List<Button> FourthDBtn = new List<Button>(16);
+
+    public Button[,] wins;
+
+    public void InitializeWins()
+    {
+	    for (int i = 0; i < 16; i++)
+	    {
+		    FirstDBtn.Add(new Button());
+		    SecondDBtn.Add(new Button());
+		    ThirdDBtn.Add(new Button());
+		    FourthDBtn.Add(new Button());
+	    }
+	    wins = new Button[,]
+	    {
+		    //first grid
+		    { FirstDBtn[0], FirstDBtn[1], FirstDBtn[2], FirstDBtn[3] },
+		    { FirstDBtn[4], FirstDBtn[5], FirstDBtn[6], FirstDBtn[7] },
+		    { FirstDBtn[8], FirstDBtn[9], FirstDBtn[10], FirstDBtn[11] },
+		    { FirstDBtn[12], FirstDBtn[13], FirstDBtn[14], FirstDBtn[15] },
+
+		    { FirstDBtn[0], FirstDBtn[4], FirstDBtn[8], FirstDBtn[12] },
+		    { FirstDBtn[1], FirstDBtn[5], FirstDBtn[9], FirstDBtn[13] },
+		    { FirstDBtn[2], FirstDBtn[6], FirstDBtn[10], FirstDBtn[14] },
+		    { FirstDBtn[3], FirstDBtn[7], FirstDBtn[11], FirstDBtn[15] },
+
+		    { FirstDBtn[0], FirstDBtn[5], FirstDBtn[10], FirstDBtn[15] },
+		    { FirstDBtn[3], FirstDBtn[6], FirstDBtn[9], FirstDBtn[12] },
+
+		    //second grid
+		    { SecondDBtn[0], SecondDBtn[1], SecondDBtn[2], SecondDBtn[3] },
+		    { SecondDBtn[4], SecondDBtn[5], SecondDBtn[6], SecondDBtn[7] },
+		    { SecondDBtn[8], SecondDBtn[9], SecondDBtn[10], SecondDBtn[11] },
+		    { SecondDBtn[12], SecondDBtn[13], SecondDBtn[14], SecondDBtn[15] },
+
+		    { SecondDBtn[0], SecondDBtn[4], SecondDBtn[8], SecondDBtn[12] },
+		    { SecondDBtn[1], SecondDBtn[5], SecondDBtn[9], SecondDBtn[13] },
+		    { SecondDBtn[2], SecondDBtn[6], SecondDBtn[10], SecondDBtn[14] },
+		    { SecondDBtn[3], SecondDBtn[7], SecondDBtn[11], SecondDBtn[15] },
+
+		    { SecondDBtn[0], SecondDBtn[5], SecondDBtn[10], SecondDBtn[15] },
+		    { SecondDBtn[3], SecondDBtn[6], SecondDBtn[9], SecondDBtn[12] },
+
+		    //third grid
+		    { ThirdDBtn[0], ThirdDBtn[1], ThirdDBtn[2], ThirdDBtn[3] },
+		    { ThirdDBtn[4], ThirdDBtn[5], ThirdDBtn[6], ThirdDBtn[7] },
+		    { ThirdDBtn[8], ThirdDBtn[9], ThirdDBtn[10], ThirdDBtn[11] },
+		    { ThirdDBtn[12], ThirdDBtn[13], ThirdDBtn[14], ThirdDBtn[15] },
+
+		    { ThirdDBtn[0], ThirdDBtn[4], ThirdDBtn[8], ThirdDBtn[12] },
+		    { ThirdDBtn[1], ThirdDBtn[5], ThirdDBtn[9], ThirdDBtn[13] },
+		    { ThirdDBtn[2], ThirdDBtn[6], ThirdDBtn[10], ThirdDBtn[14] },
+		    { ThirdDBtn[3], ThirdDBtn[7], ThirdDBtn[11], ThirdDBtn[15] },
+
+		    { ThirdDBtn[0], ThirdDBtn[5], ThirdDBtn[10], ThirdDBtn[15] },
+		    { ThirdDBtn[3], ThirdDBtn[6], ThirdDBtn[9], ThirdDBtn[12] },
+
+		    //fourth grid
+		    { FourthDBtn[0], FourthDBtn[1], FourthDBtn[2], FourthDBtn[3] },
+		    { FourthDBtn[4], FourthDBtn[5], FourthDBtn[6], FourthDBtn[7] },
+		    { FourthDBtn[8], FourthDBtn[9], FourthDBtn[10], FourthDBtn[11] },
+		    { FourthDBtn[12], FourthDBtn[13], FourthDBtn[14], FourthDBtn[15] },
+
+		    { FourthDBtn[0], FourthDBtn[4], FourthDBtn[8], FourthDBtn[12] },
+		    { FourthDBtn[1], FourthDBtn[5], FourthDBtn[9], FourthDBtn[13] },
+		    { FourthDBtn[2], FourthDBtn[6], FourthDBtn[10], FourthDBtn[14] },
+		    { FourthDBtn[3], FourthDBtn[7], FourthDBtn[11], FourthDBtn[15] },
+
+		    { FourthDBtn[0], FourthDBtn[5], FourthDBtn[10], FourthDBtn[15] },
+		    { FourthDBtn[3], FourthDBtn[6], FourthDBtn[9], FourthDBtn[12] },
+
+		    //crosses
+		    { FirstDBtn[0], SecondDBtn[1], ThirdDBtn[2], FourthDBtn[3] },
+		    { FirstDBtn[3], SecondDBtn[2], ThirdDBtn[2], FourthDBtn[0] },
+
+		    { FirstDBtn[4], SecondDBtn[5], ThirdDBtn[6], FourthDBtn[7] },
+		    { FirstDBtn[7], SecondDBtn[6], ThirdDBtn[5], FourthDBtn[4] },
+
+		    { FirstDBtn[8], SecondDBtn[9], ThirdDBtn[10], FourthDBtn[11] },
+		    { FirstDBtn[11], SecondDBtn[10], ThirdDBtn[9], FourthDBtn[8] },
+
+		    { FirstDBtn[12], SecondDBtn[13], ThirdDBtn[14], FourthDBtn[15] },
+		    { FirstDBtn[15], SecondDBtn[14], ThirdDBtn[13], FourthDBtn[12] },
+
+		    { FirstDBtn[0], SecondDBtn[4], ThirdDBtn[8], FourthDBtn[12] },
+		    { FirstDBtn[12], SecondDBtn[8], ThirdDBtn[4], FourthDBtn[0] },
+
+		    { FirstDBtn[1], SecondDBtn[5], ThirdDBtn[9], FourthDBtn[13] },
+		    { FirstDBtn[13], SecondDBtn[9], ThirdDBtn[5], FourthDBtn[1] },
+
+		    { FirstDBtn[2], SecondDBtn[6], ThirdDBtn[10], FourthDBtn[14] },
+		    { FirstDBtn[14], SecondDBtn[10], ThirdDBtn[6], FourthDBtn[2] },
+
+		    { FirstDBtn[3], SecondDBtn[7], ThirdDBtn[11], FourthDBtn[15] },
+		    { FirstDBtn[15], SecondDBtn[11], ThirdDBtn[7], FourthDBtn[3] },
+
+		    { FirstDBtn[0], SecondDBtn[5], ThirdDBtn[10], FourthDBtn[15] },
+		    { FirstDBtn[15], SecondDBtn[10], ThirdDBtn[5], FourthDBtn[0] },
+
+		    { FirstDBtn[12], SecondDBtn[9], ThirdDBtn[6], FourthDBtn[3] },
+		    { FirstDBtn[3], SecondDBtn[6], ThirdDBtn[9], FourthDBtn[12] },
+	    };
+    }
 }

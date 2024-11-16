@@ -21,7 +21,7 @@ public partial class WinPopUp : Control
 		}
 		if (global.Mode == "3D")
 		{
-			GamePlay gamePlay = GetNode<GamePlay>("/root/TTT3D/rightSide/GamePlay");
+			GamePlay4x4x4 gamePlay = GetNode<GamePlay4x4x4>("/root/TTT3D/rightSide/GamePlay4x4x4");
 			gamePlay.RestartGame();
 		}
 	}

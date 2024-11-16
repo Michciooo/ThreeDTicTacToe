@@ -10,7 +10,7 @@ public partial class TTT3D : Node3D
     public Dictionary<Button, MeshInstance3D> BtnAndMeshInstanceDictionary = new Dictionary<Button, MeshInstance3D>();
     private List<Godot.Vector3> LabelPositions = new List<Godot.Vector3>();
 
-    private PackedScene visScene = GD.Load<PackedScene>("res://TicTacToeModes/TTT3D/Visualisation4x4x4.tscn");
+    private PackedScene visScene = GD.Load<PackedScene>("res://TicTacToeModes/TTT3D/FourGridMode/Visualisation4x4x4.tscn");
     private Node3D visRoot;
 
     private bool shiftLock = false;
@@ -23,7 +23,7 @@ public partial class TTT3D : Node3D
     public void Create_Visualisation()
     {
         Node3D visualisation = GetNode<Node3D>("/root/TTT3D/Visualisation4x4x4");
-        GamePlay gamePlay = GetNode<GamePlay>("/root/TTT3D/rightSide/GamePlay");
+        GamePlay4x4x4 gamePlay = GetNode<GamePlay4x4x4>("/root/TTT3D/rightSide/GamePlay4x4x4");
 
         for (int x = 0; x < 4; x++)
         {

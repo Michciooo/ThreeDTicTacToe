@@ -1,4 +1,4 @@
-using System;
+	using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -6,15 +6,13 @@ using Godot;
 
 namespace threeDTicTacToe;
 
-public partial class GamePlay : Control
+public partial class GamePlay4x4x4 : Control
 {
-	bool _playerTurn = true;
+	bool _playerTurn;
 	bool win = false;
 	private int moves = 64;
+	
 	public List<Button> TttBtns = new List<Button>();
-	public List<Button> FirstDBtn = new List<Button>();
-	public List<Button> SecondDBtn = new List<Button>();
-	public List<Button> ThirdDBtn = new List<Button>();
 	private List<Button> Buttons = new List<Button>();
 
 	public List<Label3D> Labels = new List<Label3D>();
@@ -24,7 +22,7 @@ public partial class GamePlay : Control
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
 		var global = GetNode<Global>("/root/Global");
-		restartButton.Pressed += RestartGame;
+		restartButton.Pressed +=() => RestartGame();
 		
 		HBoxContainer lay1 = GetNode<HBoxContainer>("firstD/lay1");
 		HBoxContainer lay2 = GetNode<HBoxContainer>("firstD/lay2");
@@ -41,20 +39,33 @@ public partial class GamePlay : Control
 		HBoxContainer lay11 = GetNode<HBoxContainer>("thirdD/lay11");
 		HBoxContainer lay12 = GetNode<HBoxContainer>("thirdD/lay12");
 		
-		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+		HBoxContainer lay13 = GetNode<HBoxContainer>("fourthD/lay13");
+		HBoxContainer lay14 = GetNode<HBoxContainer>("fourthD/lay14");
+		HBoxContainer lay15 = GetNode<HBoxContainer>("fourthD/lay15");
+		HBoxContainer lay16 = GetNode<HBoxContainer>("fourthD/lay16");
+		
 		if (global.player3DMode == "4x4x4")
 		{
+			TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 			main.Create_Visualisation();
-			Create_Dimensions(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9, lay10, lay11, lay12);
+			Create_Dimensions4x4x4(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9, lay10, lay11, lay12,lay13, lay14, lay15, lay16);
+
+			if (global.player13D == "Easy Computer")
+			{
+				_playerTurn = false;
+				EasyComputer();
+			}
+			else if (global.player13D == "Human")
+			{
+				_playerTurn = true;
+			}
 		}
 		if(global.player3DMode == "3x3x3") GD.Print("3x3x3");
-
 		AddToDictionary();
 	}
 
 	public void RestartGame()
 	{
-		Global global = GetNode<Global>("/root/Global");
 		foreach (Button button in TttBtns)
 		{
 			button.Text = "";
@@ -64,10 +75,6 @@ public partial class GamePlay : Control
 		{
 			label.Text = "";
 		}
-
-		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		playerTurnLabel.Text = _playerTurn ? "Player turn : O" : "Player turn : X";
-
 		BlockBtns(false);
 		foreach (var btn in TttBtns)
 		{
@@ -75,12 +82,17 @@ public partial class GamePlay : Control
 			btn.SetDefaultCursorShape(CursorShape.PointingHand);
 		}
 	}
-	public void Create_Dimensions(HBoxContainer lay1, HBoxContainer lay2, 
+	public void Create_Dimensions4x4x4(HBoxContainer lay1, HBoxContainer lay2, 
 		HBoxContainer lay3, HBoxContainer lay4, HBoxContainer lay5,
 		HBoxContainer lay6, HBoxContainer lay7, HBoxContainer lay8, HBoxContainer lay9 ,
-		HBoxContainer lay10, HBoxContainer lay11, HBoxContainer lay12)
+		HBoxContainer lay10, HBoxContainer lay11, HBoxContainer lay12, HBoxContainer lay13,
+		HBoxContainer lay14,HBoxContainer lay15, HBoxContainer lay16)
 	{
-		Global global = GetNode<Global>("/root/Global");
+		var global = GetNode<Global>("/root/Global");
+		global.FirstDBtn.Clear();
+		global.SecondDBtn.Clear();
+		global.ThirdDBtn.Clear();
+		global.FourthDBtn.Clear();
 		for (int x = 0; x < 4; x++)
 		{
 			for (int y = 0; y < 4; y++)
@@ -90,8 +102,6 @@ public partial class GamePlay : Control
 					Button btn = new Button();
 					btn.SetDefaultCursorShape(CursorShape.PointingHand);
 					btn.CustomMinimumSize = new Vector2(100, 100);
-
-					StyleBoxFlat bgColor = new StyleBoxFlat();
 					
 					if (y == 0)
 					{
@@ -99,9 +109,7 @@ public partial class GamePlay : Control
 						if (z == 1) lay2.AddChild(btn);
 						if (z == 2) lay3.AddChild(btn);
 						if (z == 3) lay4.AddChild(btn);
-						FirstDBtn.Add(btn);
-						bgColor.BgColor = new Color("0013ff");
-						btn.AddThemeStyleboxOverride("normal", bgColor);
+						global.FirstDBtn.Add(btn);
 					}
 
 					if (y == 1)
@@ -110,9 +118,7 @@ public partial class GamePlay : Control
 						if (z == 1) lay6.AddChild(btn);
 						if (z == 2) lay7.AddChild(btn);
 						if (z == 3) lay8.AddChild(btn);
-						SecondDBtn.Add(btn);
-						bgColor.BgColor = new Color("#ff00e8");
-						btn.AddThemeStyleboxOverride("normal", bgColor);
+						global.SecondDBtn.Add(btn);
 					}
 
 					if (y == 2)
@@ -121,25 +127,27 @@ public partial class GamePlay : Control
 						if (z == 1) lay10.AddChild(btn);
 						if (z == 2) lay11.AddChild(btn);
 						if (z == 3) lay12.AddChild(btn);
-						ThirdDBtn.Add(btn);
-						bgColor.BgColor = new Color("#fff300");
-						btn.AddThemeStyleboxOverride("normal", bgColor);
+						global.ThirdDBtn.Add(btn);
+					}
+
+					if (y == 3)
+					{
+						if (z == 0) lay13.AddChild(btn);
+						if (z == 1) lay14.AddChild(btn);
+						if (z == 2) lay15.AddChild(btn);
+						if (z == 3) lay16.AddChild(btn);
+						global.FourthDBtn.Add(btn);
 					}
 
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
 
-					if (global.player13D == "Human" && global.player23D=="Human") btn.Pressed += () => Offline(btn);
-					if (global.player12D == "EasyModeBtn")
+					if (global.player13D == "Human" && global.player23D=="Human") btn.Pressed += () => Human(btn);
+					if ((global.player13D=="Human" && global.player23D == "Easy Computer") ||
+					    (global.player13D=="Easy Computer" && global.player23D=="Human"))
 					{
 						Button capturedButton = btn; 
 						capturedButton.Pressed += () => EasyComputer(capturedButton);
-					}
-				
-					if (global.player12D == "AiModeBtn")
-					{
-						Button capturedButton = btn; 
-						capturedButton.Pressed += () => AiComputer(capturedButton);
 					}
 					btn.MouseEntered += () => OnMouseEntered(btn);
 					btn.MouseExited += () => OnMouseExited(btn);
@@ -149,10 +157,7 @@ public partial class GamePlay : Control
 	}
 	public void EasyComputer(Button btn = null)
 	{
-		if (win || WhoWon())
-		{
-			return;
-		}
+		if (win || WhoWon()) return;
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
@@ -168,18 +173,20 @@ public partial class GamePlay : Control
 		}
 
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		if (_playerTurn && btn != null && btn.Text == "")
+		if (_playerTurn && btn != null && btn.Text=="")
 		{
 			btn.Text = "O";
 			Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
 			label3D.Text = "O";
-			playerTurnLabel.Text = "Player turn : X";
 
 			moves -= 1;
-			_playerTurn = false;
-			if (WhoWon()) return;
+			_playerTurn = !_playerTurn;
+			if (WhoWon())
+			{
+				BlockBtns(true);
+				return;
+			}
 		}
-
 		if (!_playerTurn)
 		{
 			Random random = new Random();
@@ -193,12 +200,16 @@ public partial class GamePlay : Control
 				playerTurnLabel.Text = "Player turn : O";
 
 				moves -= 1;
-				_playerTurn = true;
-				if (WhoWon()) return;
+				_playerTurn = !_playerTurn;
+				if (WhoWon())
+				{
+					BlockBtns(true);
+					return;
+				}
 			}
 		}
 	}
-	public void Offline(Button btn)
+	public void Human(Button btn)
 	{
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		
@@ -225,6 +236,7 @@ public partial class GamePlay : Control
 				label3D.Text = btn.Text;
 				moves -= 1;
 				_playerTurn = false;
+				if(WhoWon()) BlockBtns(true);
 			}
 			else
 			{
@@ -233,10 +245,9 @@ public partial class GamePlay : Control
 				moves -= 1;
 				_playerTurn = true;
 				label3D.Text = btn.Text;
+				if(WhoWon()) BlockBtns(true);
 			}
 		}
-
-		WhoWon();
 	}
 
 	private void AiComputer(Button btn = null)
@@ -265,98 +276,35 @@ public partial class GamePlay : Control
 	}
 	public bool WhoWon()
 	{
-		Button[,] wins =
-		{
-			{ FirstDBtn[0], FirstDBtn[1], FirstDBtn[2] },
-			{ FirstDBtn[3], FirstDBtn[4], FirstDBtn[5] },
-			{ FirstDBtn[6], FirstDBtn[7], FirstDBtn[8] },
-			{ FirstDBtn[0], FirstDBtn[3], FirstDBtn[6] },
-			{ FirstDBtn[1], FirstDBtn[4], FirstDBtn[7] },
-			{ FirstDBtn[2], FirstDBtn[5], FirstDBtn[8] },
-			{ FirstDBtn[0], FirstDBtn[4], FirstDBtn[8] },
-			{ FirstDBtn[2], FirstDBtn[4], FirstDBtn[6] },
-			
-			{ SecondDBtn[0], SecondDBtn[1], SecondDBtn[2] },
-			{ SecondDBtn[3], SecondDBtn[4], SecondDBtn[5] },
-			{ SecondDBtn[6], SecondDBtn[7], SecondDBtn[8] },
-			{ SecondDBtn[0], SecondDBtn[3], SecondDBtn[6] },
-			{ SecondDBtn[1], SecondDBtn[4], SecondDBtn[7] },
-			{ SecondDBtn[2], SecondDBtn[5], SecondDBtn[8] },
-			{ SecondDBtn[0], SecondDBtn[4], SecondDBtn[8] },
-			{ SecondDBtn[2], SecondDBtn[4], SecondDBtn[6] },
-			
-			{ ThirdDBtn[0], ThirdDBtn[1], ThirdDBtn[2] },
-			{ ThirdDBtn[3], ThirdDBtn[4], ThirdDBtn[5] },
-			{ ThirdDBtn[6], ThirdDBtn[7], ThirdDBtn[8] },
-			{ ThirdDBtn[0], ThirdDBtn[3], ThirdDBtn[6] },
-			{ ThirdDBtn[1], ThirdDBtn[4], ThirdDBtn[7] },
-			{ ThirdDBtn[2], ThirdDBtn[5], ThirdDBtn[8] },
-			{ ThirdDBtn[0], ThirdDBtn[4], ThirdDBtn[8] },
-			{ ThirdDBtn[2], ThirdDBtn[4], ThirdDBtn[6] },
-			
-			{FirstDBtn[0] , SecondDBtn[0] , ThirdDBtn[0]},
-			{FirstDBtn[1] , SecondDBtn[1] , ThirdDBtn[1]},
-			{FirstDBtn[2] , SecondDBtn[2] , ThirdDBtn[2]},
-			{FirstDBtn[3] , SecondDBtn[3] , ThirdDBtn[3]},
-			{FirstDBtn[4] , SecondDBtn[4] , ThirdDBtn[4]},
-			{FirstDBtn[5] , SecondDBtn[5] , ThirdDBtn[5]},
-			{FirstDBtn[6] , SecondDBtn[6] , ThirdDBtn[6]},
-			{FirstDBtn[7] , SecondDBtn[7] , ThirdDBtn[7]},
-			{FirstDBtn[8] , SecondDBtn[8] , ThirdDBtn[8]},
-			
-			{FirstDBtn[0] , SecondDBtn[1] , ThirdDBtn[2]},
-			{FirstDBtn[2] , SecondDBtn[1] , ThirdDBtn[0]},
-			
-			{FirstDBtn[3] , SecondDBtn[4] , ThirdDBtn[5]},
-			{FirstDBtn[5] , SecondDBtn[4] , ThirdDBtn[3]},
-			
-			{FirstDBtn[6] , SecondDBtn[7] , ThirdDBtn[8]},
-			{FirstDBtn[8] , SecondDBtn[7] , ThirdDBtn[6]},
-			
-			{FirstDBtn[0] , SecondDBtn[3] , ThirdDBtn[6]},
-			{FirstDBtn[6] , SecondDBtn[3] , ThirdDBtn[0]},
-			
-			{FirstDBtn[1] , SecondDBtn[4] , ThirdDBtn[7]},
-			{FirstDBtn[7] , SecondDBtn[4] , ThirdDBtn[1]},
-			
-			{FirstDBtn[2] , SecondDBtn[5] , ThirdDBtn[8]},
-			{FirstDBtn[8] , SecondDBtn[5] , ThirdDBtn[2]},
-			
-			{FirstDBtn[0] , SecondDBtn[4] , ThirdDBtn[8]},
-			{FirstDBtn[8] , SecondDBtn[4] , ThirdDBtn[0]},
-			{FirstDBtn[2] , SecondDBtn[4] , ThirdDBtn[6]},
-			{FirstDBtn[6] , SecondDBtn[4] , ThirdDBtn[2]},
-		};
-		
+		var global = GetNode<Global>("/root/Global");
+
 		var popUp = GD.Load<PackedScene>("res://WinPopUp/WinPopUp.tscn");
 		var scoreScene = GetNode<Score>("/root/TTT3D/leftSide/Score");
-		for (int i = 0; i < wins.GetLength(0); i++)
+		var popUpInstant = popUp.Instantiate();
+		global.InitializeWins();
+		
+		for (int i = 0; i < global.wins.GetLength(0); i++)
 		{
-			var popUpInstant = popUp.Instantiate();
-			if (wins[i, 0].Text == wins[i, 1].Text && wins[i, 1].Text == wins[i, 2].Text &&
-			    (wins[i, 0].Text == "X" || wins[i, 0].Text == "O"))
+			if (global.wins[i, 0].Text == global.wins[i, 1].Text && global.wins[i, 1].Text == global.wins[i, 2].Text &&
+			    global.wins[i, 2].Text == global.wins[i, 3].Text && (global.wins[i, 0].Text == "X" || global.wins[i, 0].Text == "O"))
 			{
 				win = true;
-				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {wins[i, 0].Text}";
+				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {global.wins[i, 0].Text}";
 
-				if (wins[i, 0].Text == "X") scoreScene.x_wins += 1;
+				if (global.wins[i, 0].Text == "X") scoreScene.x_wins += 1;
 				else scoreScene.o_wins += 1;
-				
+
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
-				BlockBtns(true);
-				return true;  
-			}
-
-			if ((wins[i, 0].Text != wins[i, 1].Text && wins[i, 1].Text != wins[i, 2].Text &&
-			     (wins[i, 0].Text == "X" || wins[i, 0].Text == "O")) && moves == 0)
-			{
-				win = false;
-				popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
-				GetTree().Root.AddChild(popUpInstant);
-				BlockBtns(true);
 				return true;
 			}
+		}
+		if (moves == 0)
+		{
+			win = false;
+			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
+			GetTree().Root.AddChild(popUpInstant);
+			return true;
 		}
 		return false;
 	}

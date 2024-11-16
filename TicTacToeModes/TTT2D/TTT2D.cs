@@ -17,111 +17,108 @@ public partial class TTT2D : Control
 	int[] bestMove = new int[2];
 	private int EvaluateBoard(Button[,] tttBoard)
 	{
-	    for (int i = 0; i < 3; i++)
-	    {
-	        if (tttBoard[i, 0].Text == tttBoard[i, 1].Text && tttBoard[i, 1].Text == tttBoard[i, 2].Text)
-	        {
-	            if (tttBoard[i, 0].Text == "O") return 10;
-	            if (tttBoard[i, 0].Text == "X") return -10;
-	        }
-	        if (tttBoard[0, i].Text == tttBoard[1, i].Text && tttBoard[1, i].Text == tttBoard[2, i].Text)
-	        {
-	            if (tttBoard[0, i].Text == "O") return 10;
-	            if (tttBoard[0, i].Text == "X") return -10;
-	        }
-	    }
-	    if (tttBoard[0, 0].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 2].Text)
-	    {
-	        if (tttBoard[0, 0].Text == "O") return 10;
-	        if (tttBoard[0, 0].Text == "X") return -10;
-	    }
-	    if (tttBoard[0, 2].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 0].Text)
-	    {
-	        if (tttBoard[0, 2].Text == "O") return 10;
-	        if (tttBoard[0, 2].Text == "X") return -10;
-	    }
-	    return 0;
-	}
+		for (int i = 0; i < 3; i++)
+		{
+			if (tttBoard[i, 0].Text == tttBoard[i, 1].Text && tttBoard[i, 1].Text == tttBoard[i, 2].Text)
+			{
+				if (tttBoard[i, 0].Text == "X") return 10;
+				if (tttBoard[i, 0].Text == "O") return -10;
+			}
+			if (tttBoard[0, i].Text == tttBoard[1, i].Text && tttBoard[1, i].Text == tttBoard[2, i].Text)
+			{
+				if (tttBoard[0, i].Text == "X") return 10;
+				if (tttBoard[0, i].Text == "O") return -10;
+			}
+		}
+		if (tttBoard[0, 0].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 2].Text)
+		{
+			if (tttBoard[0, 0].Text == "X") return 10;
+			if (tttBoard[0, 0].Text == "O") return -10;
+		}
+		if (tttBoard[0, 2].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 0].Text)
+		{
+			if (tttBoard[0, 2].Text == "X") return 10;
+			if (tttBoard[0, 2].Text == "O") return -10;
+		}
 
-	private int MiniMax(Button[,] tttBoard, int depth, bool isMaximizing)
+		return 0;
+	}
+	private int MiniMax(Button[,] tttBoard, int depth, bool isMaximizing, int maxDepth)
 	{
-	    int score = EvaluateBoard(tttBoard);
-	    if (score == 10) return score - depth;
-	    if (score == -10) return score + depth;
+		if (depth == maxDepth)
+			return EvaluateBoard(tttBoard);
 
-	    if (!tttBoard.Cast<Button>().Any(b => b.Text == "")) return 0;
+		int score = EvaluateBoard(tttBoard);
+		if (score == 10 || score == -10) return score; 
 
-	    if (isMaximizing)
-	    {
-	        int bestScore = -1000;
+		if (!tttBoard.Cast<Button>().Any(b => b.Text == ""))
+			return 0; 
 
-	        for (int i = 0; i < 3; i++)
-	        {
-	            for (int j = 0; j < 3; j++)
-	            {
-	                if (tttBoard[i, j].Text == "")
-	                {
-	                    tttBoard[i, j].Text = "O";
-	                    bestScore = Math.Max(bestScore, MiniMax(tttBoard, depth + 1, false));
-	                    tttBoard[i, j].Text = "";
-	                }
-	            }
-	        }
-	        return bestScore;
-	    }
-	    else
-	    {
-	        int bestScore = 1000;
+		int bestScore;
+		if (isMaximizing)
+		{
+			bestScore = -1000;
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					if (tttBoard[i, j].Text == "")
+					{
+						tttBoard[i, j].Text = "X";
+						bestScore = Math.Max(bestScore, MiniMax(tttBoard, depth + 1, false, maxDepth));
+						tttBoard[i, j].Text = "";
+					}
+				}
+			}
+		}
+		else
+		{
+			bestScore = 1000;
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 0; j < 3; j++)
+				{
+					if (tttBoard[i, j].Text == "")
+					{
+						tttBoard[i, j].Text = "O";
+						bestScore = Math.Min(bestScore, MiniMax(tttBoard, depth + 1, true, maxDepth));
+						tttBoard[i, j].Text = "";
+					}
+				}
+			}
+		}
 
-	        for (int i = 0; i < 3; i++)
-	        {
-	            for (int j = 0; j < 3; j++)
-	            {
-	                if (tttBoard[i, j].Text == "")
-	                {
-	                    tttBoard[i, j].Text = "X";
-	                    bestScore = Math.Min(bestScore, MiniMax(tttBoard, depth + 1, true));
-	                    tttBoard[i, j].Text = "";
-	                }
-	            }
-	        }
-	        return bestScore;
-	    }
+		return bestScore;
 	}
-
 	private Button BestMove()
 	{
 		int bestScore = -1000;
-		if (board[1, 1].Text == "")
-		{
-			board[1, 1].Text = "O";
-			return board[1, 1];
-		}
-
+		int moveX = -1, moveY = -1;
+		
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
 				if (board[i, j].Text == "")
 				{
-					board[i, j].Text = "O";
-					int moveScore = MiniMax(board, 0, false);
+					board[i, j].Text = "X";
+					int moveScore = MiniMax(board, 0, false,5); 
 					board[i, j].Text = "";
 
 					if (moveScore > bestScore)
 					{
 						bestScore = moveScore;
-						bestMove[0] = i;
-						bestMove[1] = j;
+						moveX = i;
+						moveY = j;
 					}
 				}
 			}
 		}
-
-		var aiButton = board[bestMove[0], bestMove[1]];
-		aiButton.Text = "O";
+		var aiButton = board[moveX, moveY];
+		aiButton.Text = "X";
 		return aiButton;
 	}
+
 
 	private void AddBtnsToList()
 	{

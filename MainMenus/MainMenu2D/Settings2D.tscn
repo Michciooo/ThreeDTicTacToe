@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://blvf4x7pgqn8u"]
+[gd_scene load_steps=7 format=3 uid="uid://blvf4x7pgqn8u"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu2D/Settings2D.cs" id="1_8pgod"]
 
@@ -19,6 +19,15 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
+
+[sub_resource type="SystemFont" id="SystemFont_13ant"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_upc1b"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_8v2pb"]
+font_names = PackedStringArray("Kristen ITC")
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -56,6 +65,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 130.0
 grow_horizontal = 2
+theme_override_fonts/font = SubResource("SystemFont_13ant")
 theme_override_font_sizes/font_size = 60
 text = "SETTINGS"
 horizontal_alignment = 1
@@ -84,6 +94,7 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_fonts/font = SubResource("SystemFont_upc1b")
 theme_override_font_sizes/font_size = 50
 text = "Main menu"
 
@@ -91,6 +102,7 @@ text = "Main menu"
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 size_flags_vertical = 6
+theme_override_fonts/font = SubResource("SystemFont_8v2pb")
 theme_override_font_sizes/font_size = 50
 text = "App exit"
 

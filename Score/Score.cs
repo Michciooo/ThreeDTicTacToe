@@ -17,7 +17,7 @@ public partial class Score : Control
 			triangleWinsLabel.Visible = true;
 		}
 
-		if (global.player3DMode == "4x4x4")
+		if (global.player3DMode == "4x4x4" || global.Mode=="2D")
 		{
 			triangleWinsLabel.Visible = false;
 		}

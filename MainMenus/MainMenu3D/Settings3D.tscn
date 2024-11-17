@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsxbjvka16uen"]
+[gd_scene load_steps=10 format=3 uid="uid://dsxbjvka16uen"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu3D/Settings3D.cs" id="1_3fn24"]
 
@@ -19,6 +19,24 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
+
+[sub_resource type="SystemFont" id="SystemFont_56380"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_xvygg"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_ipuau"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_ppp2y"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_87u05"]
+font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="SystemFont" id="SystemFont_ukjfl"]
+font_names = PackedStringArray("Kristen ITC")
 
 [node name="Settings" type="Control"]
 auto_translate_mode = 1
@@ -57,6 +75,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 130.0
 grow_horizontal = 2
+theme_override_fonts/font = SubResource("SystemFont_56380")
 theme_override_font_sizes/font_size = 60
 text = "SETTINGS"
 horizontal_alignment = 1
@@ -84,30 +103,35 @@ size_flags_vertical = 0
 [node name="Label" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_xvygg")
 theme_override_font_sizes/font_size = 50
 text = "Cube rotating"
 
 [node name="Label2" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_ipuau")
 theme_override_font_sizes/font_size = 50
 text = "Marking fields"
 
 [node name="Label3" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_ppp2y")
 theme_override_font_sizes/font_size = 50
 text = "Restart cube position"
 
 [node name="Label4" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_87u05")
 theme_override_font_sizes/font_size = 50
 text = "Main menu"
 
 [node name="Label5" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_ukjfl")
 theme_override_font_sizes/font_size = 50
 text = "App exit"
 

@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://crit7oidgfe05"]
+[gd_scene load_steps=11 format=3 uid="uid://crit7oidgfe05"]
 
 [ext_resource type="Script" path="res://TicTacToeModes/TTT3D/TTT3D.cs" id="1_ysiwb"]
 [ext_resource type="PackedScene" uid="uid://bvsxm6x1bmqtx" path="res://TicTacToeModes/TTT3D/FourGridMode/Visualisation4x4x4.tscn" id="2_e5hhc"]
+[ext_resource type="PackedScene" uid="uid://ccuho5npvjmt1" path="res://TicTacToeModes/TTT3D/ThreePMode/Visualisation3x3x3.tscn" id="3_6mvo4"]
 [ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://TicTacToeModes/TTT3D/FourGridMode/GamePlay4x4x4.tscn" id="3_j3bv6"]
 [ext_resource type="Script" path="res://TicTacToeModes/TTT3D/FourGridMode/GamePlay4x4x4.cs" id="5_5xmxv"]
 [ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score/Score.tscn" id="5_euh6n"]
+[ext_resource type="PackedScene" uid="uid://by8ql24k3shf1" path="res://TicTacToeModes/TTT3D/ThreePMode/GamePlay3x3x3.tscn" id="6_us4t3"]
+[ext_resource type="Script" path="res://TicTacToeModes/TTT3D/ThreePMode/GamePlay3x3x3.cs" id="7_xe0hw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gn1mk"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -32,6 +35,8 @@ script = ExtResource("1_ysiwb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 400, -70, 400)
 
 [node name="Visualisation4x4x4" parent="." instance=ExtResource("2_e5hhc")]
+
+[node name="Visualisation3x3x3" parent="." instance=ExtResource("3_6mvo4")]
 
 [node name="leftSide" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(700, 1000)
@@ -67,7 +72,15 @@ grow_horizontal = 0
 size_flags_horizontal = 8
 
 [node name="GamePlay4x4x4" parent="rightSide" instance=ExtResource("3_j3bv6")]
+visible = false
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 script = ExtResource("5_5xmxv")
+
+[node name="GamePlay3x3x3" parent="rightSide" instance=ExtResource("6_us4t3")]
+visible = false
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+script = ExtResource("7_xe0hw")

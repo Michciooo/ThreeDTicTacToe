@@ -15,6 +15,7 @@ font_names = PackedStringArray("Kristen ITC")
 
 [sub_resource type="SystemFont" id="SystemFont_fjh2u"]
 font_names = PackedStringArray("Kristen ITC")
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_c6kci"]
 font_names = PackedStringArray("Kristen ITC")

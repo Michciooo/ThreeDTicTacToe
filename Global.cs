@@ -24,10 +24,15 @@ public partial class Global : Node
     public List<Button> SecondDBtn = new List<Button>(16);
     public List<Button> ThirdDBtn = new List<Button>(16);
     public List<Button> FourthDBtn = new List<Button>(16);
+    
+    public List<Button> FirstDBtn3 = new List<Button>(9);
+    public List<Button> SecondDBtn3 = new List<Button>(9);
+    public List<Button> ThirdDBtn3 = new List<Button>(9);
 
-    public Button[,] wins;
+    public Button[,] wins4x4x4;
+    public Button[,] wins3x3x3;
 
-    public void InitializeWins()
+    public void InitializeWins4x4x4()
     {
 	    for (int i = 0; i < 16; i++)
 	    {
@@ -36,7 +41,7 @@ public partial class Global : Node
 		    ThirdDBtn.Add(new Button());
 		    FourthDBtn.Add(new Button());
 	    }
-	    wins = new Button[,]
+	    wins4x4x4 = new Button[,]
 	    {
 		    //first grid
 		    { FirstDBtn[0], FirstDBtn[1], FirstDBtn[2], FirstDBtn[3] },
@@ -124,6 +129,83 @@ public partial class Global : Node
 
 		    { FirstDBtn[12], SecondDBtn[9], ThirdDBtn[6], FourthDBtn[3] },
 		    { FirstDBtn[3], SecondDBtn[6], ThirdDBtn[9], FourthDBtn[12] },
+		    
+		    //huj wie jak to sie nazywa
+		    { FirstDBtn[0], SecondDBtn[0], ThirdDBtn[0],FourthDBtn[0] },
+		    { FirstDBtn[1], SecondDBtn[1], ThirdDBtn[1],FourthDBtn[1] },
+		    { FirstDBtn[2], SecondDBtn[2], ThirdDBtn[2],FourthDBtn[2] },
+		    { FirstDBtn[3], SecondDBtn[3], ThirdDBtn[3],FourthDBtn[3] },
+		    
+		    { FirstDBtn[4], SecondDBtn[4], ThirdDBtn[4],FourthDBtn[4] },
+		    { FirstDBtn[5], SecondDBtn[5], ThirdDBtn[5],FourthDBtn[5] },
+		    { FirstDBtn[6], SecondDBtn[6], ThirdDBtn[6],FourthDBtn[6] },
+		    { FirstDBtn[7], SecondDBtn[7], ThirdDBtn[7],FourthDBtn[7] },
+		    
+		    { FirstDBtn[8], SecondDBtn[8], ThirdDBtn[8],FourthDBtn[8] },
+		    { FirstDBtn[9], SecondDBtn[9], ThirdDBtn[9],FourthDBtn[9] },
+		    { FirstDBtn[10], SecondDBtn[10], ThirdDBtn[10],FourthDBtn[10] },
+		    { FirstDBtn[11], SecondDBtn[11], ThirdDBtn[11],FourthDBtn[11] },
+		    
+		    { FirstDBtn[12], SecondDBtn[12], ThirdDBtn[12],FourthDBtn[12] },
+		    { FirstDBtn[13], SecondDBtn[13], ThirdDBtn[13],FourthDBtn[13] },
+		    { FirstDBtn[14], SecondDBtn[14], ThirdDBtn[14],FourthDBtn[14] },
+		    { FirstDBtn[15], SecondDBtn[15], ThirdDBtn[15],FourthDBtn[15] },
+	    };
+    }
+    public void InitializeWins3x3x3()
+    {
+	    for (int i = 0; i < 9; i++)
+	    {
+		    FirstDBtn3.Add(new Button());
+		    SecondDBtn3.Add(new Button());
+		    ThirdDBtn3.Add(new Button());
+	    }
+	    wins3x3x3 = new Button[,]
+	    {
+			{ FirstDBtn3[0], FirstDBtn3[1], FirstDBtn3[2] },
+	        { FirstDBtn3[3], FirstDBtn3[4], FirstDBtn3[5] },
+	        { FirstDBtn3[6], FirstDBtn3[7], FirstDBtn3[8] },
+	        { FirstDBtn3[0], FirstDBtn3[3], FirstDBtn3[6] },
+	        { FirstDBtn3[1], FirstDBtn3[4], FirstDBtn3[7] },
+	        { FirstDBtn3[2], FirstDBtn3[5], FirstDBtn3[8] },
+	        { FirstDBtn3[0], FirstDBtn3[4], FirstDBtn3[8] },
+	        { FirstDBtn3[2], FirstDBtn3[4], FirstDBtn3[6] },
+
+	        // Druga plansza
+	        { SecondDBtn3[0], SecondDBtn3[1], SecondDBtn3[2] },
+	        { SecondDBtn3[3], SecondDBtn3[4], SecondDBtn3[5] },
+	        { SecondDBtn3[6], SecondDBtn3[7], SecondDBtn3[8] },
+	        { SecondDBtn3[0], SecondDBtn3[3], SecondDBtn3[6] },
+	        { SecondDBtn3[1], SecondDBtn3[4], SecondDBtn3[7] },
+	        { SecondDBtn3[2], SecondDBtn3[5], SecondDBtn3[8] },
+	        { SecondDBtn3[0], SecondDBtn3[4], SecondDBtn3[8] },
+	        { SecondDBtn3[2], SecondDBtn3[4], SecondDBtn3[6] },
+
+	        // Trzecia plansza
+	        { ThirdDBtn3[0], ThirdDBtn3[1], ThirdDBtn3[2] },
+	        { ThirdDBtn3[3], ThirdDBtn3[4], ThirdDBtn3[5] },
+	        { ThirdDBtn3[6], ThirdDBtn3[7], ThirdDBtn3[8] },
+	        { ThirdDBtn3[0], ThirdDBtn3[3], ThirdDBtn3[6] },
+	        { ThirdDBtn3[1], ThirdDBtn3[4], ThirdDBtn3[7] },
+	        { ThirdDBtn3[2], ThirdDBtn3[5], ThirdDBtn3[8] },
+	        { ThirdDBtn3[0], ThirdDBtn3[4], ThirdDBtn3[8] },
+	        { ThirdDBtn3[2], ThirdDBtn3[4], ThirdDBtn3[6] },
+
+	        // Połączenia między planszami
+	        { FirstDBtn3[0], SecondDBtn3[0], ThirdDBtn3[0] },
+	        { FirstDBtn3[1], SecondDBtn3[1], ThirdDBtn3[1] },
+	        { FirstDBtn3[2], SecondDBtn3[2], ThirdDBtn3[2] },
+	        { FirstDBtn3[3], SecondDBtn3[3], ThirdDBtn3[3] },
+	        { FirstDBtn3[4], SecondDBtn3[4], ThirdDBtn3[4] },
+	        { FirstDBtn3[5], SecondDBtn3[5], ThirdDBtn3[5] },
+	        { FirstDBtn3[6], SecondDBtn3[6], ThirdDBtn3[6] },
+	        { FirstDBtn3[7], SecondDBtn3[7], ThirdDBtn3[7] },
+	        { FirstDBtn3[8], SecondDBtn3[8], ThirdDBtn3[8] },
+
+	        { FirstDBtn3[0], SecondDBtn3[4], ThirdDBtn3[8] },
+	        { FirstDBtn3[2], SecondDBtn3[4], ThirdDBtn3[6] },
+	        { FirstDBtn3[6], SecondDBtn3[4], ThirdDBtn3[2] },
+	        { FirstDBtn3[8], SecondDBtn3[4], ThirdDBtn3[0] },
 	    };
     }
 }

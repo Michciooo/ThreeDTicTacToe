@@ -6,7 +6,6 @@ namespace threeDTicTacToe
 {
 	public partial class MainMenu3D : Node3D
 	{
-		private Global global;
 		private Dictionary<int,string> playersTypes = new Dictionary<int,string>
 		{
 			{ 1, "Human" },
@@ -17,10 +16,6 @@ namespace threeDTicTacToe
 		public override void _Ready()
 		{
 			Input.MouseMode = Input.MouseModeEnum.Confined;
-			
-			var global = GetNode<Global>("/root/Global");
-			global.player3DMode = "4x4x4";
-			
 			var settings = GetNode<TextureButton>("Main/Settings/SettingsBtn");
 			var playerOneBtn = GetNode<OptionButton>("Main/MainContainer/Container/left/playerOneBtn");
 			var playerTwoBtn = GetNode<OptionButton>("Main/MainContainer/Container/center/playerTwoBtn");
@@ -29,6 +24,9 @@ namespace threeDTicTacToe
 			var threePMode = GetNode<CheckBox>("Main/MainContainer/ModesContainer/threePMode");
 			var playBtn = GetNode<Button>("Main/MainContainer/playBtn");
 			
+			var global = GetNode<Global>("/root/Global");
+			global.player3DMode = "4x4x4";
+
 			if (settings != null) settings.Pressed += SettingsPress;
 
 			playerOneBtn.ItemSelected += FirstPlayerSelect;
@@ -36,8 +34,8 @@ namespace threeDTicTacToe
 			if(playerThreeBtn != null) playerThreeBtn.ItemSelected += ThirdPlayerSelect;
 			fourxfourGridmode.Pressed += FourxfourGridmodeOnPressed;
 			threePMode.Pressed += ThreePModeOnPressed;
-			playBtn.Pressed+= PlayBtnOnPressed;
 			
+			playBtn.Pressed+= PlayBtnOnPressed;
 		}
 		private void PlayBtnOnPressed()
 		{
@@ -141,6 +139,7 @@ namespace threeDTicTacToe
 		{
 			var global = GetNode<Global>("/root/Global");
 			global.player3DMode = "4x4x4";
+			
 			var playerThreeContainer = GetNode<Container>("Main/MainContainer/Container/right");
 			playerThreeContainer.Visible = false;
 		}
@@ -148,6 +147,7 @@ namespace threeDTicTacToe
 		{
 			var global = GetNode<Global>("/root/Global");
 			global.player3DMode = "3x3x3";
+			
 			var playerThreeContainer = GetNode<Container>("Main/MainContainer/Container/right");
 			playerThreeContainer.Visible = true;
 		}

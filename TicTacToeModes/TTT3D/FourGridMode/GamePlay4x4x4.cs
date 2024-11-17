@@ -22,7 +22,7 @@ public partial class GamePlay4x4x4 : Control
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
 		var global = GetNode<Global>("/root/Global");
-		restartButton.Pressed +=() => RestartGame();
+		restartButton.Pressed += RestartGame;
 		
 		HBoxContainer lay1 = GetNode<HBoxContainer>("firstD/lay1");
 		HBoxContainer lay2 = GetNode<HBoxContainer>("firstD/lay2");
@@ -43,29 +43,22 @@ public partial class GamePlay4x4x4 : Control
 		HBoxContainer lay14 = GetNode<HBoxContainer>("fourthD/lay14");
 		HBoxContainer lay15 = GetNode<HBoxContainer>("fourthD/lay15");
 		HBoxContainer lay16 = GetNode<HBoxContainer>("fourthD/lay16");
-		
+
 		if (global.player3DMode == "4x4x4")
 		{
 			TTT3D main = GetNode<TTT3D>("/root/TTT3D");
-			main.Create_Visualisation();
-			Create_Dimensions4x4x4(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9, lay10, lay11, lay12,lay13, lay14, lay15, lay16);
-
-			if (global.player13D == "Easy Computer")
-			{
-				_playerTurn = false;
-				EasyComputer();
-			}
-			else if (global.player13D == "Human")
-			{
-				_playerTurn = true;
-			}
+			main.Create_Visualisation4x4x4();
+			Create_Dimensions4x4x4(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9, lay10, lay11, lay12, lay13,
+				lay14, lay15, lay16);
 		}
-		if(global.player3DMode == "3x3x3") GD.Print("3x3x3");
+		_playerTurn = global.player13D == "Human";
+		if (!_playerTurn) EasyComputer();
 		AddToDictionary();
 	}
 
 	public void RestartGame()
 	{
+		moves = 64;
 		foreach (Button button in TttBtns)
 		{
 			button.Text = "";
@@ -76,7 +69,7 @@ public partial class GamePlay4x4x4 : Control
 			label.Text = "";
 		}
 		BlockBtns(false);
-		foreach (var btn in TttBtns)
+		foreach (var btn in Buttons)
 		{
 			btn.MouseEntered += () => OnMouseEntered(btn);
 			btn.SetDefaultCursorShape(CursorShape.PointingHand);
@@ -158,6 +151,7 @@ public partial class GamePlay4x4x4 : Control
 	public void EasyComputer(Button btn = null)
 	{
 		if (win || WhoWon()) return;
+		
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
@@ -181,11 +175,8 @@ public partial class GamePlay4x4x4 : Control
 
 			moves -= 1;
 			_playerTurn = !_playerTurn;
-			if (WhoWon())
-			{
-				BlockBtns(true);
-				return;
-			}
+			if (WhoWon()) return;
+			
 		}
 		if (!_playerTurn)
 		{
@@ -201,11 +192,7 @@ public partial class GamePlay4x4x4 : Control
 
 				moves -= 1;
 				_playerTurn = !_playerTurn;
-				if (WhoWon())
-				{
-					BlockBtns(true);
-					return;
-				}
+				if (WhoWon()) return;
 			}
 		}
 	}
@@ -236,7 +223,6 @@ public partial class GamePlay4x4x4 : Control
 				label3D.Text = btn.Text;
 				moves -= 1;
 				_playerTurn = false;
-				if(WhoWon()) BlockBtns(true);
 			}
 			else
 			{
@@ -245,9 +231,10 @@ public partial class GamePlay4x4x4 : Control
 				moves -= 1;
 				_playerTurn = true;
 				label3D.Text = btn.Text;
-				if(WhoWon()) BlockBtns(true);
 			}
 		}
+
+		WhoWon();
 	}
 
 	private void AiComputer(Button btn = null)
@@ -281,21 +268,22 @@ public partial class GamePlay4x4x4 : Control
 		var popUp = GD.Load<PackedScene>("res://WinPopUp/WinPopUp.tscn");
 		var scoreScene = GetNode<Score>("/root/TTT3D/leftSide/Score");
 		var popUpInstant = popUp.Instantiate();
-		global.InitializeWins();
+		global.InitializeWins4x4x4();
 		
-		for (int i = 0; i < global.wins.GetLength(0); i++)
+		for (int i = 0; i < global.wins4x4x4.GetLength(0); i++)
 		{
-			if (global.wins[i, 0].Text == global.wins[i, 1].Text && global.wins[i, 1].Text == global.wins[i, 2].Text &&
-			    global.wins[i, 2].Text == global.wins[i, 3].Text && (global.wins[i, 0].Text == "X" || global.wins[i, 0].Text == "O"))
+			if (global.wins4x4x4[i, 0].Text == global.wins4x4x4[i, 1].Text && global.wins4x4x4[i, 1].Text == global.wins4x4x4[i, 2].Text &&
+			    global.wins4x4x4[i, 2].Text == global.wins4x4x4[i, 3].Text && (global.wins4x4x4[i, 0].Text == "X" || global.wins4x4x4[i, 0].Text == "O"))
 			{
 				win = true;
-				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {global.wins[i, 0].Text}";
+				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {global.wins4x4x4[i, 0].Text}";
 
-				if (global.wins[i, 0].Text == "X") scoreScene.x_wins += 1;
+				if (global.wins4x4x4[i, 0].Text == "X") scoreScene.x_wins += 1;
 				else scoreScene.o_wins += 1;
 
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
+				BlockBtns(true);
 				return true;
 			}
 		}
@@ -304,6 +292,7 @@ public partial class GamePlay4x4x4 : Control
 			win = false;
 			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
 			GetTree().Root.AddChild(popUpInstant);
+			BlockBtns(true);
 			return true;
 		}
 		return false;

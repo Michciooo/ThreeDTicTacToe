@@ -170,8 +170,7 @@ public partial class Global : Node
 	        { FirstDBtn3[2], FirstDBtn3[5], FirstDBtn3[8] },
 	        { FirstDBtn3[0], FirstDBtn3[4], FirstDBtn3[8] },
 	        { FirstDBtn3[2], FirstDBtn3[4], FirstDBtn3[6] },
-
-	        // Druga plansza
+	        
 	        { SecondDBtn3[0], SecondDBtn3[1], SecondDBtn3[2] },
 	        { SecondDBtn3[3], SecondDBtn3[4], SecondDBtn3[5] },
 	        { SecondDBtn3[6], SecondDBtn3[7], SecondDBtn3[8] },
@@ -180,8 +179,7 @@ public partial class Global : Node
 	        { SecondDBtn3[2], SecondDBtn3[5], SecondDBtn3[8] },
 	        { SecondDBtn3[0], SecondDBtn3[4], SecondDBtn3[8] },
 	        { SecondDBtn3[2], SecondDBtn3[4], SecondDBtn3[6] },
-
-	        // Trzecia plansza
+	        
 	        { ThirdDBtn3[0], ThirdDBtn3[1], ThirdDBtn3[2] },
 	        { ThirdDBtn3[3], ThirdDBtn3[4], ThirdDBtn3[5] },
 	        { ThirdDBtn3[6], ThirdDBtn3[7], ThirdDBtn3[8] },
@@ -190,8 +188,7 @@ public partial class Global : Node
 	        { ThirdDBtn3[2], ThirdDBtn3[5], ThirdDBtn3[8] },
 	        { ThirdDBtn3[0], ThirdDBtn3[4], ThirdDBtn3[8] },
 	        { ThirdDBtn3[2], ThirdDBtn3[4], ThirdDBtn3[6] },
-
-	        // Połączenia między planszami
+	        
 	        { FirstDBtn3[0], SecondDBtn3[0], ThirdDBtn3[0] },
 	        { FirstDBtn3[1], SecondDBtn3[1], ThirdDBtn3[1] },
 	        { FirstDBtn3[2], SecondDBtn3[2], ThirdDBtn3[2] },

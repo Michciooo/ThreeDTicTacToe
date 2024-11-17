@@ -175,13 +175,14 @@ public partial class GamePlay3x3x3 : Control
 		for (int i = 0; i < global.wins3x3x3.GetLength(0); i++)
 		{
 			if (global.wins3x3x3[i, 0].Text == global.wins3x3x3[i, 1].Text && global.wins3x3x3[i, 1].Text == global.wins3x3x3[i, 2].Text 
-			 && (global.wins3x3x3[i, 0].Text == "X" || global.wins3x3x3[i, 0].Text == "O"))
+			 && (global.wins3x3x3[i, 0].Text == "X" || global.wins3x3x3[i, 0].Text == "O" || global.wins3x3x3[i, 0].Text == "\u25b3"))
 			{
 				win = true;
 				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {global.wins3x3x3[i, 0].Text}";
 
 				if (global.wins3x3x3[i, 0].Text == "X") scoreScene.x_wins += 1;
-				else scoreScene.o_wins += 1;
+				if(global.wins3x3x3[i, 0].Text == "O") scoreScene.o_wins += 1;
+				if(global.wins3x3x3[i,0].Text =="\u25b3") scoreScene.triangle_wins += 1;
 
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace threeDTicTacToe
 {
-    public partial class Settings3D : Control
+    public partial class Settings : Control
     {
         private List<Key> keysList = new List<Key>();
 
@@ -18,28 +18,23 @@ namespace threeDTicTacToe
         {
             var btn1 = this.GetNode<Button>("Main/RestartBtns/btn1");
             var btn2 = this.GetNode<Button>("Main/RestartBtns/btn2");
-            var btn3 = this.GetNode<Button>("Main/RestartBtns/btn3");
 
             btn1.Pressed += () => btnPress(btn1);
             btn2.Pressed += () => btnPress(btn2);
-            btn3.Pressed += () => btnPress(btn3);
         }
 
         private void Binding()
         {
             Global global = (Global)GetNode("/root/Global");
-            var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
-            var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
-            var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
-
-            shiftLockTextInput.Text = global.shiftLockKey.ToString();
-            unshiftLockTextInput.Text = global.unShiftLockKey.ToString();
-            restartPosCubeTextInput.Text = global.restartPosCubeKey.ToString();
+            var appExitTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
+            var mainMenuTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
+            
+            appExitTextInput.Text = global.appExitKey.ToString();
+            mainMenuTextInput.Text = global.mainMenuKey.ToString();
 
             keysList.Clear();
-            keysList.Add(global.shiftLockKey);
-            keysList.Add(global.unShiftLockKey);
-            keysList.Add(global.restartPosCubeKey);
+            keysList.Add(global.mainMenuKey);
+            keysList.Add(global.appExitKey);
         }
 
         private void btnPress(Button button)
@@ -50,24 +45,21 @@ namespace threeDTicTacToe
 
             if (button.Name == "btn1")
             {
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
                 oldKey = global.shiftLockKey;
             }
             else if (button.Name == "btn2")
             {
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
                 oldKey = global.unShiftLockKey;
             }
-            else if (button.Name == "btn3")
-            {
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
-                oldKey = global.restartPosCubeKey;
-            }
+
             if (targetTextInput != null)
             {
                 UpdateKeyBinding(targetTextInput, button.Name, global, oldKey);
             }
         }
+
         private void UpdateKeyBinding(TextEdit textInput, string actionName, Global global, Key oldKey)
         {
             if (oldKey != Key.Unknown)
@@ -81,23 +73,18 @@ namespace threeDTicTacToe
         public override void _Input(InputEvent @event)
         {
             Global global = (Global)GetNode("/root/Global");
-            var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
-            var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
-            var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
+            var appExitTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
+            var mainMenuTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
 
             if (@event is InputEventKey eventKey && eventKey.Pressed)
             {
-                if (shiftLockTextInput.HasFocus())
+                if (mainMenuTextInput.HasFocus())
                 {
-                    AssignKey(eventKey, shiftLockTextInput, ref global.shiftLockKey);
+                    AssignKey(eventKey, mainMenuTextInput, ref global.mainMenuKey);
                 }
-                else if (unshiftLockTextInput.HasFocus())
+                else if (appExitTextInput.HasFocus())
                 {
-                    AssignKey(eventKey, unshiftLockTextInput, ref global.unShiftLockKey);
-                }
-                else if (restartPosCubeTextInput.HasFocus())
-                {
-                    AssignKey(eventKey, restartPosCubeTextInput, ref global.restartPosCubeKey);
+                    AssignKey(eventKey, appExitTextInput, ref global.appExitKey);
                 }
             }
         }
@@ -137,7 +124,7 @@ namespace threeDTicTacToe
         public override void _Process(double delta)
         {
             var mainMenuBtn = this.GetNode<Button>("mainMenu");
-            if (mainMenuBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu3D/MainMenu3D.tscn");
+            if (mainMenuBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
         }
     }
 }

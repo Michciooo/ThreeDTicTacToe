@@ -13,14 +13,11 @@ namespace threeDTicTacToe
 		};
 		public override void _Ready()
 		{
-			var settings = GetNode<TextureButton>("Main/Settings/SettingsBtn");
 			var playerOneBtn = GetNode<OptionButton>("Main/MainContainer/Container/left/playerOneBtn");
 			var playerTwoBtn = GetNode<OptionButton>("Main/MainContainer/Container/right/playerTwoBtn");
 			var playBtn = GetNode<Button>("Main/MainContainer/playBtn");
 
 			Input.MouseMode = Input.MouseModeEnum.Confined;
-
-			settings.Pressed += SettingsPress;
 			playerOneBtn.ItemSelected += FirstPlayerSelect;
 			playerTwoBtn.ItemSelected += SecondPlayerSelect;
 			playBtn.Pressed += PlayBtnOnPressed;
@@ -82,11 +79,6 @@ namespace threeDTicTacToe
 			}
 			if(playersTypes.ContainsKey(2)) playersTypes[2] = playerTwoBtn.Text;
 			else playersTypes.Add(2,playerTwoBtn.Text);
-		}
-
-		private void SettingsPress()
-		{
-			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu2D/Settings2D.tscn");
 		}
 		public override void _Process(double delta)
 		{

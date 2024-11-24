@@ -140,14 +140,14 @@ public partial class GamePlay3x3x3 : Control
 			{
 				btn.Text = playerTurn;
 				playerTurn = playerTurns[1];
-				playerTurnLabel.Text = $"Player turn : {playerTurn}";
+				playerTurnLabel.Text = $"Player Turn : {playerTurn}";
 				label3D.Text = btn.Text;
 			}
 			else if(playerTurn==playerTurns[1])
 			{
 				btn.Text = playerTurn;
 				playerTurn = playerTurns[2];
-				playerTurnLabel.Text = $"Player turn : {playerTurn}";
+				playerTurnLabel.Text = $"Player Turn : {playerTurn}";
 				moves -= 1;
 				label3D.Text = btn.Text;
 			}
@@ -156,7 +156,7 @@ public partial class GamePlay3x3x3 : Control
 			{
 				btn.Text = playerTurn;
 				playerTurn = playerTurns[0];
-				playerTurnLabel.Text = $"Player turn : {playerTurn}";
+				playerTurnLabel.Text = $"Player Turn : {playerTurn}";
 				moves -= 1;
 				label3D.Text = btn.Text;
 			}

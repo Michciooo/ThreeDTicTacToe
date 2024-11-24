@@ -8,16 +8,254 @@ namespace threeDTicTacToe;
 
 public partial class GamePlay4x4x4 : Control
 {
+	public List<Button> TttBtns = new List<Button>();
+	private List<Button> Buttons = new List<Button>();
+	public List<Label3D> Labels = new List<Label3D>();
+	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>();
+
 	bool _playerTurn;
 	bool win = false;
 	private int moves = 64;
-	
-	public List<Button> TttBtns = new List<Button>();
-	private List<Button> Buttons = new List<Button>();
 
-	public List<Label3D> Labels = new List<Label3D>();
-	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>();
-	
+	Button[,,] board = new Button[4,4,4];
+	int[] bestMove = new int[2];
+
+	private int SimulateBoard(Button[,,] tttBoard)
+	{
+		for (int x = 0; x < 4; x++)
+		{
+			for (int y = 0; y < 4; y++)
+			{
+				// horizontal i vertical 2D
+				if (tttBoard[y, 0, x].Text == tttBoard[y, 1, x].Text &&
+				    tttBoard[y, 1, x].Text == tttBoard[y, 2, x].Text &&
+				    tttBoard[y, 2, x].Text == tttBoard[y, 3, x].Text)
+				{
+					if (tttBoard[y, 0, x].Text == "X") return 10;
+					if (tttBoard[y, 0, x].Text == "O") return -10;
+
+					if (tttBoard[y, 1, x].Text == "X") return 10;
+					if (tttBoard[y, 1, x].Text == "O") return -10;
+
+					if (tttBoard[y, 2, x].Text == "X") return 10;
+					if (tttBoard[y, 2, x].Text == "O") return -10;
+
+					if (tttBoard[y, 3, x].Text == "X") return 10;
+					if (tttBoard[y, 3, x].Text == "O") return -10;
+				}
+				if (tttBoard[0, y, x].Text == tttBoard[1, y, x].Text &&
+				    tttBoard[1, y, x].Text == tttBoard[2, y, x].Text &&
+				    tttBoard[2, y, x].Text == tttBoard[3, y, x].Text)
+				{
+					if (tttBoard[0, y, x].Text == "X") return 10;
+					if (tttBoard[0, y, x].Text == "O") return -10;
+
+					if (tttBoard[1, y, x].Text == "X") return 10;
+					if (tttBoard[1, y, x].Text == "O") return -10;
+
+					if (tttBoard[2, y, x].Text == "X") return 10;
+					if (tttBoard[2, y, x].Text == "O") return -10;
+
+					if (tttBoard[3, y, x].Text == "X") return 10;
+					if (tttBoard[3, y, x].Text == "O") return -10;
+				}
+				if (tttBoard[y,0, x].Text == tttBoard[y,1, x].Text &&
+				    tttBoard[y, 1,x].Text == tttBoard[y,2, x].Text &&
+				    tttBoard[y,2, x].Text == tttBoard[y,3,x].Text)
+				{
+					if(tttBoard[y,0,x].Text == "X") return 10;
+					if(tttBoard[y,0,x].Text == "O") return -10;
+					
+					if(tttBoard[y,1,x].Text == "X") return 10;
+					if(tttBoard[y,1,x].Text == "O") return -10;
+					
+					if(tttBoard[y,2,x].Text == "X") return 10;
+					if(tttBoard[y,2,x].Text == "O") return -10;
+					
+					if(tttBoard[y,3,x].Text == "X") return 10;
+					if(tttBoard[y,3,x].Text == "O") return -10;
+				}
+				// skosy 2D
+				if (tttBoard[0, 0, x].Text == tttBoard[1, 1, x].Text &&
+				    tttBoard[1, 1, x].Text == tttBoard[2, 2, x].Text &&
+				    tttBoard[2, 2, x].Text == tttBoard[3, 3, x].Text)
+				{
+					if(tttBoard[0,0,x].Text == "X") return 10;
+					if(tttBoard[0,0,x].Text == "O") return -10;
+					
+					if(tttBoard[1,1,x].Text == "X") return 10;
+					if(tttBoard[1,1,x].Text == "O") return -10;
+					
+					if(tttBoard[2,2,x].Text == "X") return 10;
+					if(tttBoard[2,2,x].Text == "O") return -10;
+					
+					if(tttBoard[3,3,x].Text == "X") return 10;
+					if(tttBoard[3,3,x].Text == "O") return -10;
+				}
+				// horizontal 3D
+				if (tttBoard[y, x, 0].Text == tttBoard[y, x, 1].Text &&
+				    tttBoard[y, x, 1].Text == tttBoard[y, x, 2].Text &&
+				    tttBoard[y, x, 2].Text == tttBoard[y, x, 3].Text)
+				{
+					if (tttBoard[y, x, 0].Text == "X") return 10;
+					if (tttBoard[y, x, 0].Text == "O") return -10;
+
+					if (tttBoard[y, x, 1].Text == "X") return 10;
+					if (tttBoard[y, x, 1].Text == "O") return -10;
+
+					if (tttBoard[y, x, 2].Text == "X") return 10;
+					if (tttBoard[y, x, 2].Text == "O") return -10;
+
+					if (tttBoard[y, x, 3].Text == "X") return 10;
+					if (tttBoard[y, x, 3].Text == "O") return -10;
+				}
+				// skosy 3D vertical
+				if (tttBoard[0, y, 0].Text == tttBoard[1, y, 1].Text &&
+				    tttBoard[1, y, 1].Text == tttBoard[2, y, 2].Text &&
+				    tttBoard[2, y, 2].Text == tttBoard[3, y, 3].Text)
+				{
+					if(tttBoard[0, y, 0].Text == "X") return 10;
+					if(tttBoard[0, y, 0].Text == "O") return -10;
+					
+					if(tttBoard[1, y, 1].Text == "X") return 10;
+					if(tttBoard[1, y, 1].Text == "O") return -10;
+					
+					if(tttBoard[2, y, 2].Text == "X") return 10;
+					if(tttBoard[2, y, 2].Text == "O") return -10;
+					
+					if(tttBoard[3, y, 3].Text == "X") return 10;
+					if(tttBoard[3, y, 3].Text == "O") return -10;
+				}
+				// skosy 3D horizontal
+				if (tttBoard[y, 0, 0].Text == tttBoard[y, 1, 1].Text &&
+				    tttBoard[y, 1, 1].Text == tttBoard[y, 2, 2].Text &&
+				    tttBoard[y, 2, 2].Text == tttBoard[y, 3, 3].Text)
+				{
+					if (tttBoard[y, 0, 0].Text == "X") return 10;
+					if (tttBoard[y, 0, 0].Text == "O") return -10;
+					
+					if (tttBoard[y, 1, 1].Text == "X") return 10;
+					if (tttBoard[y, 1, 1].Text == "O") return -10;
+					
+					if (tttBoard[y, 2, 2].Text == "X") return 10;
+					if (tttBoard[y, 2, 2].Text == "O") return -10;
+					
+					if (tttBoard[y, 3, 3].Text == "X") return 10;
+					if (tttBoard[y, 3, 3].Text == "O") return -10;
+				}
+			}
+		}
+		// skosy 3D
+		if (tttBoard[0, 0, 0].Text == tttBoard[1, 1, 1].Text && tttBoard[1, 1, 1].Text == tttBoard[2, 2, 2].Text &&
+		    tttBoard[2, 2, 2].Text == tttBoard[3, 3, 3].Text)
+		{
+			if (tttBoard[1, 1, 1].Text == "X") return 10;
+			if (tttBoard[1, 1, 1].Text == "O") return -10;
+		}
+		if (tttBoard[0, 3, 0].Text == tttBoard[1, 2, 1].Text && tttBoard[1, 2, 1].Text == tttBoard[2,1, 2].Text &&
+		    tttBoard[2, 1, 2].Text == tttBoard[3, 0, 3].Text)
+		{
+			if (tttBoard[1, 1, 1].Text == "X") return 10;
+			if (tttBoard[1, 1, 1].Text == "O") return -10;
+		}
+		if (tttBoard[3, 3, 0].Text == tttBoard[2, 2, 1].Text && tttBoard[2, 2, 1].Text == tttBoard[1, 1, 2].Text &&
+		    tttBoard[1,1, 2].Text == tttBoard[0,0,3].Text)
+		{
+			if (tttBoard[1, 1, 1].Text == "X") return 10;
+			if (tttBoard[1, 1, 1].Text == "O") return -10;
+		}
+		if (tttBoard[3, 0, 0].Text == tttBoard[2, 1, 1].Text && tttBoard[2, 1, 1].Text == tttBoard[1, 2, 2].Text &&
+		    tttBoard[1, 2, 2].Text == tttBoard[0, 3, 3].Text)
+		{
+			if (tttBoard[1, 1, 1].Text == "X") return 10;
+			if (tttBoard[1, 1, 1].Text == "O") return -10;
+		}
+		return 0;
+	}
+	private int MiniMax(Button[,,] tttBoard, int depth, bool isMaximizing, int maxDepth)
+	{
+		if (depth == maxDepth)
+			return SimulateBoard(tttBoard);
+
+		int score = SimulateBoard(tttBoard);
+		if (score == 10 || score == -10) return score; 
+
+		if (!tttBoard.Cast<Button>().Any(b => b.Text == ""))
+			return 0; 
+
+		int bestScore;
+		if (isMaximizing)
+		{
+			bestScore = -1000;
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					for (int k = 0; k < 4; k++)
+					{
+						if (tttBoard[i,j,k].Text == "")
+						{
+							tttBoard[i,j,k].Text = "X";
+							bestScore = Math.Max(bestScore, MiniMax(tttBoard, depth + 1, false, maxDepth));
+							tttBoard[i,j,k].Text = "";
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			bestScore = 1000;
+			for (int i = 0; i < 4; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					for (int k = 0; k < 4; k++)
+					{
+						if (tttBoard[i,j,k].Text == "")
+						{
+							tttBoard[i,j,k].Text = "O";
+							bestScore = Math.Min(bestScore, MiniMax(tttBoard, depth + 1, true, maxDepth));
+							tttBoard[i,j,k].Text = "";
+						}
+					}
+				}
+			}
+		}
+		return bestScore;
+	}
+	private Button BestMove()
+	{
+		int bestScore = -1000;
+		int moveX = -1, moveY = -1, moveZ = -1;
+		
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				for (int k = 0; k < 4; k++)
+				{
+					if (board[i, j, k].Text == "")
+					{
+						board[i,j,k].Text = "X";
+						int moveScore = MiniMax(board, 0, false, 5);
+						board[i,j,k].Text = "";
+
+						if (moveScore > bestScore)
+						{
+							bestScore = moveScore;
+							moveX = i;
+							moveY = j;
+							moveZ = k;
+						}
+					}
+				}
+			}
+		}
+		var aiButton = board[moveX, moveY, moveZ];
+		aiButton.Text = "X";
+		return aiButton;
+	}
 	public override void _Ready()
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
@@ -52,12 +290,30 @@ public partial class GamePlay4x4x4 : Control
 				lay14, lay15, lay16);
 		}
 		_playerTurn = global.player13D == "Human";
-		if (!_playerTurn) EasyComputer();
+		
+		if (global.player13D == "Easy Computer" || global.player23D == "Easy Computer")
+		{
+			_playerTurn = global.player23D == "Easy Computer";
+			if (!_playerTurn)
+			{
+				EasyComputer();
+			}
+		}
+
+		if (global.player13D == "AI Computer" || global.player23D == "AI Computer")
+		{
+			_playerTurn = global.player23D == "AI Computer";
+			if (!_playerTurn)
+			{
+				AiComputer();
+			}
+		}
 		AddToDictionary();
 	}
 
 	public void RestartGame()
 	{
+		var global = GetNode<Global>("/root/Global");
 		moves = 64;
 		foreach (Button button in TttBtns)
 		{
@@ -73,6 +329,17 @@ public partial class GamePlay4x4x4 : Control
 		{
 			btn.MouseEntered += () => OnMouseEntered(btn);
 			btn.SetDefaultCursorShape(CursorShape.PointingHand);
+		}
+		if ((global.player13D == "Human" && global.player23D=="Easy Computer")
+		    || (global.player13D == "Easy Computer" && global.player23D=="Human"))
+		{
+			EasyComputer();
+		}
+
+		if ((global.player13D == "Human" && global.player23D == "AI Computer") ||
+		    (global.player13D == "AI Computer" && global.player23D == "Human"))
+		{
+			AiComputer();
 		}
 	}
 	public void Create_Dimensions4x4x4(HBoxContainer lay1, HBoxContainer lay2, 
@@ -135,7 +402,9 @@ public partial class GamePlay4x4x4 : Control
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
 
-					if (global.player13D == "Human" && global.player23D=="Human") btn.Pressed += () => Human(btn);
+					if (global.player13D == "Human" && global.player23D=="Human" ||
+					    global.player13D == "Human" && global.player23D=="AI Computer" ||
+					    global.player13D=="AI Computer" && global.player23D=="Human") btn.Pressed += () => Human(btn);
 					if ((global.player13D=="Human" && global.player23D == "Easy Computer") ||
 					    (global.player13D=="Easy Computer" && global.player23D=="Human"))
 					{
@@ -199,7 +468,7 @@ public partial class GamePlay4x4x4 : Control
 	public void Human(Button btn)
 	{
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
-		
+		var global = GetNode<Global>("/root/Global");
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
 			if (i < 64)
@@ -214,32 +483,68 @@ public partial class GamePlay4x4x4 : Control
 		}
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 		Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
-		if (btn.Text == "")
+		if (global.player13D == "Human" && global.player23D == "Human")
 		{
-			if (_playerTurn)
+			if (btn.Text == "")
 			{
-				btn.Text = "O";
-				playerTurnLabel.Text = "Player turn : X";
-				label3D.Text = btn.Text;
-				moves -= 1;
-				_playerTurn = false;
+				if (_playerTurn)
+				{
+					btn.Text = "O";
+					playerTurnLabel.Text = "Player turn : X";
+					label3D.Text = btn.Text;
+					moves -= 1;
+					_playerTurn = false;
+				}
+				else
+				{
+					btn.Text = "X";
+					playerTurnLabel.Text = "Player turn : O";
+					moves -= 1;
+					_playerTurn = true;
+					label3D.Text = btn.Text;
+				}
 			}
-			else
+			WhoWon();
+		}
+		if (global.player13D == "Human" && global.player23D == "AI Computer" ||
+		    global.player13D == "AI Computer" && global.player23D == "Human")
+		{
+			if (btn.Text == "")
 			{
-				btn.Text = "X";
-				playerTurnLabel.Text = "Player turn : O";
-				moves -= 1;
-				_playerTurn = true;
-				label3D.Text = btn.Text;
+				if (_playerTurn)
+				{
+					btn.Text = "O";
+					playerTurnLabel.Text = "Player Turn : O";
+					_playerTurn = false;
+					moves -= 1;
+					if (WhoWon())
+					{
+						BlockBtns(true);
+						return;
+					}
+				}
+				if(!_playerTurn)
+				{
+					AiComputer();
+				}
 			}
 		}
-
-		WhoWon();
 	}
 
-	private void AiComputer(Button btn = null)
+	private void AiComputer()
 	{
-		GD.Print("AI Computer");
+		Button aiBtn = BestMove();
+		if (aiBtn != null)
+		{
+			aiBtn.Text = "X";
+			moves -= 1;
+			_playerTurn = true;
+
+			if (WhoWon())
+			{
+				BlockBtns(true);
+			}
+		}
 	}
 	public void OnMouseEntered(Button btn)
 	{

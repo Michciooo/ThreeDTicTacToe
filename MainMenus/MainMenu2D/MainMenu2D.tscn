@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://dem4nsow1b8vr"]
+[gd_scene load_steps=9 format=3 uid="uid://dem4nsow1b8vr"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu2D/MainMenu2D.cs" id="1_dej4q"]
-[ext_resource type="Texture2D" uid="uid://c5bopv88cs5gt" path="res://icons/settings.png" id="2_p70r4"]
 
 [sub_resource type="SystemFont" id="SystemFont_x2cwt"]
 font_names = PackedStringArray("Kristen ITC")
@@ -77,22 +76,6 @@ text = "TIC TAC TOE 2D
 "
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Settings" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -200.0
-offset_bottom = 200.0
-grow_horizontal = 0
-
-[node name="SettingsBtn" type="TextureButton" parent="Main/Settings"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-texture_normal = ExtResource("2_p70r4")
-stretch_mode = 3
 
 [node name="MainContainer" type="VBoxContainer" parent="Main"]
 layout_mode = 1

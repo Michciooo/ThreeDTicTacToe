@@ -1,8 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsxbjvka16uen"]
+[gd_scene load_steps=7 format=3 uid="uid://blvf4x7pgqn8u"]
 
-[ext_resource type="Script" path="res://MainMenus/MainMenu3D/Settings3D.cs" id="1_3fn24"]
+[ext_resource type="Script" path="res://MainMenus/Settings.cs" id="1_88sxo"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iw2kd"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_havq2"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -11,7 +11,7 @@ corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1wdw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bdfas"]
 bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
@@ -20,27 +20,23 @@ corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
 
-[sub_resource type="SystemFont" id="SystemFont_56380"]
+[sub_resource type="SystemFont" id="SystemFont_13ant"]
 font_names = PackedStringArray("Kristen ITC")
 
-[sub_resource type="SystemFont" id="SystemFont_xvygg"]
+[sub_resource type="SystemFont" id="SystemFont_upc1b"]
 font_names = PackedStringArray("Kristen ITC")
 
-[sub_resource type="SystemFont" id="SystemFont_ipuau"]
-font_names = PackedStringArray("Kristen ITC")
-
-[sub_resource type="SystemFont" id="SystemFont_ppp2y"]
+[sub_resource type="SystemFont" id="SystemFont_8v2pb"]
 font_names = PackedStringArray("Kristen ITC")
 
 [node name="Settings" type="Control"]
-auto_translate_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_3fn24")
+script = ExtResource("1_88sxo")
 
 [node name="mainMenu" type="Button" parent="."]
 custom_minimum_size = Vector2(300, 100)
@@ -58,9 +54,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 6
 mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 30
-theme_override_styles/hover = SubResource("StyleBoxFlat_iw2kd")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_iw2kd")
-theme_override_styles/normal = SubResource("StyleBoxFlat_y1wdw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_havq2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_havq2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bdfas")
 text = "Main Menu"
 
 [node name="Label" type="Label" parent="."]
@@ -69,7 +65,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 130.0
 grow_horizontal = 2
-theme_override_fonts/font = SubResource("SystemFont_56380")
+theme_override_fonts/font = SubResource("SystemFont_13ant")
 theme_override_font_sizes/font_size = 60
 text = "SETTINGS"
 horizontal_alignment = 1
@@ -78,54 +74,45 @@ vertical_alignment = 1
 [node name="Main" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(1600, 800)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -800.0
-offset_top = -400.0
-offset_right = 800.0
-offset_bottom = 400.0
+anchor_bottom = 1.0
+offset_left = -754.0
+offset_top = -800.0
+offset_right = 754.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
 [node name="Labels" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(700, 800)
 layout_mode = 2
+size_flags_horizontal = 6
 
-[node name="Label" type="Label" parent="Main/Labels"]
+[node name="Label4" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_fonts/font = SubResource("SystemFont_xvygg")
+theme_override_fonts/font = SubResource("SystemFont_upc1b")
 theme_override_font_sizes/font_size = 50
-text = "Cube rotating"
+text = "Main menu"
 
-[node name="Label2" type="Label" parent="Main/Labels"]
+[node name="Label5" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
-theme_override_fonts/font = SubResource("SystemFont_ipuau")
+theme_override_fonts/font = SubResource("SystemFont_8v2pb")
 theme_override_font_sizes/font_size = 50
-text = "Marking fields"
-
-[node name="Label3" type="Label" parent="Main/Labels"]
-custom_minimum_size = Vector2(500, 100)
-layout_mode = 2
-size_flags_vertical = 6
-theme_override_fonts/font = SubResource("SystemFont_ppp2y")
-theme_override_font_sizes/font_size = 50
-text = "Restart cube position"
+text = "App exit"
 
 [node name="KeysInput" type="VBoxContainer" parent="Main"]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 6
 
-[node name="shiftLock" type="TextEdit" parent="Main/KeysInput"]
+[node name="mainMenu" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 45
 placeholder_text = "Press any key"
@@ -134,19 +121,7 @@ selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="unShiftLock" type="TextEdit" parent="Main/KeysInput"]
-custom_minimum_size = Vector2(400, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 45
-placeholder_text = "Press any key"
-editable = false
-selecting_enabled = false
-drag_and_drop_selection_enabled = false
-middle_mouse_paste_enabled = false
-
-[node name="restartPosCube" type="TextEdit" parent="Main/KeysInput"]
+[node name="appExit" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -159,9 +134,8 @@ drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
 [node name="RestartBtns" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 6
 
 [node name="btn1" type="Button" parent="Main/RestartBtns"]
 custom_minimum_size = Vector2(250, 100)
@@ -173,15 +147,6 @@ theme_override_font_sizes/font_size = 35
 text = "Reset key"
 
 [node name="btn2" type="Button" parent="Main/RestartBtns"]
-custom_minimum_size = Vector2(250, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 35
-text = "Reset key"
-
-[node name="btn3" type="Button" parent="Main/RestartBtns"]
 custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 size_flags_horizontal = 4

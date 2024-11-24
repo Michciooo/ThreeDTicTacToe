@@ -15,7 +15,7 @@ public partial class TTT2D : Control
 	
 	Button[,] board = new Button[3, 3];
 	int[] bestMove = new int[2];
-	private int EvaluateBoard(Button[,] tttBoard)
+	private int SimulateBoard(Button[,] tttBoard)
 	{
 		for (int i = 0; i < 3; i++)
 		{
@@ -46,9 +46,9 @@ public partial class TTT2D : Control
 	private int MiniMax(Button[,] tttBoard, int depth, bool isMaximizing, int maxDepth)
 	{
 		if (depth == maxDepth)
-			return EvaluateBoard(tttBoard);
+			return SimulateBoard(tttBoard);
 
-		int score = EvaluateBoard(tttBoard);
+		int score = SimulateBoard(tttBoard);
 		if (score == 10 || score == -10) return score; 
 
 		if (!tttBoard.Cast<Button>().Any(b => b.Text == ""))

@@ -8,10 +8,10 @@ namespace threeDTicTacToe;
 
 public partial class GamePlay4x4x4 : Control
 {
-	public List<Button> TttBtns = new List<Button>();
+	public List<Button> TttBtns = new List<Button>(64);
 	private List<Button> Buttons = new List<Button>();
-	public List<Label3D> Labels = new List<Label3D>();
-	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>();
+	public List<Label3D> Labels = new List<Label3D>(64);
+	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>(64);
 
 	bool _playerTurn;
 	bool win = false;
@@ -198,6 +198,7 @@ public partial class GamePlay4x4x4 : Control
 							tttBoard[i,j,k].Text = "X";
 							bestScore = Math.Max(bestScore, MiniMax(tttBoard, depth + 1, false, maxDepth));
 							tttBoard[i,j,k].Text = "";
+							GD.Print("dla x" ,board[i,j,k] );
 						}
 					}
 				}
@@ -217,6 +218,7 @@ public partial class GamePlay4x4x4 : Control
 							tttBoard[i,j,k].Text = "O";
 							bestScore = Math.Min(bestScore, MiniMax(tttBoard, depth + 1, true, maxDepth));
 							tttBoard[i,j,k].Text = "";
+							GD.Print("dla o" ,board[i,j,k] );
 						}
 					}
 				}
@@ -238,9 +240,9 @@ public partial class GamePlay4x4x4 : Control
 					if (board[i, j, k].Text == "")
 					{
 						board[i,j,k].Text = "X";
-						int moveScore = MiniMax(board, 0, false, 5);
+						int moveScore = MiniMax(board, 0, false,1);
+						GD.Print("movescore " , moveScore );
 						board[i,j,k].Text = "";
-
 						if (moveScore > bestScore)
 						{
 							bestScore = moveScore;
@@ -253,8 +255,39 @@ public partial class GamePlay4x4x4 : Control
 			}
 		}
 		var aiButton = board[moveX, moveY, moveZ];
+		GD.Print(aiButton);
 		aiButton.Text = "X";
 		return aiButton;
+	}
+	private void AddBtnsToList()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				for (int k = 0; k < 4; k++)
+				{
+					int index = i * 16 + j * 4 + k;
+					board[i, j, k] = TttBtns[index];
+				}
+			}
+		}
+	}
+	private void AddToDictionary()
+	{
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+		for (int i = 0; i < MeshInstances.Count; i++)
+		{
+			MeshInstance3D meshInstance3D = MeshInstances[i];
+			Button button = TttBtns[i];
+			if (i < 64)
+			{
+				if (!main.BtnAndMeshInstanceDictionary.ContainsKey(button))
+				{
+					main.BtnAndMeshInstanceDictionary.Add(button , meshInstance3D);
+				}
+			}
+		}
 	}
 	public override void _Ready()
 	{
@@ -302,6 +335,7 @@ public partial class GamePlay4x4x4 : Control
 
 		if (global.player13D == "AI Computer" || global.player23D == "AI Computer")
 		{
+			AddBtnsToList();
 			_playerTurn = global.player23D == "AI Computer";
 			if (!_playerTurn)
 			{
@@ -310,7 +344,6 @@ public partial class GamePlay4x4x4 : Control
 		}
 		AddToDictionary();
 	}
-
 	public void RestartGame()
 	{
 		var global = GetNode<Global>("/root/Global");
@@ -617,22 +650,6 @@ public partial class GamePlay4x4x4 : Control
 			btn.MouseEntered += () => OnMouseExited(btn);
 		}
 		win = false;
-	}
-	private void AddToDictionary()
-	{
-		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
-		for (int i = 0; i < MeshInstances.Count; i++)
-		{
-			MeshInstance3D meshInstance3D = MeshInstances[i];
-			Button button = TttBtns[i];
-			if (i < 64)
-			{
-				if (!main.BtnAndMeshInstanceDictionary.ContainsKey(button))
-				{
-					main.BtnAndMeshInstanceDictionary.Add(button , meshInstance3D);
-				}
-			}
-		}
 	}
 	public override void _Process(double delta)
 	{

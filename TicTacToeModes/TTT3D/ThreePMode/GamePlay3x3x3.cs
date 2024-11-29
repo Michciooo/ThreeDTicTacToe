@@ -1,6 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace threeDTicTacToe;
 
@@ -56,12 +59,8 @@ public partial class GamePlay3x3x3 : Control
 		{
 			label.Text = "";
 		}
-		BlockBtns(false);
-		foreach (var btn in Buttons)
-		{
-			btn.MouseEntered += () => OnMouseEntered(btn);
-			btn.SetDefaultCursorShape(CursorShape.PointingHand);
-		}
+		BlockBtns(false,CursorShape.PointingHand);
+		foreach (var btn in Buttons) btn.MouseEntered += () => OnMouseEntered(btn);
 	}
 	private void Create_Dimensions3x3x3(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3 , 
 		HBoxContainer lay4, HBoxContainer lay5, HBoxContainer lay6 , HBoxContainer lay7 ,
@@ -108,7 +107,13 @@ public partial class GamePlay3x3x3 : Control
 					Buttons.Add(btn);
 					
 					if (global.player13D == "Human" && global.player23D=="Human" && global.player33D=="Human") btn.Pressed += () => Human(btn);
-					
+					if (global.player13D == "Easy Computer" || global.player23D == "Easy Computer" ||
+					    global.player33D == "Easy Computer")
+					{
+						Button capturedButton = btn; 
+						capturedButton.Pressed += () => EasyComputer(capturedButton);
+					}
+
 					btn.MouseEntered += () => OnMouseEntered(btn);
 					btn.MouseExited += () => OnMouseExited(btn);
 				}
@@ -116,6 +121,75 @@ public partial class GamePlay3x3x3 : Control
 		}
 	}
 
+	private void EasyComputer(Button btn = null)
+	{
+		var global = GetNode<Global>("/root/Global");
+		if (win || WhoWon()) return;
+		
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+		for (int i = 0; i < TttBtns.Count; i++)
+		{
+			if (i < 64)
+			{
+				Button button = TttBtns[i];
+				Label3D label = Labels[i];
+				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
+				{
+					main.BtnAndboxMeshLabel3DDictionary[button] = label;
+				}
+			}
+		}
+		
+		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
+		var waitingLabel = GetNode<Label>("/root/TTT3D/leftSide/VBoxContainer/waitingMoveLabel");
+		if (btn != null)
+		{
+			Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
+			if (global.player13D == "Human")
+			{
+				btn.Text = playerTurns[0];
+				playerTurn = playerTurns[1];
+				playerTurnLabel.Text = $"Player Turn : {playerTurn}";
+				label3D.Text = btn.Text;
+				moves -= 1;
+				if (WhoWon()) return;
+			}
+			if (global.player23D == "Easy Computer")
+			{
+				Random random = new Random();
+				List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
+
+				if (availableButtons.Count > 0)
+				{
+					Button computerMove = availableButtons[random.Next(availableButtons.Count)];
+					computerMove.Text = playerTurns[1];
+					main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = playerTurn;
+					playerTurn = playerTurns[2];
+					label3D.Text = btn.Text;
+					playerTurnLabel.Text = $"Player turn : {playerTurn}";
+					moves -= 1;
+					if (WhoWon()) return;
+				}
+			}
+			if (global.player33D == "Easy Computer")
+			{
+				Random random = new Random();
+				List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
+
+				if (availableButtons.Count > 0)
+				{
+					Button computerMove = availableButtons[random.Next(availableButtons.Count)];
+					main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = playerTurn;
+					computerMove.Text = playerTurns[2];
+					label3D.Text = btn.Text;
+					playerTurn = playerTurns[0];
+					playerTurnLabel.Text = $"Player turn : {playerTurn}";
+					moves -= 1;
+					if (WhoWon()) return;
+				}
+			}
+		}
+	}
 	private void Human(Button btn)
 	{
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
@@ -163,6 +237,14 @@ public partial class GamePlay3x3x3 : Control
 		}
 		WhoWon();
 	}
+	private async Task WaitingMove()
+	{
+		var waitingLabel = GetNode<Label>("rightSide/waitingMoveLabel");
+		waitingLabel.Text = "THINKING...";
+		await Task.Delay(500);
+		waitingLabel.Text = "";
+		BlockBtns(false , CursorShape.PointingHand);
+	}
 	public bool WhoWon()
 	{
 		var global = GetNode<Global>("/root/Global");
@@ -186,7 +268,7 @@ public partial class GamePlay3x3x3 : Control
 
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
-				BlockBtns(true);
+				BlockBtns(true,CursorShape.Arrow);
 				return true;
 			}
 		}
@@ -195,7 +277,7 @@ public partial class GamePlay3x3x3 : Control
 			win = false;
 			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
 			GetTree().Root.AddChild(popUpInstant);
-			BlockBtns(true);
+			BlockBtns(true,CursorShape.Arrow);
 			return true;
 		}
 		return false;
@@ -236,14 +318,14 @@ public partial class GamePlay3x3x3 : Control
 			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
 		}
 	}
-	private void BlockBtns(bool disable)
+	private void BlockBtns(bool disable, CursorShape cursor)
 	{
 		var restartBtn = GetNode<Button>("restartBtn");
 		Buttons.Add(restartBtn);
 		foreach (var button in Buttons)
 		{
 			button.Disabled = disable;
-			button.SetDefaultCursorShape(CursorShape.Arrow);
+			button.SetDefaultCursorShape(cursor);
 		}
 
 		foreach (var btn in TttBtns)

@@ -1,0 +1,6 @@
+[gd_resource type="SystemFont" format=3 uid="uid://0x2dnpnoqfka"]
+
+[resource]
+font_names = PackedStringArray("Kristen ITC")
+font_weight = 999
+font_stretch = 200

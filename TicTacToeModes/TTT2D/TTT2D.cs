@@ -2,6 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace threeDTicTacToe;
 
@@ -151,28 +153,18 @@ public partial class TTT2D : Control
 			if ((global.player12D == "Human" && global.player22D == "Human")|| 
 			     (global.player12D=="Human" && global.player22D=="AI Computer")||
 			     (global.player12D=="AI Computer" && global.player22D=="Human")) button.Pressed += () => Human(button);
-			
-			if ((global.player12D == "Human" && global.player22D == "Easy Computer") ||
-			    (global.player12D == "Easy Computer" && global.player22D == "Human"))
-				button.Pressed += () => EasyComputer(button);
 		}
 
 		if (global.player12D == "Easy Computer" || global.player22D == "Easy Computer")
 		{
 			playerTurn = global.player22D == "Easy Computer";
-			if (!playerTurn)
-			{
-				EasyComputer();
-			}
+			if (!playerTurn) EasyComputer();
 		}
 
 		if (global.player12D == "AI Computer" || global.player22D == "AI Computer")
 		{
 			playerTurn = global.player22D == "AI Computer";
-			if (!playerTurn)
-			{
-				AiComputer();
-			}
+			if (!playerTurn) AiComputer();
 		}
 
 		var restartBtn = GetNode<Button>("rightSide/Info/restartBtn");
@@ -201,117 +193,128 @@ public partial class TTT2D : Control
 		}
 
 		if ((global.player12D == "Human" && global.player22D == "AI Computer") ||
-		    (global.player12D == "AI Computer" && global.player22D == "Human"))
-		{
-			AiComputer();
-		}
+		    (global.player12D == "AI Computer" && global.player22D == "Human")) AiComputer();
 	}
 	private void Human(Button button)
 	{
+	    var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
+	    var global = GetNode<Global>("/root/Global");
+
+	    if (button.Text == "")
+	    {
+		    if (global.player12D == "Human" && global.player22D == "Human")
+		    {
+			    if (!playerTurn)
+			    {
+				    button.Text = "O";
+				    playerTurnLabel.Text = "Player Turn : X";
+				    playerTurn = true;
+				    moves -= 1;
+
+				    if (WhoWon())
+				    {
+					    BlockBtns(true, CursorShape.Arrow);
+					    return;
+				    }
+			    }
+			    else
+			    {
+				    button.Text = "X";
+				    playerTurnLabel.Text = "Player Turn : O";
+				    playerTurn = false;
+				    moves -= 1;
+
+				    if (WhoWon())
+				    {
+					    BlockBtns(true, CursorShape.Arrow);
+					    return;
+				    }
+			    }
+		    }
+		    if (global.player12D == "Human" && global.player22D == "Easy Computer"
+		        || global.player12D == "Easy Computer" && global.player22D == "Human")
+		    {
+			    if (playerTurn)
+			    {
+				    button.Text = "O";
+				    playerTurnLabel.Text = "Player Turn : X";
+				    playerTurn = false;
+				    moves -= 1;
+
+				    if (WhoWon())
+				    {
+					    BlockBtns(true, CursorShape.Arrow);
+					    return;
+				    }
+
+				    BlockBtns(true, CursorShape.PointingHand);
+				    EasyComputer();
+			    }
+		    }
+		    if ((global.player12D == "Human" && global.player22D == "AI Computer") ||
+		        (global.player12D == "AI Computer" && global.player22D == "Human"))
+		    {
+	            if (playerTurn)
+	            {
+	                button.Text = "O";
+	                playerTurnLabel.Text = "Player Turn : X";
+	                playerTurn = false;
+	                moves -= 1;
+
+	                if (WhoWon())
+	                {
+	                    BlockBtns(true, CursorShape.Arrow);
+	                    return;
+	                }
+
+	                BlockBtns(true, CursorShape.PointingHand);
+	                AiComputer();
+	            }
+	        }
+	    }
+	}
+	private async void EasyComputer()
+	{
 		var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
-		var global = GetNode<Global>("/root/Global");
-		if (button.Text == "")
+		BlockBtns(true, CursorShape.PointingHand);
+		await WaitingMove();
+		var random = new Random();
+		List<Button> availableButtons = ticTacToeButtons.Where(b => b.Text == "").ToList();
+
+		if (availableButtons.Count > 0)
 		{
-			if (global.player12D=="Human" && global.player22D=="Human")
-			{
-				if (!playerTurn)
-				{
-					button.Text = "O";
-					playerTurnLabel.Text = "Player Turn : X";
-					playerTurn = true;
-					moves -= 1;
-					if (WhoWon())
-					{
-						BlockBtns(true, CursorShape.Arrow);
-						return;
-					}
-				}
-				else
-				{
-					button.Text = "X";
-					playerTurnLabel.Text = "Player Turn : O";
-					playerTurn = false;
-					moves -= 1;
-					if (WhoWon())
-					{
-						BlockBtns(true, CursorShape.Arrow);
-						return;
-					}
-				}
-			}
-			if ((global.player12D=="Human" && global.player22D=="AI Computer") ||
-			    (global.player12D == "AI Computer" && global.player22D=="Human"))
-			{
-				if (playerTurn)
-				{
-					button.Text = "O";
-					playerTurnLabel.Text = "Player Turn : O";
-					playerTurn = false;
-					moves -= 1;
-					if (WhoWon())
-					{
-						BlockBtns(true, CursorShape.Arrow);
-						return;
-					}
-				}
-				if(!playerTurn)
-				{
-					AiComputer();
-				}
-			}
-		}
-	}
-	private void EasyComputer(Button button = null)
-	{
-		if (playerTurn && button != null && button.Text == "")
-		{
-			button.Text = "O";
-			playerTurn = false;
+			Button computerMove = availableButtons[random.Next(availableButtons.Count)];
+			computerMove.Text = "X";
+			playerTurnLabel.Text = "Player Turn : O";
+
 			moves -= 1;
-			if (WhoWon())
-			{
-				BlockBtns(true, CursorShape.Arrow);
-				return;
-			}
-		}
-		if (!playerTurn)
-		{
-			var random = new Random();
-			List<Button> availableButtons = ticTacToeButtons.Where(b => b.Text == "").ToList();
+			playerTurn = true;
 
-			if (availableButtons.Count > 0)
-			{
-				Button computerMove = availableButtons[random.Next(availableButtons.Count)];
-				computerMove.Text = "X";
-
-				moves -= 1;
-				playerTurn = true;
-
-				if (WhoWon())
-				{
-					BlockBtns(true, CursorShape.Arrow);
-					return;
-				}
-			}
+			if (WhoWon()) BlockBtns(true, CursorShape.Arrow);
 		}
 	}
-	private void AiComputer()
+	private async void AiComputer()
 	{
-		if (!playerTurn)
+		var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
+		BlockBtns(true, CursorShape.PointingHand);
+		await WaitingMove();
+		Button aiBtn = BestMove();
+		if (aiBtn != null)
 		{
-			Button aiBtn = BestMove();
-			if (aiBtn != null)
-			{
-				aiBtn.Text = "X";
-				moves -= 1;
-				playerTurn = true;
-
-				if (WhoWon())
-				{
-					BlockBtns(true, CursorShape.Arrow);
-				}
-			}
+			aiBtn.Text = "X";
+			playerTurnLabel.Text = "Player Turn : O";
+			moves -= 1;
+			playerTurn = true;
+			if (WhoWon()) BlockBtns(true, CursorShape.Arrow);
 		}
+	}
+	private async Task WaitingMove()
+	{
+		var waitingLabel = GetNode<Label>("rightSide/waitingMoveLabel");
+		waitingLabel.Text = "THINKING...";
+		await Task.Delay(500);
+		waitingLabel.Text = "";
+		BlockBtns(false, CursorShape.PointingHand);
 	}
 	private void BlockBtns(bool block , CursorShape cursor)
 	{
@@ -321,7 +324,6 @@ public partial class TTT2D : Control
 			button.MouseDefaultCursorShape = cursor;
 		}
 	}
-
 	private bool WhoWon()
 	{
 		Button[,] wins =

@@ -1,15 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dem4nsow1b8vr"]
+[gd_scene load_steps=6 format=3 uid="uid://dem4nsow1b8vr"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu2D/MainMenu2D.cs" id="1_dej4q"]
-
-[sub_resource type="SystemFont" id="SystemFont_x2cwt"]
-font_names = PackedStringArray("Kristen ITC")
-
-[sub_resource type="SystemFont" id="SystemFont_fqy74"]
-font_names = PackedStringArray("Kristen ITC")
-
-[sub_resource type="SystemFont" id="SystemFont_etell"]
-font_names = PackedStringArray("Kristen ITC")
+[ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_kl2ma"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdq3n"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -39,9 +31,6 @@ corner_radius_bottom_left = 20
 shadow_size = 25
 shadow_offset = Vector2(20, 20)
 
-[sub_resource type="SystemFont" id="SystemFont_ndt3i"]
-font_names = PackedStringArray("Kristen ITC")
-
 [node name="MainMenu2D" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -70,7 +59,7 @@ offset_right = 500.0
 offset_bottom = 400.0
 grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_fonts/font = SubResource("SystemFont_x2cwt")
+theme_override_fonts/font = ExtResource("2_kl2ma")
 theme_override_font_sizes/font_size = 70
 text = "TIC TAC TOE 2D
 "
@@ -103,7 +92,7 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Main/MainContainer/Container/left"]
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_fqy74")
+theme_override_fonts/font = ExtResource("2_kl2ma")
 theme_override_font_sizes/font_size = 40
 text = "Player 1"
 
@@ -125,7 +114,7 @@ size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="Main/MainContainer/Container/right"]
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_etell")
+theme_override_fonts/font = ExtResource("2_kl2ma")
 theme_override_font_sizes/font_size = 40
 text = "Player 2
 "
@@ -155,6 +144,6 @@ text = "PLAY"
 [node name="warningLabel" type="Label" parent="Main/MainContainer"]
 layout_mode = 2
 size_flags_vertical = 6
-theme_override_fonts/font = SubResource("SystemFont_ndt3i")
+theme_override_fonts/font = ExtResource("2_kl2ma")
 theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1

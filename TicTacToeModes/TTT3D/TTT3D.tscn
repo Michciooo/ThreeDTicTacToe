@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://crit7oidgfe05"]
+[gd_scene load_steps=12 format=3 uid="uid://crit7oidgfe05"]
 
 [ext_resource type="Script" path="res://TicTacToeModes/TTT3D/TTT3D.cs" id="1_ysiwb"]
 [ext_resource type="PackedScene" uid="uid://bvsxm6x1bmqtx" path="res://TicTacToeModes/TTT3D/FourGridMode/Visualisation4x4x4.tscn" id="2_e5hhc"]
 [ext_resource type="PackedScene" uid="uid://ccuho5npvjmt1" path="res://TicTacToeModes/TTT3D/ThreePMode/Visualisation3x3x3.tscn" id="3_6mvo4"]
 [ext_resource type="PackedScene" uid="uid://1p3f41itx78m" path="res://TicTacToeModes/TTT3D/FourGridMode/GamePlay4x4x4.tscn" id="3_j3bv6"]
+[ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="4_aye13"]
 [ext_resource type="Script" path="res://TicTacToeModes/TTT3D/FourGridMode/GamePlay4x4x4.cs" id="5_5xmxv"]
 [ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score/Score.tscn" id="5_euh6n"]
 [ext_resource type="PackedScene" uid="uid://by8ql24k3shf1" path="res://TicTacToeModes/TTT3D/ThreePMode/GamePlay3x3x3.tscn" id="6_us4t3"]
@@ -46,7 +47,10 @@ anchor_bottom = 0.01
 offset_right = 900.0
 offset_bottom = 1000.0
 
-[node name="mainMenu" type="Button" parent="leftSide"]
+[node name="VBoxContainer" type="VBoxContainer" parent="leftSide"]
+layout_mode = 2
+
+[node name="mainMenu" type="Button" parent="leftSide/VBoxContainer"]
 custom_minimum_size = Vector2(200, 60)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -57,6 +61,13 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_gn1mk")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gn1mk")
 theme_override_styles/normal = SubResource("StyleBoxFlat_4xn28")
 text = "Main Menu"
+
+[node name="waitingMoveLabel" type="Label" parent="leftSide/VBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("4_aye13")
+theme_override_font_sizes/font_size = 40
 
 [node name="Score" parent="leftSide" instance=ExtResource("5_euh6n")]
 layout_mode = 2

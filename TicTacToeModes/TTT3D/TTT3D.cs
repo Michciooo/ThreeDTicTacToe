@@ -113,7 +113,7 @@ public partial class TTT3D : Node3D
     {
         var global = GetNode<Global>("/root/Global");
         WinPopUp popUp = GetNodeOrNull<WinPopUp>("/root/WinPopUp");
-        Button mainMenu = GetNode<Button>("leftSide/mainMenu");
+        Button mainMenu = GetNode<Button>("leftSide/VBoxContainer/mainMenu");
 
         if (mainMenu.IsPressed())
         {

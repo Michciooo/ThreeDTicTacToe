@@ -1,14 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://yx0xq2fosnco"]
+[gd_scene load_steps=3 format=3 uid="uid://yx0xq2fosnco"]
 
 [ext_resource type="Script" path="res://Score/Score.cs" id="1_siee1"]
+[ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_cd4jp"]
 
 [node name="Score" type="Control"]
-custom_minimum_size = Vector2(500, 150)
+custom_minimum_size = Vector2(500, 100)
 layout_mode = 3
-anchor_right = 0.077
-offset_left = 123.0
-offset_right = 499.8
-offset_bottom = 150.0
+anchor_left = 0.17
+anchor_right = 0.17
+offset_right = 229.0
+offset_bottom = 77.0
 script = ExtResource("1_siee1")
 
 [node name="CircleWins" type="Label" parent="."]
@@ -16,6 +17,7 @@ custom_minimum_size = Vector2(500, 75)
 layout_mode = 0
 offset_right = 500.0
 offset_bottom = 75.0
+theme_override_fonts/font = ExtResource("2_cd4jp")
 theme_override_font_sizes/font_size = 30
 text = "O won : 0 times"
 
@@ -29,6 +31,7 @@ offset_left = -3.0
 offset_top = 18.0
 offset_right = 497.0
 offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("2_cd4jp")
 theme_override_font_sizes/font_size = 30
 text = "X won : 0 times"
 vertical_alignment = 1
@@ -43,6 +46,7 @@ offset_left = -3.0
 offset_top = 18.0
 offset_right = 497.0
 offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("2_cd4jp")
 theme_override_font_sizes/font_size = 30
 text = "△ won : 0 times"
 vertical_alignment = 1

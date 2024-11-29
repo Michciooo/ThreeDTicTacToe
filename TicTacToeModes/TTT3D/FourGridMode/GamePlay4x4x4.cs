@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Godot;
 
 namespace threeDTicTacToe;
@@ -198,7 +199,6 @@ public partial class GamePlay4x4x4 : Control
 							tttBoard[i,j,k].Text = "X";
 							bestScore = Math.Max(bestScore, MiniMax(tttBoard, depth + 1, false, maxDepth));
 							tttBoard[i,j,k].Text = "";
-							GD.Print("dla x" ,board[i,j,k] );
 						}
 					}
 				}
@@ -218,7 +218,7 @@ public partial class GamePlay4x4x4 : Control
 							tttBoard[i,j,k].Text = "O";
 							bestScore = Math.Min(bestScore, MiniMax(tttBoard, depth + 1, true, maxDepth));
 							tttBoard[i,j,k].Text = "";
-							GD.Print("dla o" ,board[i,j,k] );
+							GD.Print(bestScore , board[i,j,k]);
 						}
 					}
 				}
@@ -450,7 +450,7 @@ public partial class GamePlay4x4x4 : Control
 			}
 		}
 	}
-	public void EasyComputer(Button btn = null)
+	private async Task EasyComputer(Button btn = null)
 	{
 		if (win || WhoWon()) return;
 		
@@ -467,7 +467,7 @@ public partial class GamePlay4x4x4 : Control
 				}
 			}
 		}
-
+		var waitingLabel = GetNode<Label>("/root/TTT3D/leftSide/VBoxContainer/waitingMoveLabel");
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 		if (_playerTurn && btn != null && btn.Text=="")
 		{
@@ -480,6 +480,9 @@ public partial class GamePlay4x4x4 : Control
 			if (WhoWon()) return;
 			
 		}
+		waitingLabel.Visible = true;
+		await Task.Delay(2000);
+		waitingLabel.Visible = false;
 		if (!_playerTurn)
 		{
 			Random random = new Random();
@@ -547,6 +550,7 @@ public partial class GamePlay4x4x4 : Control
 				if (_playerTurn)
 				{
 					btn.Text = "O";
+					label3D.Text = btn.Text;
 					playerTurnLabel.Text = "Player Turn : O";
 					_playerTurn = false;
 					moves -= 1;

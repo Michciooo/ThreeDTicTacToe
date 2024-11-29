@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlbvgvq6yoc2m"]
+[gd_scene load_steps=6 format=3 uid="uid://dlbvgvq6yoc2m"]
 
 [ext_resource type="Script" path="res://WinPopUp/WinPopUp.cs" id="1_wbkkr"]
+[ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_wp1qr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt7gh"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -77,5 +78,6 @@ offset_top = -100.0
 offset_right = 100.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_wp1qr")
 theme_override_font_sizes/font_size = 20
 horizontal_alignment = 1

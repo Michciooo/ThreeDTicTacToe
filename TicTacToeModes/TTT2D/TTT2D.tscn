@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ceuuvmonyrepa"]
+[gd_scene load_steps=6 format=3 uid="uid://ceuuvmonyrepa"]
 
 [ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score/Score.tscn" id="1_kvdgh"]
 [ext_resource type="Script" path="res://TicTacToeModes/TTT2D/TTT2D.cs" id="1_xbx7s"]
+[ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="3_28io2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feflx"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -148,6 +149,7 @@ size_flags_horizontal = 8
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_28io2")
 theme_override_font_sizes/font_size = 30
 text = "Player Turn : O"
 
@@ -163,3 +165,10 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_feflx")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_feflx")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gpkqx")
 text = "Restart"
+
+[node name="waitingMoveLabel" type="Label" parent="rightSide"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("3_28io2")
+theme_override_font_sizes/font_size = 40

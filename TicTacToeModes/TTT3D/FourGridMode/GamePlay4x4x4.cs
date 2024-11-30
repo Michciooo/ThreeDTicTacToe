@@ -357,7 +357,7 @@ public partial class GamePlay4x4x4 : Control
 		{
 			label.Text = "";
 		}
-		BlockBtns(false);
+		BlockBtns(false , CursorShape.PointingHand);
 		foreach (var btn in Buttons)
 		{
 			btn.MouseEntered += () => OnMouseEntered(btn);
@@ -435,73 +435,14 @@ public partial class GamePlay4x4x4 : Control
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
 
-					if (global.player13D == "Human" && global.player23D=="Human" ||
-					    global.player13D == "Human" && global.player23D=="AI Computer" ||
-					    global.player13D=="AI Computer" && global.player23D=="Human") btn.Pressed += () => Human(btn);
-					if ((global.player13D=="Human" && global.player23D == "Easy Computer") ||
-					    (global.player13D=="Easy Computer" && global.player23D=="Human"))
-					{
-						Button capturedButton = btn; 
-						capturedButton.Pressed += () => EasyComputer(capturedButton);
-					}
+					btn.Pressed += () => Human(btn);
 					btn.MouseEntered += () => OnMouseEntered(btn);
 					btn.MouseExited += () => OnMouseExited(btn);
 				}
 			}
 		}
 	}
-	private async Task EasyComputer(Button btn = null)
-	{
-		if (win || WhoWon()) return;
-		
-		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
-		for (int i = 0; i < TttBtns.Count; i++)
-		{
-			if (i < 64)
-			{
-				Button button = TttBtns[i];
-				Label3D label = Labels[i];
-				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
-				{
-					main.BtnAndboxMeshLabel3DDictionary[button] = label;
-				}
-			}
-		}
-		var waitingLabel = GetNode<Label>("/root/TTT3D/leftSide/VBoxContainer/waitingMoveLabel");
-		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		if (_playerTurn && btn != null && btn.Text=="")
-		{
-			btn.Text = "O";
-			Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
-			label3D.Text = "O";
-
-			moves -= 1;
-			_playerTurn = !_playerTurn;
-			if (WhoWon()) return;
-			
-		}
-		waitingLabel.Visible = true;
-		await Task.Delay(2000);
-		waitingLabel.Visible = false;
-		if (!_playerTurn)
-		{
-			Random random = new Random();
-			List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
-
-			if (availableButtons.Count > 0)
-			{
-				Button computerMove = availableButtons[random.Next(availableButtons.Count)];
-				computerMove.Text = "X";
-				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "X";
-				playerTurnLabel.Text = "Player turn : O";
-
-				moves -= 1;
-				_playerTurn = !_playerTurn;
-				if (WhoWon()) return;
-			}
-		}
-	}
-	public void Human(Button btn)
+	private void Human(Button btn)
 	{
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		var global = GetNode<Global>("/root/Global");
@@ -542,6 +483,27 @@ public partial class GamePlay4x4x4 : Control
 			}
 			WhoWon();
 		}
+
+		if (global.player13D == "Human" && global.player23D == "Easy Computer" ||
+		    global.player13D == "Easy Computer" && global.player23D == "Human")
+		{
+			if (btn.Text == "")
+			{
+				if (_playerTurn)
+				{
+					btn.Text = "O";
+					label3D.Text = btn.Text;
+					playerTurnLabel.Text = "Player Turn : O";
+					_playerTurn = false;
+					moves -= 1;
+					if (WhoWon()) return;
+				}
+				if(!_playerTurn)
+				{
+					EasyComputer();
+				}
+			}
+		}
 		if (global.player13D == "Human" && global.player23D == "AI Computer" ||
 		    global.player13D == "AI Computer" && global.player23D == "Human")
 		{
@@ -554,22 +516,50 @@ public partial class GamePlay4x4x4 : Control
 					playerTurnLabel.Text = "Player Turn : O";
 					_playerTurn = false;
 					moves -= 1;
-					if (WhoWon())
-					{
-						BlockBtns(true);
-						return;
-					}
+					if (WhoWon()) return;
 				}
-				if(!_playerTurn)
-				{
-					AiComputer();
-				}
+				if(!_playerTurn) AiComputer();
 			}
 		}
 	}
-
-	private void AiComputer()
+	private async void EasyComputer()
 	{
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+		for (int i = 0; i < TttBtns.Count; i++)
+		{
+			if (i < 64)
+			{
+				Button button = TttBtns[i];
+				Label3D label = Labels[i];
+				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
+				{
+					main.BtnAndboxMeshLabel3DDictionary[button] = label;
+				}
+			}
+		}
+		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
+		BlockBtns(true, CursorShape.PointingHand);
+		await WaitingMove();
+		Random random = new Random();
+		List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
+
+		if (availableButtons.Count > 0)
+		{
+			Button computerMove = availableButtons[random.Next(availableButtons.Count)];
+			computerMove.Text = "X";
+			main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "X";
+			playerTurnLabel.Text = "Player turn : O";
+
+			moves -= 1;
+			_playerTurn = !_playerTurn;
+			if (WhoWon()) return;
+		}
+		BlockBtns(false, CursorShape.PointingHand);
+	}
+	private async void AiComputer()
+	{
+		BlockBtns(true , CursorShape.PointingHand);
+		await WaitingMove();
 		Button aiBtn = BestMove();
 		if (aiBtn != null)
 		{
@@ -579,9 +569,18 @@ public partial class GamePlay4x4x4 : Control
 
 			if (WhoWon())
 			{
-				BlockBtns(true);
+				BlockBtns(true , CursorShape.Arrow);
 			}
+			BlockBtns(false, CursorShape.PointingHand);
 		}
+	}
+	private async Task WaitingMove()
+	{
+		var waitingLabel = GetNode<Label>("/root/TTT3D/leftSide/VBoxContainer/waitingMoveLabel");
+		waitingLabel.Text = "THINKING...";
+		await Task.Delay(500);
+		waitingLabel.Text = "";
+		BlockBtns(false , CursorShape.PointingHand);
 	}
 	public void OnMouseEntered(Button btn)
 	{
@@ -625,7 +624,7 @@ public partial class GamePlay4x4x4 : Control
 
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
-				BlockBtns(true);
+				BlockBtns(true , CursorShape.Arrow);
 				return true;
 			}
 		}
@@ -634,19 +633,19 @@ public partial class GamePlay4x4x4 : Control
 			win = false;
 			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
 			GetTree().Root.AddChild(popUpInstant);
-			BlockBtns(true);
+			BlockBtns(true , CursorShape.Arrow);
 			return true;
 		}
 		return false;
 	}
-	private void BlockBtns(bool disable)
+	private void BlockBtns(bool disable , CursorShape cursor)
 	{
 		var restartBtn = GetNode<Button>("restartBtn");
 		Buttons.Add(restartBtn);
 		foreach (var button in Buttons)
 		{
 			button.Disabled = disable;
-			button.SetDefaultCursorShape(CursorShape.Arrow);
+			button.SetDefaultCursorShape(cursor);
 		}
 
 		foreach (var btn in TttBtns)

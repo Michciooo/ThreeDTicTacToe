@@ -6,7 +6,7 @@ namespace threeDTicTacToe
 {
 	public partial class MainMenu3D : Node3D
 	{
-		public Dictionary<int,string> playersTypes = new Dictionary<int,string>
+		private Dictionary<int,string> playersTypes = new Dictionary<int,string>
 		{
 			{ 1, "Human" },
 			{ 2, "Human" },

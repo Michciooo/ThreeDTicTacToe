@@ -148,12 +148,7 @@ public partial class TTT2D : Control
 		AddBtnsToList();
 		var global = GetNode<Global>("/root/Global");
 
-		foreach (var button in ticTacToeButtons)
-		{
-			if ((global.player12D == "Human" && global.player22D == "Human")|| 
-			     (global.player12D=="Human" && global.player22D=="AI Computer")||
-			     (global.player12D=="AI Computer" && global.player22D=="Human")) button.Pressed += () => Human(button);
-		}
+		foreach (var button in ticTacToeButtons) button.Pressed += () => Human(button);
 
 		if (global.player12D == "Easy Computer" || global.player22D == "Easy Computer")
 		{
@@ -187,10 +182,7 @@ public partial class TTT2D : Control
 		moves = 9;
 		
 		if ((global.player12D == "Human" && global.player22D=="Easy Computer")
-		    || (global.player12D == "Easy Computer" && global.player22D=="Human"))
-		{
-			EasyComputer();
-		}
+		    || (global.player12D == "Easy Computer" && global.player22D=="Human")) EasyComputer();
 
 		if ((global.player12D == "Human" && global.player22D == "AI Computer") ||
 		    (global.player12D == "AI Computer" && global.player22D == "Human")) AiComputer();
@@ -231,27 +223,7 @@ public partial class TTT2D : Control
 				    }
 			    }
 		    }
-		    if (global.player12D == "Human" && global.player22D == "Easy Computer"
-		        || global.player12D == "Easy Computer" && global.player22D == "Human")
-		    {
-			    if (playerTurn)
-			    {
-				    button.Text = "O";
-				    playerTurnLabel.Text = "Player Turn : X";
-				    playerTurn = false;
-				    moves -= 1;
-
-				    if (WhoWon())
-				    {
-					    BlockBtns(true, CursorShape.Arrow);
-					    return;
-				    }
-
-				    BlockBtns(true, CursorShape.PointingHand);
-				    EasyComputer();
-			    }
-		    }
-		    if ((global.player12D == "Human" && global.player22D == "AI Computer") ||
+		    else if ((global.player12D == "Human" && global.player22D == "AI Computer") ||
 		        (global.player12D == "AI Computer" && global.player22D == "Human"))
 		    {
 	            if (playerTurn)
@@ -271,6 +243,25 @@ public partial class TTT2D : Control
 	                AiComputer();
 	            }
 	        }
+		    else if((global.player12D == "Human" && global.player22D == "Easy Computer") ||
+		            (global.player12D == "Easy Computer" && global.player22D == "Human"))
+		    {
+			    if (playerTurn)
+			    {
+				    button.Text = "O";
+				    playerTurnLabel.Text = "Player Turn : X";
+				    playerTurn = false;
+				    moves -= 1;
+
+				    if (WhoWon())
+				    {
+					    BlockBtns(true, CursorShape.Arrow);
+					    return;
+				    }
+				    BlockBtns(true, CursorShape.PointingHand);
+				    EasyComputer();
+			    }
+		    }
 	    }
 	}
 	private async void EasyComputer()
@@ -289,9 +280,13 @@ public partial class TTT2D : Control
 
 			moves -= 1;
 			playerTurn = true;
-
-			if (WhoWon()) BlockBtns(true, CursorShape.Arrow);
 		}
+		if (WhoWon())
+		{
+			BlockBtns(true, CursorShape.Arrow);
+			return;
+		}
+		BlockBtns(false, CursorShape.PointingHand);
 	}
 	private async void AiComputer()
 	{

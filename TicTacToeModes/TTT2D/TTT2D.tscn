@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ceuuvmonyrepa"]
+[gd_scene load_steps=8 format=3 uid="uid://ceuuvmonyrepa"]
 
 [ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score/Score.tscn" id="1_kvdgh"]
 [ext_resource type="Script" path="res://TicTacToeModes/TTT2D/TTT2D.cs" id="1_xbx7s"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="3_28io2"]
+[ext_resource type="StyleBox" uid="uid://nmf0ke40mto1" path="res://TicTacToeModes/TTTButtons.tres" id="3_umkk0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feflx"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -21,6 +22,9 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edaag"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="TTT2D" type="Control"]
 layout_mode = 3
@@ -83,18 +87,24 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = SubResource("StyleBoxFlat_edaag")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="btn2" type="Button" parent="rightSide/Main/Grid/FirstLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = ExtResource("3_umkk0")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="btn3" type="Button" parent="rightSide/Main/Grid/FirstLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = ExtResource("3_umkk0")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="SecondLayer" type="HBoxContainer" parent="rightSide/Main/Grid"]
 custom_minimum_size = Vector2(600, 200)
@@ -105,18 +115,24 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = ExtResource("3_umkk0")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="btn5" type="Button" parent="rightSide/Main/Grid/SecondLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = ExtResource("3_umkk0")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="btn6" type="Button" parent="rightSide/Main/Grid/SecondLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = ExtResource("3_umkk0")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="ThirdLayer" type="HBoxContainer" parent="rightSide/Main/Grid"]
 custom_minimum_size = Vector2(600, 200)
@@ -127,18 +143,24 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = ExtResource("3_umkk0")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="btn8" type="Button" parent="rightSide/Main/Grid/ThirdLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = ExtResource("3_umkk0")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="btn9" type="Button" parent="rightSide/Main/Grid/ThirdLayer"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_default_cursor_shape = 2
+theme_override_styles/disabled = ExtResource("3_umkk0")
+theme_override_styles/normal = ExtResource("3_umkk0")
 
 [node name="Info" type="HBoxContainer" parent="rightSide"]
 custom_minimum_size = Vector2(500, 200)

@@ -394,6 +394,13 @@ public partial class GamePlay4x4x4 : Control
 				{
 					Button btn = new Button();
 					btn.SetDefaultCursorShape(CursorShape.PointingHand);
+					
+					var theme = new Theme();
+					var styleBox = (StyleBoxFlat)GD.Load("res://TicTacToeModes/TTTButtons.tres");
+					theme.SetStylebox("normal", "Button", styleBox);
+					theme.SetStylebox("disabled", "Button", styleBox);
+					btn.Theme = theme;
+					
 					btn.CustomMinimumSize = new Vector2(100, 100);
 					
 					if (y == 0)
@@ -435,14 +442,14 @@ public partial class GamePlay4x4x4 : Control
 					TttBtns.Add(btn);
 					Buttons.Add(btn);
 
-					btn.Pressed += () => Human(btn);
+					btn.Pressed += () => PlaGame(btn);
 					btn.MouseEntered += () => OnMouseEntered(btn);
 					btn.MouseExited += () => OnMouseExited(btn);
 				}
 			}
 		}
 	}
-	private void Human(Button btn)
+	private void PlaGame(Button btn)
 	{
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		var global = GetNode<Global>("/root/Global");
@@ -467,7 +474,7 @@ public partial class GamePlay4x4x4 : Control
 				if (_playerTurn)
 				{
 					btn.Text = "O";
-					playerTurnLabel.Text = "Player turn : X";
+					playerTurnLabel.Text = "Player Turn : X";
 					label3D.Text = btn.Text;
 					moves -= 1;
 					_playerTurn = false;
@@ -475,7 +482,7 @@ public partial class GamePlay4x4x4 : Control
 				else
 				{
 					btn.Text = "X";
-					playerTurnLabel.Text = "Player turn : O";
+					playerTurnLabel.Text = "Player Turn : O";
 					moves -= 1;
 					_playerTurn = true;
 					label3D.Text = btn.Text;
@@ -548,7 +555,7 @@ public partial class GamePlay4x4x4 : Control
 			Button computerMove = availableButtons[random.Next(availableButtons.Count)];
 			computerMove.Text = "X";
 			main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "X";
-			playerTurnLabel.Text = "Player turn : O";
+			playerTurnLabel.Text = "Player Turn : O";
 
 			moves -= 1;
 			_playerTurn = !_playerTurn;

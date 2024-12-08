@@ -124,7 +124,9 @@ namespace threeDTicTacToe
         public override void _Process(double delta)
         {
             var mainMenuBtn = this.GetNode<Button>("mainMenu");
+            var statsBtn = this.GetNode<Button>("stats");
             if (mainMenuBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
+            if (statsBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/Statistics/Statistics.tscn");
         }
     }
 }

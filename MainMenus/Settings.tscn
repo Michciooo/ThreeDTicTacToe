@@ -51,6 +51,26 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_havq2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bdfas")
 text = "Main Menu"
 
+[node name="stats" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_top = 0.05
+anchor_right = 0.8
+anchor_bottom = 0.05
+offset_left = -300.0
+offset_bottom = 100.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_havq2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_havq2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bdfas")
+text = "Statistics"
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 10

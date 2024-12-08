@@ -40,7 +40,7 @@ public partial class TTT3D : Node3D
                 {
                     StandardMaterial3D miniMaterial = new StandardMaterial3D();
                     miniMaterial.AlbedoColor = new Color("#000000");
-
+                    
                     MeshInstance3D minicube = new MeshInstance3D();
                     Color fgColor = new Color("#FFFFFF");
                     BoxMesh minibox = new BoxMesh();
@@ -48,6 +48,7 @@ public partial class TTT3D : Node3D
                     minicube.Mesh = minibox;
                     minibox.Size = new Vector3(50, 50, 50);
                     minicube.Position = new Vector3(80 * x, -80 * z, -80 * y);
+                    
                     minicube.MaterialOverride = miniMaterial;
 
                     Label3D label = new Label3D();

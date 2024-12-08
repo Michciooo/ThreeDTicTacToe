@@ -51,19 +51,105 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_pnpfq")
 theme_override_styles/normal = SubResource("StyleBoxFlat_v7va4")
 text = "☚"
 
-[node name="Label" type="Label" parent="."]
+[node name="winsInfo" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="allWins" type="Label" parent="winsInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "WINS : "
+
+[node name="oWins" type="Label" parent="winsInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "WINS AS O : "
+
+[node name="xWins" type="Label" parent="winsInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "WINS AS X : "
+
+[node name="wins2D" type="Label" parent="winsInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "2D WINS : "
+
+[node name="wins3D" type="Label" parent="winsInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "3D WINS : "
+
+[node name="wins3D2P" type="Label" parent="winsInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "3D WINS 2 PLAYER MODE: "
+
+[node name="wins3D3P" type="Label" parent="winsInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "3D WINS 3 PLAYER MODE: "
+
+[node name="loseInfo" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -365.5
-offset_top = -34.5
-offset_right = 365.5
-offset_bottom = 34.5
-grow_horizontal = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
 grow_vertical = 2
+
+[node name="allLoses" type="Label" parent="loseInfo"]
+layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
-theme_override_font_sizes/font_size = 50
-text = "NOTHING HERE ALREADY"
+theme_override_font_sizes/font_size = 30
+text = "LOSES : "
+
+[node name="oLoses" type="Label" parent="loseInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "LOSES AS O : "
+
+[node name="xLoses" type="Label" parent="loseInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "LOSES AS X : "
+
+[node name="loses2D" type="Label" parent="loseInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "2D LOSES : "
+
+[node name="loses3D" type="Label" parent="loseInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "3D LOSES : "
+
+[node name="loses3D2P" type="Label" parent="loseInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "3D LOSES 2 PLAYER MODE: "
+
+[node name="loses3D3P" type="Label" parent="loseInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "3D LOSES 3 PLAYER MODE: "

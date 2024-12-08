@@ -1,6 +1,8 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 namespace threeDTicTacToe;
 
@@ -20,6 +22,9 @@ public partial class Global : Node
     public String player3DMode;
     public String Mode;
     
+    public Dictionary<string , int> content = new Dictionary<string, int>();
+    private String path = "statistics.json";
+    
     public List<Button> FirstDBtn = new List<Button>(16);
     public List<Button> SecondDBtn = new List<Button>(16);
     public List<Button> ThirdDBtn = new List<Button>(16);
@@ -32,6 +37,51 @@ public partial class Global : Node
     public Button[,] wins4x4x4;
     public Button[,] wins3x3x3;
 
+    public void Statistics()
+    {
+	    if (File.Exists(path))
+	    {
+		    string jsonContent = File.ReadAllText(path);
+		    content = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonContent);
+			
+		    if (!content.ContainsKey("allWins")) content["allWins"] = 0;
+		    if (!content.ContainsKey("oWins")) content["oWins"] = 0;
+		    if (!content.ContainsKey("xWins")) content["xWins"] = 0;
+		    if (!content.ContainsKey("wins2D")) content["wins2D"] = 0;
+		    if (!content.ContainsKey("wins3D")) content["wins3D"] = 0;
+		    if (!content.ContainsKey("wins3D2P")) content["wins3D2P"] = 0;
+		    if (!content.ContainsKey("wins3D3P")) content["wins3D3P"] = 0;
+		    
+		    if (!content.ContainsKey("allLoses")) content["allLoses"] = 0;
+		    if (!content.ContainsKey("oLoses")) content["oLoses"] = 0;
+		    if (!content.ContainsKey("xLoses")) content["xLoses"] = 0;
+		    if (!content.ContainsKey("loses2D")) content["loses2D"] = 0;
+		    if (!content.ContainsKey("loses3D")) content["loses3D"] = 0;
+		    if (!content.ContainsKey("loses3D2P")) content["loses3D2P"] = 0;
+		    if (!content.ContainsKey("loses3D3P")) content["loses3D3P"] = 0;
+	    }
+	    else
+	    {
+		    content["allWins"] = 0;
+		    content["oWins"] = 0;
+		    content["xWins"] = 0;
+		    content["wins2D"] = 0;
+		    content["wins3D"] = 0;
+		    content["wins3D2P"] = 0;
+		    content["wins3D3P"] = 0;
+		    
+		    content["allLoses"] = 0;
+		    content["oLoses"] = 0;
+		    content["xLoses"] = 0;
+		    content["loses2D"] = 0;
+		    content["loses3D"] = 0;
+		    content["loses3D2P"] = 0;
+		    content["loses3D3P"] = 0;
+
+		    File.WriteAllText(path, JsonSerializer.Serialize(content));
+	    }
+    }
+    
     public void InitializeWins4x4x4()
     {
 	    for (int i = 0; i < 16; i++)

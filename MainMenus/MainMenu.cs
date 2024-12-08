@@ -6,6 +6,8 @@ public partial class MainMenu : Node3D
 {
 	public override void _Ready()
 	{
+		var global = (Global)GetNode("/root/Global");
+		global.Statistics();
 	}
 	private void SettingsPress()
 	{

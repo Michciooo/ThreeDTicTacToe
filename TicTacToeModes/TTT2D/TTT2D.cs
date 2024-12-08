@@ -1,7 +1,9 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,11 +11,15 @@ namespace threeDTicTacToe;
 
 public partial class TTT2D : Control
 {	
+	private String path = "statistics.json";
 	private List<Button> ticTacToeButtons = new List<Button>(9);
 	private List<Button> allBtns = new List<Button>();
 	private bool playerTurn;
 	bool win = false;
 	private int moves = 9;
+	
+	private string aiSymbol;
+	private string playerSymbol;
 	
 	Button[,] board = new Button[3, 3];
 	int[] bestMove = new int[2];
@@ -21,90 +27,76 @@ public partial class TTT2D : Control
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			if (tttBoard[i, 0].Text == tttBoard[i, 1].Text && tttBoard[i, 1].Text == tttBoard[i, 2].Text)
+			if (tttBoard[i, 0].Text == tttBoard[i, 1].Text && tttBoard[i, 1].Text == tttBoard[i, 2].Text && !string.IsNullOrEmpty(tttBoard[i, 0].Text))
 			{
-				if (tttBoard[i, 0].Text == "X") return 10;
-				if (tttBoard[i, 0].Text == "O") return -10;
+				if (tttBoard[i, 0].Text == aiSymbol) return 10;
+				if (tttBoard[i, 0].Text == playerSymbol) return -10;
 			}
-			if (tttBoard[0, i].Text == tttBoard[1, i].Text && tttBoard[1, i].Text == tttBoard[2, i].Text)
+			if (tttBoard[0, i].Text == tttBoard[1, i].Text && tttBoard[1, i].Text == tttBoard[2, i].Text && !string.IsNullOrEmpty(tttBoard[0, i].Text))
 			{
-				if (tttBoard[0, i].Text == "X") return 10;
-				if (tttBoard[0, i].Text == "O") return -10;
+				if (tttBoard[0, i].Text == aiSymbol) return 10;
+				if (tttBoard[0, i].Text == playerSymbol) return -10;
 			}
 		}
-		if (tttBoard[0, 0].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 2].Text)
+		if (tttBoard[0, 0].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 2].Text && !string.IsNullOrEmpty(tttBoard[0, 0].Text))
 		{
-			if (tttBoard[0, 0].Text == "X") return 10;
-			if (tttBoard[0, 0].Text == "O") return -10;
+			if (tttBoard[0, 0].Text == aiSymbol) return 10;
+			if (tttBoard[0, 0].Text == playerSymbol) return -10;
 		}
-		if (tttBoard[0, 2].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 0].Text)
+		if (tttBoard[0, 2].Text == tttBoard[1, 1].Text && tttBoard[1, 1].Text == tttBoard[2, 0].Text && !string.IsNullOrEmpty(tttBoard[0, 2].Text))
 		{
-			if (tttBoard[0, 2].Text == "X") return 10;
-			if (tttBoard[0, 2].Text == "O") return -10;
+			if (tttBoard[0, 2].Text == aiSymbol) return 10;
+			if (tttBoard[0, 2].Text == playerSymbol) return -10;
 		}
 
 		return 0;
 	}
 	private int MiniMax(Button[,] tttBoard, int depth, bool isMaximizing, int maxDepth)
 	{
-		if (depth == maxDepth)
-			return SimulateBoard(tttBoard);
-
 		int score = SimulateBoard(tttBoard);
-		if (score == 10 || score == -10) return score; 
+		
+		if (score == 10 || score == -10 || depth == maxDepth) return score;
 
-		if (!tttBoard.Cast<Button>().Any(b => b.Text == ""))
-			return 0; 
+		if (!tttBoard.Cast<Button>().Any(b => b.Text == "")) return 0;
 
-		int bestScore;
-		if (isMaximizing)
+		int bestScore = isMaximizing ? -1000 : 1000;
+		for (int i = 0; i < 3; i++)
 		{
-			bestScore = -1000;
-			for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++)
 			{
-				for (int j = 0; j < 3; j++)
+				if (tttBoard[i, j].Text == "")
 				{
-					if (tttBoard[i, j].Text == "")
-					{
-						tttBoard[i, j].Text = "X";
-						bestScore = Math.Max(bestScore, MiniMax(tttBoard, depth + 1, false, maxDepth));
-						tttBoard[i, j].Text = "";
-					}
-				}
-			}
-		}
-		else
-		{
-			bestScore = 1000;
-			for (int i = 0; i < 3; i++)
-			{
-				for (int j = 0; j < 3; j++)
-				{
-					if (tttBoard[i, j].Text == "")
-					{
-						tttBoard[i, j].Text = "O";
-						bestScore = Math.Min(bestScore, MiniMax(tttBoard, depth + 1, true, maxDepth));
-						tttBoard[i, j].Text = "";
-					}
+					tttBoard[i, j].Text = isMaximizing ? aiSymbol : playerSymbol;
+
+					int currentScore = MiniMax(tttBoard, depth + 1, !isMaximizing, maxDepth);
+
+					bestScore = isMaximizing
+						? Math.Max(bestScore, currentScore)
+						: Math.Min(bestScore, currentScore);
+
+					tttBoard[i, j].Text = "";
 				}
 			}
 		}
 
 		return bestScore;
 	}
+
 	private Button BestMove()
 	{
 		int bestScore = -1000;
 		int moveX = -1, moveY = -1;
-		
+
 		for (int i = 0; i < 3; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
 				if (board[i, j].Text == "")
 				{
-					board[i, j].Text = "X";
-					int moveScore = MiniMax(board, 0, false,5); 
+					board[i, j].Text = aiSymbol;
+
+					int moveScore = MiniMax(board, 0, false, 5);
+
 					board[i, j].Text = "";
 
 					if (moveScore > bestScore)
@@ -116,12 +108,13 @@ public partial class TTT2D : Control
 				}
 			}
 		}
-		var aiButton = board[moveX, moveY];
-		aiButton.Text = "X";
-		return aiButton;
+		if (moveX != -1 && moveY != -1)
+		{
+			board[moveX, moveY].Text = aiSymbol;
+			return board[moveX, moveY];
+		}
+		return null;
 	}
-
-
 	private void AddBtnsToList()
 	{
 		ticTacToeButtons.Add(GetNode<Button>("rightSide/Main/Grid/FirstLayer/btn1"));
@@ -148,6 +141,17 @@ public partial class TTT2D : Control
 		AddBtnsToList();
 		var global = GetNode<Global>("/root/Global");
 
+		if (global.player12D == "AI Computer")
+		{
+			aiSymbol = "O";
+			playerSymbol = "X";
+		}
+		else if (global.player22D == "AI Computer")
+		{
+			aiSymbol = "X";
+			playerSymbol = "O";
+		}
+		
 		foreach (var button in ticTacToeButtons) button.Pressed += () => Human(button);
 
 		if (global.player12D == "Easy Computer" || global.player22D == "Easy Computer")
@@ -228,9 +232,17 @@ public partial class TTT2D : Control
 		    {
 	            if (playerTurn)
 	            {
-	                button.Text = "O";
-	                playerTurnLabel.Text = "Player Turn : X";
-	                playerTurn = false;
+		            if (global.player12D == "Human")
+		            {
+			            button.Text = "O";
+			            playerTurnLabel.Text = "Player Turn : X";
+		            }
+		            if (global.player22D == "Human")
+		            {
+			            button.Text = "X";
+			            playerTurnLabel.Text = "Player Turn : O";
+		            }
+		            playerTurn = false;
 	                moves -= 1;
 
 	                if (WhoWon())
@@ -248,8 +260,16 @@ public partial class TTT2D : Control
 		    {
 			    if (playerTurn)
 			    {
-				    button.Text = "O";
-				    playerTurnLabel.Text = "Player Turn : X";
+				    if (global.player12D == "Human")
+				    {
+					    button.Text = "O";
+					    playerTurnLabel.Text = "Player Turn : X";
+				    }
+				    if (global.player22D == "Human")
+				    {
+					    button.Text = "X";
+					    playerTurnLabel.Text = "Player Turn : O";
+				    }
 				    playerTurn = false;
 				    moves -= 1;
 
@@ -258,6 +278,7 @@ public partial class TTT2D : Control
 					    BlockBtns(true, CursorShape.Arrow);
 					    return;
 				    }
+
 				    BlockBtns(true, CursorShape.PointingHand);
 				    EasyComputer();
 			    }
@@ -267,6 +288,8 @@ public partial class TTT2D : Control
 	private async void EasyComputer()
 	{
 		var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
+		var global = GetNode<Global>("/root/Global");
+		
 		BlockBtns(true, CursorShape.PointingHand);
 		await WaitingMove();
 		var random = new Random();
@@ -275,9 +298,16 @@ public partial class TTT2D : Control
 		if (availableButtons.Count > 0)
 		{
 			Button computerMove = availableButtons[random.Next(availableButtons.Count)];
-			computerMove.Text = "X";
-			playerTurnLabel.Text = "Player Turn : O";
-
+			if (global.player12D == "Easy Computer")
+			{
+				computerMove.Text = "O";
+				playerTurnLabel.Text = "Player Turn : X";
+			}
+			if (global.player22D == "Easy Computer")
+			{
+				computerMove.Text = "X";
+				playerTurnLabel.Text = "Player Turn : O";
+			}
 			moves -= 1;
 			playerTurn = true;
 		}
@@ -291,13 +321,24 @@ public partial class TTT2D : Control
 	private async void AiComputer()
 	{
 		var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
+		var global = GetNode<Global>("/root/Global");
+		
 		BlockBtns(true, CursorShape.PointingHand);
 		await WaitingMove();
+		
 		Button aiBtn = BestMove();
 		if (aiBtn != null)
 		{
-			aiBtn.Text = "X";
-			playerTurnLabel.Text = "Player Turn : O";
+			if (global.player12D == "AI Computer")
+			{ 
+				aiBtn.Text = "O";
+				playerTurnLabel.Text = "Player Turn : X";
+			}
+			if (global.player22D == "AI Computer")
+			{ 
+				aiBtn.Text = "X";
+				playerTurnLabel.Text = "Player Turn : O";
+			}
 			moves -= 1;
 			playerTurn = true;
 			if (WhoWon()) BlockBtns(true, CursorShape.Arrow);
@@ -321,6 +362,7 @@ public partial class TTT2D : Control
 	}
 	private bool WhoWon()
 	{
+		var global = GetNode<Global>("/root/Global");
 		Button[,] wins =
 		{
 			{ticTacToeButtons[0] , ticTacToeButtons[1] , ticTacToeButtons[2]},
@@ -347,8 +389,43 @@ public partial class TTT2D : Control
 				var popUpInstant = popUp.Instantiate();
 				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {wins[i, 0].Text}";
 
-				if (wins[i, 0].Text == "X") scoreScene.x_wins += 1;
-				if (wins[i,0].Text == "O") scoreScene.o_wins += 1;
+				if (wins[i, 0].Text == "X")
+				{
+					scoreScene.x_wins += 1;
+					
+					if (global.player12D == "Human")
+					{
+						global.content["allLoses"] += 1;
+						global.content["loses2D"] += 1;
+						global.content["oLoses"] += 1;
+					}
+					if (global.player22D == "Human")
+					{
+						global.content["allWins"] += 1;
+						global.content["wins2D"] += 1;
+						global.content["xWins"] += 1;
+					}
+					File.WriteAllText(path, JsonSerializer.Serialize(global.content));
+				}
+
+				if (wins[i, 0].Text == "O")
+				{
+					scoreScene.o_wins += 1;
+					
+					if (global.player12D == "Human")
+					{
+						global.content["allWins"] += 1;
+						global.content["wins2D"] += 1;
+						global.content["oWins"] += 1;
+					}
+					if (global.player22D == "Human")
+					{
+						global.content["allLoses"] += 1;
+						global.content["loses2D"] += 1;
+						global.content["xLoses"] += 1;
+					}
+					File.WriteAllText(path, JsonSerializer.Serialize(global.content));
+				}
 
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
@@ -363,7 +440,6 @@ public partial class TTT2D : Control
 			GetTree().Root.AddChild(popUpInstant);
 			return true;
 		}
-
 		return false;
 	}
 	public override void _Process(double delta)

@@ -12,7 +12,7 @@ public partial class GamePlay3x3x3 : Control
 	private string[] playerTurns = new[] { "O", "X", "\u25b3" };
 	private string playerTurn;
 	bool win = false;
-	private int moves = 64;
+	private int moves = 27;
 	
 	public List<Button> TttBtns = new List<Button>();
 	private List<Button> Buttons = new List<Button>();
@@ -45,10 +45,14 @@ public partial class GamePlay3x3x3 : Control
 		}
 		AddToDictionary();
 		playerTurn = playerTurns[0];
+		if (global.player13D == "Easy Computer" && playerTurn == playerTurns[0])  EasyComputer();
+		if (global.player23D == "Easy Computer" && playerTurn == playerTurns[1])  EasyComputer();
 	}
-	public void RestartGame()
+
+	public async void RestartGame()
 	{
-		moves = 64;
+		var global = GetNode<Global>("/root/Global");
+		moves = 27;
 		foreach (Button button in TttBtns)
 		{
 			button.Text = "";
@@ -58,9 +62,15 @@ public partial class GamePlay3x3x3 : Control
 		{
 			label.Text = "";
 		}
-		BlockBtns(false,CursorShape.PointingHand);
+
+		BlockBtns(false, CursorShape.PointingHand);
 		foreach (var btn in Buttons) btn.MouseEntered += () => OnMouseEntered(btn);
+
+		if (global.player13D == "Easy Computer" && playerTurn == playerTurns[0]) await EasyComputer();
+		if (global.player23D == "Easy Computer" && playerTurn == playerTurns[1]) await EasyComputer();
+		if (global.player33D == "Easy Computer" && playerTurn == playerTurns[2]) await EasyComputer();
 	}
+
 	private void Create_Dimensions3x3x3(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3 , 
 		HBoxContainer lay4, HBoxContainer lay5, HBoxContainer lay6 , HBoxContainer lay7 ,
 		HBoxContainer lay8 , HBoxContainer lay9)
@@ -119,25 +129,48 @@ public partial class GamePlay3x3x3 : Control
 			}
 		}
 	}
-	private async void EasyComputer()
+	private async Task EasyComputer()
 	{
+		var global = GetNode<Global>("/root/Global");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+		
+		for (int i = 0; i < TttBtns.Count; i++)
+		{
+			if (i < 27)
+			{
+				Button button = TttBtns[i];
+				Label3D label = Labels[i];
+				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
+				{
+					main.BtnAndboxMeshLabel3DDictionary.Add(button, label);
+				}
+			}
+		}
+
+		BlockBtns(true, CursorShape.PointingHand);
 		Random random = new Random();
 		List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
 
 		if (availableButtons.Count > 0)
 		{
 			await WaitingMove();
-			
 			Button computerMove = availableButtons[random.Next(availableButtons.Count)];
 			computerMove.Text = playerTurn;
+			Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[computerMove];
+			label3D.Text = computerMove.Text;
 			
 			playerTurn = playerTurns[(Array.IndexOf(playerTurns, playerTurn) + 1) % 3];
-
 			Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 			playerTurnLabel.Text = $"Player Turn : {playerTurn}";
 
 			moves -= 1;
+			if (WhoWon()) return;
+
+			if (playerTurn == playerTurns[0] && global.player13D == "Easy Computer") await EasyComputer();
+			else if (playerTurn == playerTurns[1] && global.player23D == "Easy Computer") await EasyComputer();
+			else if (playerTurn == playerTurns[2] && global.player33D == "Easy Computer") await EasyComputer();
 		}
+		
 	}
 	private async void PlayGame(Button btn)
 	{
@@ -146,7 +179,7 @@ public partial class GamePlay3x3x3 : Control
 	    
 	    for (int i = 0; i < TttBtns.Count; i++)
 	    {
-	        if (i < 64)
+	        if (i < 27)
 	        {
 	            Button button = TttBtns[i];
 	            Label3D label = Labels[i];
@@ -159,49 +192,41 @@ public partial class GamePlay3x3x3 : Control
 
 	    Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 	    Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
-
-	    if(btn.Text == "")
+	    
+	    if (btn.Text == "")
 	    {
-	        if (playerTurn == playerTurns[0])
+	        if (playerTurn == playerTurns[0] && global.player13D == "Human")
 	        {
-		        if(global.player13D == "Human")
-		        {
-			        btn.Text = playerTurn;
-			        playerTurn = playerTurns[1];
-			        playerTurnLabel.Text = $"Player Turn : {playerTurn}";
-			        label3D.Text = btn.Text;
-			        moves -= 1;
-		        }
-		        if(global.player13D == "Easy Computer")  EasyComputer();
+	            btn.Text = playerTurn;
+	            label3D.Text = btn.Text;
+	            moves -= 1;
+	            playerTurn = playerTurns[1];
+	            playerTurnLabel.Text = $"Player Turn : {playerTurn}";
 	        }
-	        else if(playerTurn == playerTurns[1])
+	        else if (playerTurn == playerTurns[1] && global.player23D == "Human")
 	        {
-		        if (global.player13D == "Human")
-		        {
-			        btn.Text = playerTurn;
-			        playerTurn = playerTurns[2];
-			        playerTurnLabel.Text = $"Player Turn : {playerTurn}";
-			        label3D.Text = btn.Text;
-			        moves -= 1;
-		        }
-		        if (global.player13D == "Easy Computer") EasyComputer();
+	            btn.Text = playerTurn;
+	            label3D.Text = btn.Text;
+	            moves -= 1;
+	            playerTurn = playerTurns[2];
+	            playerTurnLabel.Text = $"Player Turn : {playerTurn}";
 	        }
-	        else
+	        else if (playerTurn == playerTurns[2] && global.player33D == "Human")
 	        {
-		        if (global.player13D == "Human")
-		        {
-			        btn.Text = playerTurn;
-			        playerTurn = playerTurns[0];
-			        playerTurnLabel.Text = $"Player Turn : {playerTurn}";
-			        label3D.Text = btn.Text;
-			        moves -= 1;
-		        }
-		        if (global.player13D == "Easy Computer") EasyComputer();
-		        
+	            btn.Text = playerTurn;
+	            label3D.Text = btn.Text;
+	            moves -= 1;
+	            playerTurn = playerTurns[0];
+	            playerTurnLabel.Text = $"Player Turn : {playerTurn}";
 	        }
 	        if (WhoWon()) return;
+	        
+	        if (playerTurn == playerTurns[0] && global.player13D == "Easy Computer") await EasyComputer();
+	        else if (playerTurn == playerTurns[1] && global.player23D == "Easy Computer") await EasyComputer();
+	        else if (playerTurn == playerTurns[2] && global.player33D == "Easy Computer") await EasyComputer();
 	    }
 	}
+
 	private async Task WaitingMove()
 	{
 		var waitingLabel = GetNode<Label>("/root/TTT3D/leftSide/VBoxContainer/waitingMoveLabel");

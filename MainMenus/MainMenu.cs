@@ -8,6 +8,8 @@ public partial class MainMenu : Node3D
 	{
 		var global = (Global)GetNode("/root/Global");
 		global.Statistics();
+		var loggdAsLabel = GetNode<Label>("MainContainer/loggedAsLabel");
+		loggdAsLabel.Text = $"Logged as : {global.accName}";
 	}
 	private void SettingsPress()
 	{

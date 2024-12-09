@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvi2wejjsb3l2"]
+[gd_scene load_steps=10 format=3 uid="uid://cvi2wejjsb3l2"]
 
 [ext_resource type="Script" path="res://Registration/AccountLogin.cs" id="1_exb8u"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_3u4gs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uyn7a"]
+bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3edif"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -21,26 +24,49 @@ corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
 
-[node name="AccountLogin" type="Control"]
-layout_mode = 3
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egoce"]
+bg_color = Color(0.746021, 0.572677, 9.62615e-07, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fb0sb"]
+content_margin_left = 30.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urukw"]
+content_margin_left = 30.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8ihn"]
+content_margin_left = 10.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="AccountLogin" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uyn7a")
 script = ExtResource("1_exb8u")
 
 [node name="backBtn" type="Button" parent="."]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.2
+anchor_left = 0.257
 anchor_top = 0.05
-anchor_right = 0.2
+anchor_right = 0.257
 anchor_bottom = 0.05
-offset_left = -150.0
-offset_right = 150.0
-offset_bottom = 100.0
+offset_left = -278.563
+offset_right = 21.4368
+offset_bottom = 110.0
 grow_horizontal = 2
 size_flags_horizontal = 0
 size_flags_vertical = 6
@@ -51,19 +77,240 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_3edif")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gvo78")
 text = "☚"
 
-[node name="Label" type="Label" parent="."]
+[node name="LoginContainer" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -365.5
-offset_top = -34.5
-offset_right = 365.5
-offset_bottom = 34.5
-grow_horizontal = 2
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.4
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_egoce")
+
+[node name="leftSide" type="VBoxContainer" parent="LoginContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.3
+anchor_bottom = 0.7
+offset_right = 230.0
 grow_vertical = 2
+
+[node name="Label" type="Label" parent="LoginContainer/leftSide"]
+layout_mode = 2
+size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("2_3u4gs")
-theme_override_font_sizes/font_size = 50
-text = "NOTHING HERE ALREADY"
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_fb0sb")
+text = "Login :"
+
+[node name="Label2" type="Label" parent="LoginContainer/leftSide"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_urukw")
+text = "Password :"
+
+[node name="rightSide" type="VBoxContainer" parent="LoginContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_right = 0.7
+anchor_bottom = 0.7
+offset_left = -10.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 10
+
+[node name="loginTextEdit" type="LineEdit" parent="LoginContainer/rightSide"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
+placeholder_text = "Enter login..."
+middle_mouse_paste_enabled = false
+
+[node name="passwordTextEdit" type="LineEdit" parent="LoginContainer/rightSide"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
+placeholder_text = "Enter password..."
+middle_mouse_paste_enabled = false
+secret = true
+
+[node name="loginBtn" type="Button" parent="LoginContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.9
+anchor_right = 0.5
+anchor_bottom = 0.9
+offset_left = -150.0
+offset_top = -110.0
+offset_right = 150.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/hover = SubResource("StyleBoxFlat_3edif")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3edif")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gvo78")
+text = "Login"
+
+[node name="validLabel" type="Label" parent="LoginContainer"]
+visible = false
+layout_mode = 2
+offset_left = 854.8
+offset_top = 76.6
+offset_right = 1046.8
+offset_bottom = 267.6
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 35
+text = "Incorrect login or password"
+autowrap_mode = 2
+
+[node name="RegisterContainer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.5
+anchor_right = 0.9
+anchor_bottom = 0.9
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_egoce")
+
+[node name="Label" type="Label" parent="RegisterContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.02
+anchor_right = 0.5
+anchor_bottom = 0.02
+offset_left = -182.0
+offset_right = 182.0
+offset_bottom = 41.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 30
+text = "You don't have account?"
+
+[node name="leftSide" type="VBoxContainer" parent="RegisterContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.1
+anchor_right = 0.3
+anchor_bottom = 0.9
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label3" type="Label" parent="RegisterContainer/leftSide"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_urukw")
+text = "Email :"
+
+[node name="Label" type="Label" parent="RegisterContainer/leftSide"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_fb0sb")
+text = "Login :"
+
+[node name="Label2" type="Label" parent="RegisterContainer/leftSide"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_urukw")
+text = "Password :"
+
+[node name="rightSide" type="VBoxContainer" parent="RegisterContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.1
+anchor_right = 0.7
+anchor_bottom = 0.9
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="emailTextEdit" type="LineEdit" parent="RegisterContainer/rightSide"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
+placeholder_text = "Enter email..."
+middle_mouse_paste_enabled = false
+
+[node name="loginTextEdit" type="LineEdit" parent="RegisterContainer/rightSide"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
+placeholder_text = "Enter login..."
+middle_mouse_paste_enabled = false
+
+[node name="passwordTextEdit" type="LineEdit" parent="RegisterContainer/rightSide"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
+placeholder_text = "Enter password..."
+middle_mouse_paste_enabled = false
+secret = true
+
+[node name="registerBtn" type="Button" parent="RegisterContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.5
+anchor_right = 0.95
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -55.0
+offset_bottom = 55.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 35
+theme_override_styles/hover = SubResource("StyleBoxFlat_3edif")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3edif")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gvo78")
+text = "Create account"

@@ -79,6 +79,8 @@ anchor_left = 0.9
 anchor_top = 0.01
 anchor_right = 0.9
 anchor_bottom = 0.1
+offset_left = -900.0
+offset_bottom = 941.68
 grow_horizontal = 0
 size_flags_horizontal = 8
 

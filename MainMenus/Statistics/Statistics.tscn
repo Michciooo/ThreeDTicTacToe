@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://sxwsrqt7box1"]
+[gd_scene load_steps=6 format=3 uid="uid://sxwsrqt7box1"]
 
 [ext_resource type="Script" path="res://MainMenus/Statistics/Statistics.cs" id="1_pqidw"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_78cy4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uu24p"]
+bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnpfq"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -21,13 +24,13 @@ corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
 
-[node name="Statistics" type="Control"]
-layout_mode = 3
+[node name="Statistics" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uu24p")
 script = ExtResource("1_pqidw")
 
 [node name="backBtn" type="Button" parent="."]

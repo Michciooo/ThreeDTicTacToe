@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://ceuuvmonyrepa"]
+[gd_scene load_steps=9 format=3 uid="uid://ceuuvmonyrepa"]
 
 [ext_resource type="PackedScene" uid="uid://yx0xq2fosnco" path="res://Score/Score.tscn" id="1_kvdgh"]
 [ext_resource type="Script" path="res://TicTacToeModes/TTT2D/TTT2D.cs" id="1_xbx7s"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="3_28io2"]
 [ext_resource type="StyleBox" uid="uid://nmf0ke40mto1" path="res://TicTacToeModes/TTTButtons.tres" id="3_umkk0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dcle8"]
+bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_feflx"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -26,13 +29,13 @@ shadow_offset = Vector2(10, 10)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edaag"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="TTT2D" type="Control"]
-layout_mode = 3
+[node name="TTT2D" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dcle8")
 script = ExtResource("1_xbx7s")
 
 [node name="leftSide" type="HBoxContainer" parent="."]

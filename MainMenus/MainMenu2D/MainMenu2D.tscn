@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dem4nsow1b8vr"]
+[gd_scene load_steps=7 format=3 uid="uid://dem4nsow1b8vr"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu2D/MainMenu2D.cs" id="1_dej4q"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_kl2ma"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3bafi"]
+bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdq3n"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -31,13 +34,13 @@ corner_radius_bottom_left = 20
 shadow_size = 25
 shadow_offset = Vector2(20, 20)
 
-[node name="MainMenu2D" type="Control"]
-layout_mode = 3
+[node name="MainMenu2D" type="Panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3bafi")
 script = ExtResource("1_dej4q")
 
 [node name="Main" type="Control" parent="."]

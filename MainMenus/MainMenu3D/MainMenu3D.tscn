@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dq8dugkwfmjvf"]
+[gd_scene load_steps=9 format=3 uid="uid://dq8dugkwfmjvf"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu3D/MainMenu3D.cs" id="1_np6uj"]
 [ext_resource type="Texture2D" uid="uid://c5bopv88cs5gt" path="res://icons/settings.png" id="2_2ydsw"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_ehnxd"]
 [ext_resource type="ButtonGroup" uid="uid://cvhlt6idatduf" path="res://buttonGroup.tres" id="3_njvkh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2oh4w"]
+bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pqhh"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -37,13 +40,13 @@ shadow_offset = Vector2(20, 20)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1600, 1000, 0)
 script = ExtResource("1_np6uj")
 
-[node name="Main" type="Control" parent="."]
-layout_mode = 3
+[node name="Main" type="Panel" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2oh4w")
 
 [node name="Label" type="Label" parent="Main"]
 custom_minimum_size = Vector2(800, 200)

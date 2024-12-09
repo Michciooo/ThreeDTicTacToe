@@ -1,6 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsxbjvka16uen"]
+[gd_scene load_steps=9 format=3 uid="uid://dsxbjvka16uen"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu3D/Settings3D.cs" id="1_3fn24"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_omddq"]
+bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iw2kd"]
 bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
@@ -32,14 +35,14 @@ font_names = PackedStringArray("Kristen ITC")
 [sub_resource type="SystemFont" id="SystemFont_ppp2y"]
 font_names = PackedStringArray("Kristen ITC")
 
-[node name="Settings" type="Control"]
+[node name="Settings" type="Panel"]
 auto_translate_mode = 1
-layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_omddq")
 script = ExtResource("1_3fn24")
 
 [node name="mainMenu" type="Button" parent="."]

@@ -21,6 +21,8 @@ public partial class Global : Node
     public String player33D;
     public String player3DMode;
     public String Mode;
+
+    public String accName = "Guest";
     
     public Dictionary<string , int> content = new Dictionary<string, int>();
     private String path = "statistics.json";

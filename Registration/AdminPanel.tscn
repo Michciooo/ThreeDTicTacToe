@@ -1,0 +1,368 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgdr52phorn7q"]
+
+[ext_resource type="Script" path="res://Registration/AdminPanel.cs" id="1_m55xk"]
+[ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_q62lb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_phda8"]
+bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_68b86"]
+bg_color = Color(0.537255, 0.0823529, 0.878431, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rlu3h"]
+bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brea2"]
+bg_color = Color(0.746021, 0.572677, 9.62615e-07, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5o2aw"]
+content_margin_left = 10.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="AdminPanel" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_phda8")
+script = ExtResource("1_m55xk")
+
+[node name="backBtn" type="Button" parent="."]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.257
+anchor_top = 0.05
+anchor_right = 0.257
+anchor_bottom = 0.05
+offset_left = -278.563
+offset_right = 21.4368
+offset_bottom = 110.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 80
+theme_override_styles/hover = SubResource("StyleBoxFlat_68b86")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_68b86")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rlu3h")
+text = "☚"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.52588e-05
+offset_bottom = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_brea2")
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="leftSide" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="winsSetter" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/leftSide"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET WINS : "
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET O WINS : "
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET X WINS : "
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET 2D WINS : "
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET 3D WINS : "
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET 3D 2 PLAYERS MODE WINS : "
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label7" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET 3D 3 PLAYERS MODE 	WINS : "
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="loseSetters" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/leftSide"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/loseSetters"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET LOSES : "
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/loseSetters"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET O LOSES : "
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/loseSetters"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET X LOSES : "
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/loseSetters"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET 2D LOSES : "
+horizontal_alignment = 1
+
+[node name="Label5" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/loseSetters"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET 3D LOSES : "
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/loseSetters"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET 3D 2 PLAYERS MODE LOSES : "
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label7" type="Label" parent="ScrollContainer/HBoxContainer/leftSide/loseSetters"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+text = "SET 3D 3 PLAYERS MODE LOSES : "
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="rightSide" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="winsSetter" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/rightSide"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="setWinsLineEdit" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit2" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit3" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit4" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit5" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit6" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit7" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/winsSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="loseSetter" type="VBoxContainer" parent="ScrollContainer/HBoxContainer/rightSide"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="setWinsLineEdit" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/loseSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit2" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/loseSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit3" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/loseSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit4" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/loseSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit5" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/loseSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit6" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/loseSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5
+
+[node name="setWinsLineEdit7" type="LineEdit" parent="ScrollContainer/HBoxContainer/rightSide/loseSetter"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_q62lb")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_5o2aw")
+placeholder_text = "0-99999"
+alignment = 1
+max_length = 5

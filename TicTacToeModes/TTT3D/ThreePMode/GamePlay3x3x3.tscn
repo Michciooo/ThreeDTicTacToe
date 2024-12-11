@@ -1,9 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://by8ql24k3shf1"]
+[gd_scene load_steps=6 format=3 uid="uid://by8ql24k3shf1"]
 
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="1_bq8k4"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siemh"]
-bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rbqaw"]
 bg_color = Color(0.243137, 0.0117647, 0.415686, 1)
@@ -41,13 +38,13 @@ corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
 
-[node name="GamePlay3x3x3" type="Panel"]
+[node name="GamePlay3x3x3" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_siemh")
 
 [node name="playerTurnLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(200, 50)

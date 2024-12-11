@@ -393,13 +393,13 @@ public partial class TTT2D : Control
 				{
 					scoreScene.x_wins += 1;
 					
-					if (global.player12D == "Human")
+					if (global.player12D == "Human" && global.player22D != "Human")
 					{
 						global.content["allLoses"] += 1;
 						global.content["loses2D"] += 1;
 						global.content["oLoses"] += 1;
 					}
-					if (global.player22D == "Human")
+					if (global.player22D == "Human" && global.player12D != "Human")
 					{
 						global.content["allWins"] += 1;
 						global.content["wins2D"] += 1;
@@ -412,13 +412,13 @@ public partial class TTT2D : Control
 				{
 					scoreScene.o_wins += 1;
 					
-					if (global.player12D == "Human")
+					if (global.player12D == "Human" && global.player22D != "Human")
 					{
 						global.content["allWins"] += 1;
 						global.content["wins2D"] += 1;
 						global.content["oWins"] += 1;
 					}
-					if (global.player22D == "Human")
+					if (global.player22D == "Human" && global.player12D != "Human")
 					{
 						global.content["allLoses"] += 1;
 						global.content["loses2D"] += 1;

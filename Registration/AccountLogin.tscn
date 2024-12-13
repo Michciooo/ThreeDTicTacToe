@@ -153,9 +153,9 @@ secret = true
 [node name="loginBtn" type="Button" parent="LoginContainer"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
+anchor_left = 0.7
 anchor_top = 0.9
-anchor_right = 0.5
+anchor_right = 0.7
 anchor_bottom = 0.9
 offset_left = -150.0
 offset_top = -110.0
@@ -185,6 +185,38 @@ theme_override_fonts/font = ExtResource("2_3u4gs")
 theme_override_font_sizes/font_size = 35
 text = "Incorrect login or password"
 autowrap_mode = 2
+
+[node name="forgotLoginBtn" type="LinkButton" parent="LoginContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.85
+anchor_right = 0.05
+anchor_bottom = 0.85
+offset_top = -40.0
+offset_right = 100.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 20
+text = "Forgot login ?"
+underline = 1
+uri = "https://github.com/Michciooo/ThreeDTicTacToe"
+
+[node name="forgotPasswordBtn" type="LinkButton" parent="LoginContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.95
+anchor_right = 0.05
+anchor_bottom = 0.95
+offset_top = -40.0
+offset_right = 100.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 20
+text = "Forgot password ?"
+underline = 1
+uri = "https://github.com/Michciooo/ThreeDTicTacToe"
 
 [node name="RegisterContainer" type="Panel" parent="."]
 layout_mode = 1
@@ -334,24 +366,3 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3edif")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3edif")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gvo78")
 text = "Logout"
-
-[node name="adminPanelBtn" type="Button" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.05
-anchor_right = 0.5
-anchor_bottom = 0.05
-offset_left = -150.0
-offset_right = 150.0
-offset_bottom = 110.0
-grow_horizontal = 2
-size_flags_horizontal = 0
-size_flags_vertical = 6
-mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 35
-theme_override_styles/hover = SubResource("StyleBoxFlat_3edif")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3edif")
-theme_override_styles/normal = SubResource("StyleBoxFlat_gvo78")
-text = "Admin panel"

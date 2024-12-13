@@ -24,7 +24,6 @@ public partial class Global : Node
 
     public String accName = "Guest";
     public bool isLogged = false;
-    public bool isAdmin = false;
     
     public Dictionary<string , int> content = new Dictionary<string, int>();
     private String path = "statistics.json";

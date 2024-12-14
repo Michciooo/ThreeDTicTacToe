@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://sxwsrqt7box1"]
+[gd_scene load_steps=8 format=3 uid="uid://sxwsrqt7box1"]
 
 [ext_resource type="Script" path="res://MainMenus/Statistics/Statistics.cs" id="1_pqidw"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_78cy4"]
@@ -23,6 +23,20 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s18v6"]
+bg_color = Color(0.746021, 0.572677, 9.62615e-07, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gv5s"]
+bg_color = Color(0.746021, 0.572677, 9.62615e-07, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [node name="Statistics" type="Panel"]
 anchors_preset = 15
@@ -54,105 +68,184 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_pnpfq")
 theme_override_styles/normal = SubResource("StyleBoxFlat_v7va4")
 text = "☚"
 
-[node name="winsInfo" type="VBoxContainer" parent="."]
+[node name="winsInfo" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
+anchor_left = 0.05
+anchor_top = 0.5
+anchor_right = 0.45
+anchor_bottom = 0.9
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s18v6")
 
-[node name="allWins" type="Label" parent="winsInfo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="winsInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="allWins" type="Label" parent="winsInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "WINS : "
 
-[node name="oWins" type="Label" parent="winsInfo"]
+[node name="oWins" type="Label" parent="winsInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "WINS AS O : "
 
-[node name="xWins" type="Label" parent="winsInfo"]
+[node name="xWins" type="Label" parent="winsInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "WINS AS X : "
 
-[node name="wins2D" type="Label" parent="winsInfo"]
+[node name="tWins" type="Label" parent="winsInfo/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "WINS AS △ : "
+
+[node name="wins2D" type="Label" parent="winsInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "2D WINS : "
 
-[node name="wins3D" type="Label" parent="winsInfo"]
+[node name="wins3D" type="Label" parent="winsInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "3D WINS : "
 
-[node name="wins3D2P" type="Label" parent="winsInfo"]
+[node name="wins3D2P" type="Label" parent="winsInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "3D WINS 2 PLAYER MODE: "
 
-[node name="wins3D3P" type="Label" parent="winsInfo"]
+[node name="wins3D3P" type="Label" parent="winsInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "3D WINS 3 PLAYER MODE: "
 
-[node name="loseInfo" type="VBoxContainer" parent="."]
+[node name="loseInfo" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 0.9
+anchor_bottom = 0.9
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gv5s")
 
-[node name="allLoses" type="Label" parent="loseInfo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="loseInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="allLoses" type="Label" parent="loseInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "LOSES : "
 
-[node name="oLoses" type="Label" parent="loseInfo"]
+[node name="oLoses" type="Label" parent="loseInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "LOSES AS O : "
 
-[node name="xLoses" type="Label" parent="loseInfo"]
+[node name="xLoses" type="Label" parent="loseInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "LOSES AS X : "
 
-[node name="loses2D" type="Label" parent="loseInfo"]
+[node name="tLoses" type="Label" parent="loseInfo/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "LOSES AS △ : "
+
+[node name="loses2D" type="Label" parent="loseInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "2D LOSES : "
 
-[node name="loses3D" type="Label" parent="loseInfo"]
+[node name="loses3D" type="Label" parent="loseInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "3D LOSES : "
 
-[node name="loses3D2P" type="Label" parent="loseInfo"]
+[node name="loses3D2P" type="Label" parent="loseInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "3D LOSES 2 PLAYER MODE: "
 
-[node name="loses3D3P" type="Label" parent="loseInfo"]
+[node name="loses3D3P" type="Label" parent="loseInfo/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "3D LOSES 3 PLAYER MODE: "
+
+[node name="winRateInfo" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.4
+offset_right = -52.4
+offset_bottom = -0.200012
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s18v6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="winRateInfo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="allWinRate" type="Label" parent="winRateInfo/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "WINRATE : "
+
+[node name="winRate2D" type="Label" parent="winRateInfo/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "2D WINRATE : "
+
+[node name="winRate3D" type="Label" parent="winRateInfo/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_78cy4")
+theme_override_font_sizes/font_size = 30
+text = "3D WINRATE : "

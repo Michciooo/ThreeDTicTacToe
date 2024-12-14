@@ -50,6 +50,7 @@ public partial class Global : Node
 		    if (!content.ContainsKey("allWins")) content["allWins"] = 0;
 		    if (!content.ContainsKey("oWins")) content["oWins"] = 0;
 		    if (!content.ContainsKey("xWins")) content["xWins"] = 0;
+		    if (!content.ContainsKey("tWins")) content["tWins"] = 0;
 		    if (!content.ContainsKey("wins2D")) content["wins2D"] = 0;
 		    if (!content.ContainsKey("wins3D")) content["wins3D"] = 0;
 		    if (!content.ContainsKey("wins3D2P")) content["wins3D2P"] = 0;
@@ -58,6 +59,7 @@ public partial class Global : Node
 		    if (!content.ContainsKey("allLoses")) content["allLoses"] = 0;
 		    if (!content.ContainsKey("oLoses")) content["oLoses"] = 0;
 		    if (!content.ContainsKey("xLoses")) content["xLoses"] = 0;
+		    if (!content.ContainsKey("tLoses")) content["tLoses"] = 0;
 		    if (!content.ContainsKey("loses2D")) content["loses2D"] = 0;
 		    if (!content.ContainsKey("loses3D")) content["loses3D"] = 0;
 		    if (!content.ContainsKey("loses3D2P")) content["loses3D2P"] = 0;
@@ -68,6 +70,7 @@ public partial class Global : Node
 		    content["allWins"] = 0;
 		    content["oWins"] = 0;
 		    content["xWins"] = 0;
+		    content["tWins"] = 0;
 		    content["wins2D"] = 0;
 		    content["wins3D"] = 0;
 		    content["wins3D2P"] = 0;
@@ -76,6 +79,7 @@ public partial class Global : Node
 		    content["allLoses"] = 0;
 		    content["oLoses"] = 0;
 		    content["xLoses"] = 0;
+		    content["tLoses"] = 0;
 		    content["loses2D"] = 0;
 		    content["loses3D"] = 0;
 		    content["loses3D2P"] = 0;

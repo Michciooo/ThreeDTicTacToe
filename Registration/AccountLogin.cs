@@ -48,6 +48,7 @@ public partial class AccountLogin : Control
 		var validationLabel = GetNode<Label>("ValidPanel/validationLabel");
 
 		Regex emailRegex = new Regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+		Regex loginRegex = new Regex(@"^\S+$");
 		Regex passwordRegex = new Regex("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()]).{8,}$");
 
 		if (!emailRegex.IsMatch(emailTextEdit.Text))
@@ -56,10 +57,16 @@ public partial class AccountLogin : Control
 			validationLabel.Text = "Incorrect email address";
 			emailTextEdit.Text = "";
 		}
-		else if (loginTextEdit.Text.Length < 7)
+		else if(loginTextEdit.Text.Length < 7)
 		{
 			validPanel.Visible = true;
 			validationLabel.Text = "Login must be at least 7 characters";
+			loginTextEdit.Text = "";
+		}
+		else if (!loginRegex.IsMatch(loginTextEdit.Text))
+		{
+			validPanel.Visible = true;
+			validationLabel.Text = "Login can't contains spaces";
 			loginTextEdit.Text = "";
 		}
 		else if (passwordTextEdit.Text.Length < 8)

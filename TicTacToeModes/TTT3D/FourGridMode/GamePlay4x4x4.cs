@@ -357,7 +357,7 @@ public partial class GamePlay4x4x4 : Control
 		{
 			label.Text = "";
 		}
-		BlockBtns(false , CursorShape.PointingHand);
+		BlockBtns(false);
 		foreach (var btn in Buttons)
 		{
 			btn.MouseEntered += () => OnMouseEntered(btn);
@@ -393,8 +393,7 @@ public partial class GamePlay4x4x4 : Control
 				for (int z = 0; z < 4; z++)
 				{
 					Button btn = new Button();
-					btn.SetDefaultCursorShape(CursorShape.PointingHand);
-					
+				
 					var theme = new Theme();
 					var styleBox = (StyleBoxFlat)GD.Load("res://TicTacToeModes/TTTButtons.tres");
 					theme.SetStylebox("normal", "Button", styleBox);
@@ -545,7 +544,7 @@ public partial class GamePlay4x4x4 : Control
 			}
 		}
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
-		BlockBtns(true, CursorShape.PointingHand);
+		BlockBtns(true);
 		await WaitingMove();
 		Random random = new Random();
 		List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
@@ -561,11 +560,11 @@ public partial class GamePlay4x4x4 : Control
 			_playerTurn = !_playerTurn;
 			if (WhoWon()) return;
 		}
-		BlockBtns(false, CursorShape.PointingHand);
+		BlockBtns(false);
 	}
 	private async void AiComputer()
 	{
-		BlockBtns(true , CursorShape.PointingHand);
+		BlockBtns(true);
 		await WaitingMove();
 		Button aiBtn = BestMove();
 		if (aiBtn != null)
@@ -576,9 +575,9 @@ public partial class GamePlay4x4x4 : Control
 
 			if (WhoWon())
 			{
-				BlockBtns(true , CursorShape.Arrow);
+				BlockBtns(true);
 			}
-			BlockBtns(false, CursorShape.PointingHand);
+			BlockBtns(false);
 		}
 	}
 	private async Task WaitingMove()
@@ -587,7 +586,7 @@ public partial class GamePlay4x4x4 : Control
 		waitingLabel.Text = "THINKING...";
 		await Task.Delay(500);
 		waitingLabel.Text = "";
-		BlockBtns(false , CursorShape.PointingHand);
+		BlockBtns(false);
 	}
 	public void OnMouseEntered(Button btn)
 	{
@@ -631,7 +630,7 @@ public partial class GamePlay4x4x4 : Control
 
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
-				BlockBtns(true , CursorShape.Arrow);
+				BlockBtns(true);
 				return true;
 			}
 		}
@@ -640,20 +639,16 @@ public partial class GamePlay4x4x4 : Control
 			win = false;
 			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
 			GetTree().Root.AddChild(popUpInstant);
-			BlockBtns(true , CursorShape.Arrow);
+			BlockBtns(true);
 			return true;
 		}
 		return false;
 	}
-	private void BlockBtns(bool disable , CursorShape cursor)
+	private void BlockBtns(bool disable)
 	{
 		var restartBtn = GetNode<Button>("restartBtn");
 		Buttons.Add(restartBtn);
-		foreach (var button in Buttons)
-		{
-			button.Disabled = disable;
-			button.SetDefaultCursorShape(cursor);
-		}
+		foreach (var button in Buttons) button.Disabled = disable;
 
 		foreach (var btn in TttBtns)
 		{

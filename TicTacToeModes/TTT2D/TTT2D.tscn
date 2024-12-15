@@ -86,7 +86,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = SubResource("StyleBoxFlat_edaag")
 theme_override_styles/normal = ExtResource("3_umkk0")
 
@@ -94,7 +93,6 @@ theme_override_styles/normal = ExtResource("3_umkk0")
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = ExtResource("3_umkk0")
 theme_override_styles/normal = ExtResource("3_umkk0")
 
@@ -102,7 +100,6 @@ theme_override_styles/normal = ExtResource("3_umkk0")
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = ExtResource("3_umkk0")
 theme_override_styles/normal = ExtResource("3_umkk0")
 
@@ -114,7 +111,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = ExtResource("3_umkk0")
 theme_override_styles/normal = ExtResource("3_umkk0")
 
@@ -122,7 +118,6 @@ theme_override_styles/normal = ExtResource("3_umkk0")
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = ExtResource("3_umkk0")
 theme_override_styles/normal = ExtResource("3_umkk0")
 
@@ -130,7 +125,6 @@ theme_override_styles/normal = ExtResource("3_umkk0")
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = ExtResource("3_umkk0")
 theme_override_styles/normal = ExtResource("3_umkk0")
 
@@ -142,7 +136,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = ExtResource("3_umkk0")
 theme_override_styles/normal = ExtResource("3_umkk0")
 
@@ -150,7 +143,6 @@ theme_override_styles/normal = ExtResource("3_umkk0")
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = ExtResource("3_umkk0")
 theme_override_styles/normal = ExtResource("3_umkk0")
 
@@ -158,7 +150,6 @@ theme_override_styles/normal = ExtResource("3_umkk0")
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 0
-mouse_default_cursor_shape = 2
 theme_override_styles/disabled = ExtResource("3_umkk0")
 theme_override_styles/normal = ExtResource("3_umkk0")
 

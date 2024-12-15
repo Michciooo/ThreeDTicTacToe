@@ -63,7 +63,7 @@ public partial class GamePlay3x3x3 : Control
 			label.Text = "";
 		}
 
-		BlockBtns(false, CursorShape.PointingHand);
+		BlockBtns(false);
 		foreach (var btn in Buttons) btn.MouseEntered += () => OnMouseEntered(btn);
 
 		if (global.player13D == "Easy Computer" && playerTurn == playerTurns[0]) await EasyComputer();
@@ -87,7 +87,6 @@ public partial class GamePlay3x3x3 : Control
 				for (int z = 0; z < 3; z++)
 				{
 					Button btn = new Button();
-					btn.SetDefaultCursorShape(CursorShape.PointingHand);
 					
 					var theme = new Theme();
 					var styleBox = (StyleBoxFlat)GD.Load("res://TicTacToeModes/TTTButtons.tres");
@@ -147,7 +146,7 @@ public partial class GamePlay3x3x3 : Control
 			}
 		}
 
-		BlockBtns(true, CursorShape.PointingHand);
+		BlockBtns(true);
 		Random random = new Random();
 		List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
 
@@ -233,7 +232,7 @@ public partial class GamePlay3x3x3 : Control
 		waitingLabel.Text = "THINKING...";
 		await Task.Delay(500);
 		waitingLabel.Text = "";
-		BlockBtns(false , CursorShape.PointingHand);
+		BlockBtns(false);
 	}
 	public bool WhoWon()
 	{
@@ -258,7 +257,7 @@ public partial class GamePlay3x3x3 : Control
 
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
-				BlockBtns(true,CursorShape.Arrow);
+				BlockBtns(true);
 				return true;
 			}
 		}
@@ -267,7 +266,7 @@ public partial class GamePlay3x3x3 : Control
 			win = false;
 			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
 			GetTree().Root.AddChild(popUpInstant);
-			BlockBtns(true,CursorShape.Arrow);
+			BlockBtns(true);
 			return true;
 		}
 		return false;
@@ -308,15 +307,11 @@ public partial class GamePlay3x3x3 : Control
 			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
 		}
 	}
-	private void BlockBtns(bool disable, CursorShape cursor)
+	private void BlockBtns(bool disable)
 	{
 		var restartBtn = GetNode<Button>("restartBtn");
 		Buttons.Add(restartBtn);
-		foreach (var button in Buttons)
-		{
-			button.Disabled = disable;
-			button.SetDefaultCursorShape(cursor);
-		}
+		foreach (var button in Buttons) button.Disabled = disable;
 
 		foreach (var btn in TttBtns)
 		{

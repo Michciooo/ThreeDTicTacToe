@@ -182,7 +182,7 @@ public partial class TTT2D : Control
 			button.Text = "";
 			restartBtn.Text = "Restart";
 		}
-		BlockBtns(false , CursorShape.PointingHand);
+		BlockBtns(false);
 		moves = 9;
 		
 		if ((global.player12D == "Human" && global.player22D=="Easy Computer")
@@ -209,7 +209,7 @@ public partial class TTT2D : Control
 
 				    if (WhoWon())
 				    {
-					    BlockBtns(true, CursorShape.Arrow);
+					    BlockBtns(true);
 					    return;
 				    }
 			    }
@@ -222,7 +222,7 @@ public partial class TTT2D : Control
 
 				    if (WhoWon())
 				    {
-					    BlockBtns(true, CursorShape.Arrow);
+					    BlockBtns(true);
 					    return;
 				    }
 			    }
@@ -247,11 +247,11 @@ public partial class TTT2D : Control
 
 	                if (WhoWon())
 	                {
-	                    BlockBtns(true, CursorShape.Arrow);
+	                    BlockBtns(true);
 	                    return;
 	                }
 
-	                BlockBtns(true, CursorShape.PointingHand);
+	                BlockBtns(true);
 	                AiComputer();
 	            }
 	        }
@@ -275,11 +275,11 @@ public partial class TTT2D : Control
 
 				    if (WhoWon())
 				    {
-					    BlockBtns(true, CursorShape.Arrow);
+					    BlockBtns(true);
 					    return;
 				    }
 
-				    BlockBtns(true, CursorShape.PointingHand);
+				    BlockBtns(true);
 				    EasyComputer();
 			    }
 		    }
@@ -290,7 +290,7 @@ public partial class TTT2D : Control
 		var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
 		var global = GetNode<Global>("/root/Global");
 		
-		BlockBtns(true, CursorShape.PointingHand);
+		BlockBtns(true);
 		await WaitingMove();
 		var random = new Random();
 		List<Button> availableButtons = ticTacToeButtons.Where(b => b.Text == "").ToList();
@@ -313,17 +313,17 @@ public partial class TTT2D : Control
 		}
 		if (WhoWon())
 		{
-			BlockBtns(true, CursorShape.Arrow);
+			BlockBtns(true);
 			return;
 		}
-		BlockBtns(false, CursorShape.PointingHand);
+		BlockBtns(false);
 	}
 	private async void AiComputer()
 	{
 		var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
 		var global = GetNode<Global>("/root/Global");
 		
-		BlockBtns(true, CursorShape.PointingHand);
+		BlockBtns(true);
 		await WaitingMove();
 		
 		Button aiBtn = BestMove();
@@ -341,7 +341,7 @@ public partial class TTT2D : Control
 			}
 			moves -= 1;
 			playerTurn = true;
-			if (WhoWon()) BlockBtns(true, CursorShape.Arrow);
+			if (WhoWon()) BlockBtns(true);
 		}
 	}
 	private async Task WaitingMove()
@@ -350,15 +350,11 @@ public partial class TTT2D : Control
 		waitingLabel.Text = "THINKING...";
 		await Task.Delay(500);
 		waitingLabel.Text = "";
-		BlockBtns(false, CursorShape.PointingHand);
+		BlockBtns(false);
 	}
-	private void BlockBtns(bool block , CursorShape cursor)
+	private void BlockBtns(bool block)
 	{
-		foreach (var button in allBtns)
-		{
-			button.Disabled = block;
-			button.MouseDefaultCursorShape = cursor;
-		}
+		foreach (var button in allBtns) button.Disabled = block;
 	}
 	private bool WhoWon()
 	{

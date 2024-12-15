@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvi2wejjsb3l2"]
+[gd_scene load_steps=11 format=3 uid="uid://cvi2wejjsb3l2"]
 
 [ext_resource type="Script" path="res://Registration/AccountLogin.cs" id="1_exb8u"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_3u4gs"]
@@ -25,7 +25,7 @@ shadow_size = 15
 shadow_offset = Vector2(10, 10)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egoce"]
-bg_color = Color(0.746021, 0.572677, 9.62615e-07, 1)
+bg_color = Color(0.745098, 0.572549, 0, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
@@ -46,6 +46,13 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_db43v"]
+bg_color = Color(0.0588235, 0.152941, 1, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [node name="AccountLogin" type="Panel"]
 anchors_preset = 15
@@ -135,6 +142,7 @@ theme_override_fonts/font = ExtResource("2_3u4gs")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
 placeholder_text = "Enter login..."
+max_length = 20
 middle_mouse_paste_enabled = false
 
 [node name="passwordTextEdit" type="LineEdit" parent="LoginContainer/rightSide"]
@@ -170,21 +178,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3edif")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3edif")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gvo78")
 text = "Login"
-
-[node name="validLabel" type="Label" parent="LoginContainer"]
-visible = false
-layout_mode = 2
-offset_left = 854.8
-offset_top = 76.6
-offset_right = 1046.8
-offset_bottom = 267.6
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_3u4gs")
-theme_override_font_sizes/font_size = 35
-text = "Incorrect login or password"
-autowrap_mode = 2
 
 [node name="forgotLoginBtn" type="LinkButton" parent="LoginContainer"]
 layout_mode = 1
@@ -300,7 +293,7 @@ theme_override_fonts/font = ExtResource("2_3u4gs")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
 placeholder_text = "Enter email..."
-middle_mouse_paste_enabled = false
+virtual_keyboard_type = 5
 
 [node name="loginTextEdit" type="LineEdit" parent="RegisterContainer/rightSide"]
 custom_minimum_size = Vector2(0, 50)
@@ -312,6 +305,7 @@ theme_override_fonts/font = ExtResource("2_3u4gs")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
 placeholder_text = "Enter login..."
+max_length = 20
 middle_mouse_paste_enabled = false
 
 [node name="passwordTextEdit" type="LineEdit" parent="RegisterContainer/rightSide"]
@@ -324,6 +318,7 @@ theme_override_fonts/font = ExtResource("2_3u4gs")
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_m8ihn")
 placeholder_text = "Enter password..."
+virtual_keyboard_type = 6
 middle_mouse_paste_enabled = false
 secret = true
 
@@ -367,3 +362,54 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_3edif")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3edif")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gvo78")
 text = "Logout"
+
+[node name="ValidPanel" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(400, 350)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 0.4
+offset_left = -200.0
+offset_right = 200.0
+offset_bottom = 350.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_db43v")
+
+[node name="validationLabel" type="Label" parent="ValidPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.95
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_3u4gs")
+theme_override_font_sizes/font_size = 25
+autowrap_mode = 3
+
+[node name="okBtn" type="Button" parent="ValidPanel"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.95
+anchor_right = 0.5
+anchor_bottom = 0.95
+offset_left = -80.5
+offset_top = -88.0
+offset_right = 80.5
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 6
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover = SubResource("StyleBoxFlat_3edif")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3edif")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gvo78")
+action_mode = 0
+text = "OK"

@@ -6,8 +6,9 @@ namespace threeDTicTacToe;
 
 public partial class TTT3D : Node3D
 {
-    public Dictionary<Button, Label3D> BtnAndboxMeshLabel3DDictionary = new Dictionary<Button, Label3D>();
-    public Dictionary<Button, MeshInstance3D> BtnAndMeshInstanceDictionary = new Dictionary<Button, MeshInstance3D>();
+    public Dictionary<Button, Label3D> BtnAndboxMeshLabel3DDictionary = new Dictionary<Button, Label3D>(64);
+    public Dictionary<Button, MeshInstance3D> BtnAndMeshInstanceDictionary = new Dictionary<Button, MeshInstance3D>(64);
+
     private List<Godot.Vector3> LabelPositions = new List<Godot.Vector3>();
 
     private bool shiftLock = false;

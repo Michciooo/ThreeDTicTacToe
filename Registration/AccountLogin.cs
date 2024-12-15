@@ -100,7 +100,6 @@ public partial class AccountLogin : Control
 		}
 		validPanel.Visible = true;
 		validationLabel.Text = "Incorrect login or password";
-		loginTextEdit.Text = "";
 		passwordTextEdit.Text = "";
 	}
 

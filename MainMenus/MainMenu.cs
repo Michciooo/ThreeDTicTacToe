@@ -10,6 +10,9 @@ public partial class MainMenu : Node3D
 		global.Statistics();
 		var loggdAsLabel = GetNode<Label>("MainContainer/loggedAsLabel");
 		loggdAsLabel.Text = $"Logged as : {global.accName}";
+		
+		Texture customCursor = GD.Load<Texture>("res://Custom_mouse/default_mouse.png");
+		Input.SetCustomMouseCursor(customCursor);
 	}
 	private void SettingsPress()
 	{

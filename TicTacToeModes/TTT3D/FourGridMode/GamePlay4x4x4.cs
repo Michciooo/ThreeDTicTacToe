@@ -250,6 +250,12 @@ public partial class GamePlay4x4x4 : Control
 							moveY = j;
 							moveZ = k;
 						}
+						else if (bestScore == moveScore)
+						{
+							moveX = i;
+							moveY = j;
+							moveZ = k;
+						}
 					}
 				}
 			}

@@ -95,13 +95,18 @@ public partial class TTT2D : Control
 				{
 					board[i, j].Text = aiSymbol;
 
-					int moveScore = MiniMax(board, 0, false, 5);
+					int moveScore = MiniMax(board, 0, false, 4);
 
 					board[i, j].Text = "";
 
 					if (moveScore > bestScore)
 					{
 						bestScore = moveScore;
+						moveX = i;
+						moveY = j;
+					}
+					else if (moveScore == bestScore)
+					{
 						moveX = i;
 						moveY = j;
 					}

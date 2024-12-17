@@ -360,11 +360,7 @@ public partial class GamePlay4x4x4 : Control
 
 		foreach (var meshInstance in MeshInstances) meshInstance.MaterialOverride = restartCubeColor;
 
-		foreach (Button button in TttBtns)
-		{
-			button.Text = "";
-			button.MouseEntered += () => OnMouseEntered(button);
-		}
+		foreach (Button btn in TttBtns) btn.Text = "";
 		
 		foreach (Label3D label in Labels) label.Text = "";
 
@@ -598,7 +594,7 @@ public partial class GamePlay4x4x4 : Control
 	private void OnMouseEntered(Button btn)
 	{
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
-
+		StandardMaterial3D newMaterial = new StandardMaterial3D();
 		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
 		{
 			var meshInstance = main.BtnAndMeshInstanceDictionary[btn];
@@ -607,14 +603,9 @@ public partial class GamePlay4x4x4 : Control
 			{
 				if (material.AlbedoColor == new Color(0, 255, 0))
 					return;
-				material.AlbedoColor = new Color(255, 0, 0);
-			}
-			else
-			{
-				var newMaterial = new StandardMaterial3D();
-				newMaterial.AlbedoColor = new Color(255, 0, 0);
-				meshInstance.MaterialOverride = newMaterial;
-			}
+			} 
+			newMaterial.AlbedoColor = new Color(255, 0, 0);
+			meshInstance.MaterialOverride = newMaterial;
 		}
 	}
 
@@ -631,12 +622,6 @@ public partial class GamePlay4x4x4 : Control
 				if (material.AlbedoColor == new Color(0, 255, 0))
 					return;
 				material.AlbedoColor = new Color("#000000");
-			}
-			else
-			{
-				var newMaterial = new StandardMaterial3D();
-				newMaterial.AlbedoColor = new Color("#000000");
-				meshInstance.MaterialOverride = newMaterial;
 			}
 		}
 	}
@@ -690,11 +675,6 @@ public partial class GamePlay4x4x4 : Control
 		var restartBtn = GetNode<Button>("restartBtn");
 		Buttons.Add(restartBtn);
 		foreach (var button in Buttons) button.Disabled = disable;
-
-		foreach (var btn in TttBtns)
-		{
-			btn.MouseEntered += () => OnMouseExited(btn);
-		}
 		win = false;
 	}
 	public override void _Process(double delta)

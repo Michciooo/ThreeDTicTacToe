@@ -53,18 +53,15 @@ public partial class GamePlay3x3x3 : Control
 	{
 		var global = GetNode<Global>("/root/Global");
 		moves = 27;
-		foreach (Button button in TttBtns)
-		{
-			button.Text = "";
-		}
+		foreach (Button button in TttBtns) button.Text = "";
 
-		foreach (Label3D label in Labels)
-		{
-			label.Text = "";
-		}
+		foreach (Label3D label in Labels) label.Text = "";
+		
+		StandardMaterial3D restartCubeColor = new StandardMaterial3D();
+		restartCubeColor.AlbedoColor = new Color("#000000");
+		foreach (var meshInstance in MeshInstances) meshInstance.MaterialOverride = restartCubeColor;
 
 		BlockBtns(false);
-		foreach (var btn in Buttons) btn.MouseEntered += () => OnMouseEntered(btn);
 
 		if (global.player13D == "Easy Computer" && playerTurn == playerTurns[0]) await EasyComputer();
 		if (global.player23D == "Easy Computer" && playerTurn == playerTurns[1]) await EasyComputer();
@@ -237,6 +234,9 @@ public partial class GamePlay3x3x3 : Control
 	public bool WhoWon()
 	{
 		var global = GetNode<Global>("/root/Global");
+		StandardMaterial3D wonColor = new StandardMaterial3D();
+		wonColor.AlbedoColor = new Color(0,255,0);
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 
 		var popUp = GD.Load<PackedScene>("res://WinPopUp/WinPopUp.tscn");
 		var scoreScene = GetNode<Score>("/root/TTT3D/leftSide/Score");
@@ -255,6 +255,10 @@ public partial class GamePlay3x3x3 : Control
 				if(global.wins3x3x3[i, 0].Text == "O") scoreScene.o_wins += 1;
 				if(global.wins3x3x3[i,0].Text =="\u25b3") scoreScene.triangle_wins += 1;
 
+				main.BtnAndMeshInstanceDictionary[global.wins3x3x3[i,0]].MaterialOverride = wonColor;
+				main.BtnAndMeshInstanceDictionary[global.wins3x3x3[i,1]].MaterialOverride = wonColor;
+				main.BtnAndMeshInstanceDictionary[global.wins3x3x3[i,2]].MaterialOverride = wonColor;
+				
 				scoreScene.ScoreSystem();
 				GetTree().Root.AddChild(popUpInstant);
 				BlockBtns(true);
@@ -287,24 +291,37 @@ public partial class GamePlay3x3x3 : Control
 			}
 		}
 	}
-	public void OnMouseEntered(Button btn)
+	private void OnMouseEntered(Button btn)
 	{
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+		StandardMaterial3D newMaterial = new StandardMaterial3D();
 		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
 		{
-			StandardMaterial3D miniMaterial = new StandardMaterial3D();
-			miniMaterial.AlbedoColor = new Color(255, 0, 0);
-			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+			var meshInstance = main.BtnAndMeshInstanceDictionary[btn];
+
+			if (meshInstance.MaterialOverride is StandardMaterial3D material)
+			{
+				if (material.AlbedoColor == new Color(0, 255, 0))
+					return;
+			} 
+			newMaterial.AlbedoColor = new Color(255, 0, 0);
+			meshInstance.MaterialOverride = newMaterial;
 		}
 	}
-	public void OnMouseExited(Button btn)
+	private void OnMouseExited(Button btn)
 	{
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+
 		if (main.BtnAndMeshInstanceDictionary.ContainsKey(btn))
 		{
-			StandardMaterial3D miniMaterial = new StandardMaterial3D();
-			miniMaterial.AlbedoColor = new Color("#000000");
-			main.BtnAndMeshInstanceDictionary[btn].MaterialOverride = miniMaterial;
+			var meshInstance = main.BtnAndMeshInstanceDictionary[btn];
+
+			if (meshInstance.MaterialOverride is StandardMaterial3D material)
+			{
+				if (material.AlbedoColor == new Color(0, 255, 0))
+					return;
+				material.AlbedoColor = new Color("#000000");
+			}
 		}
 	}
 	private void BlockBtns(bool disable)
@@ -315,7 +332,7 @@ public partial class GamePlay3x3x3 : Control
 
 		foreach (var btn in TttBtns)
 		{
-			btn.MouseEntered += () => OnMouseExited(btn);
+			btn.MouseEntered += () => OnMouseEntered(btn);
 		}
 		win = false;
 	}

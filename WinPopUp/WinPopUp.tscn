@@ -69,7 +69,6 @@ offset_right = 75.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 1
-mouse_default_cursor_shape = 2
 theme_override_styles/hover = SubResource("StyleBoxFlat_rt7gh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_5b17e")
 theme_override_styles/normal = SubResource("StyleBoxFlat_e42g0")

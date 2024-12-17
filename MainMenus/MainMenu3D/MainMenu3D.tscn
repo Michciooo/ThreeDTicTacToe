@@ -77,7 +77,6 @@ grow_horizontal = 0
 
 [node name="SettingsBtn" type="TextureButton" parent="Main/Settings"]
 layout_mode = 2
-mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_2ydsw")
 stretch_mode = 3
 
@@ -204,7 +203,6 @@ button_group = ExtResource("3_njvkh")
 custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxFlat_5pqhh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_rttts")

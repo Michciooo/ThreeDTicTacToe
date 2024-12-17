@@ -137,7 +137,6 @@ popup/item_2/id = 2
 custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 size_flags_horizontal = 4
-mouse_default_cursor_shape = 2
 theme_override_font_sizes/font_size = 25
 theme_override_styles/hover = SubResource("StyleBoxFlat_sdq3n")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_fiib4")

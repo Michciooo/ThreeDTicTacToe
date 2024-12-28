@@ -52,6 +52,7 @@ public partial class GamePlay3x3x3 : Control
 	public async void RestartGame()
 	{
 		var global = GetNode<Global>("/root/Global");
+		global.ClickSFX("res://sfx/btn_click.wav");
 		moves = 27;
 		foreach (Button button in TttBtns) button.Text = "";
 
@@ -150,6 +151,8 @@ public partial class GamePlay3x3x3 : Control
 		if (availableButtons.Count > 0)
 		{
 			await WaitingMove();
+			global.ClickSFX("res://sfx/ttt_btn_click.wav");
+			
 			Button computerMove = availableButtons[random.Next(availableButtons.Count)];
 			computerMove.Text = playerTurn;
 			Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[computerMove];
@@ -166,7 +169,6 @@ public partial class GamePlay3x3x3 : Control
 			else if (playerTurn == playerTurns[1] && global.player23D == "Easy Computer") await EasyComputer();
 			else if (playerTurn == playerTurns[2] && global.player33D == "Easy Computer") await EasyComputer();
 		}
-		
 	}
 	private async void PlayGame(Button btn)
 	{
@@ -188,6 +190,8 @@ public partial class GamePlay3x3x3 : Control
 
 	    Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 	    Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
+
+	    global.ClickSFX("res://sfx/ttt_btn_click.wav");
 	    
 	    if (btn.Text == "")
 	    {

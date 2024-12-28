@@ -13,6 +13,7 @@ public partial class WinPopUp : Control
 	public void ClosePopUp()
 	{
 		var global = GetNode<Global>("/root/Global");
+		global.ClickSFX("res://sfx/btn_click.wav");
 		QueueFree(); // usuwa ci instancje popatrz podczas na te zdalny podgląd jak się tworzy
 		if (global.Mode == "2D")
 		{

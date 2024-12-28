@@ -11,7 +11,7 @@ namespace threeDTicTacToe;
 
 public partial class TTT2D : Control
 {	
-	private String path = "statistics.json";
+	private String statsPath = "statistics.json";
 	private List<Button> ticTacToeButtons = new List<Button>(9);
 	private List<Button> allBtns = new List<Button>();
 	private bool playerTurn;
@@ -23,6 +23,8 @@ public partial class TTT2D : Control
 	
 	Button[,] board = new Button[3, 3];
 	int[] bestMove = new int[2];
+	
+	
 	private int SimulateBoard(Button[,] tttBoard)
 	{
 		for (int i = 0; i < 3; i++)
@@ -95,18 +97,13 @@ public partial class TTT2D : Control
 				{
 					board[i, j].Text = aiSymbol;
 
-					int moveScore = MiniMax(board, 0, false, 4);
+					int moveScore = MiniMax(board, 0, false, 5);
 
 					board[i, j].Text = "";
 
-					if (moveScore > bestScore)
+					if (moveScore >= bestScore)
 					{
 						bestScore = moveScore;
-						moveX = i;
-						moveY = j;
-					}
-					else if (moveScore == bestScore)
-					{
 						moveX = i;
 						moveY = j;
 					}
@@ -157,7 +154,7 @@ public partial class TTT2D : Control
 			playerSymbol = "O";
 		}
 		
-		foreach (var button in ticTacToeButtons) button.Pressed += () => Human(button);
+		foreach (var button in ticTacToeButtons) button.Pressed += () => PlayGame(button);
 
 		if (global.player12D == "Easy Computer" || global.player22D == "Easy Computer")
 		{
@@ -181,6 +178,7 @@ public partial class TTT2D : Control
 	{
 		var restartBtn = GetNode<Button>("rightSide/Info/restartBtn");
 		var global = GetNode<Global>("/root/Global");
+		global.ClickSFX("res://sfx/btn_click.wav");
 		
 		foreach (var button in ticTacToeButtons)
 		{
@@ -196,11 +194,13 @@ public partial class TTT2D : Control
 		if ((global.player12D == "Human" && global.player22D == "AI Computer") ||
 		    (global.player12D == "AI Computer" && global.player22D == "Human")) AiComputer();
 	}
-	private void Human(Button button)
+	private void PlayGame(Button button)
 	{
 	    var playerTurnLabel = GetNode<Label>("rightSide/Info/playerTurn");
 	    var global = GetNode<Global>("/root/Global");
 
+	    global.ClickSFX("res://sfx/ttt_btn_click.wav");
+	    
 	    if (button.Text == "")
 	    {
 		    if (global.player12D == "Human" && global.player22D == "Human")
@@ -297,6 +297,7 @@ public partial class TTT2D : Control
 		
 		BlockBtns(true);
 		await WaitingMove();
+		global.ClickSFX("res://sfx/ttt_btn_click.wav");
 		var random = new Random();
 		List<Button> availableButtons = ticTacToeButtons.Where(b => b.Text == "").ToList();
 
@@ -330,7 +331,7 @@ public partial class TTT2D : Control
 		
 		BlockBtns(true);
 		await WaitingMove();
-		
+		global.ClickSFX("res://sfx/ttt_btn_click.wav");
 		Button aiBtn = BestMove();
 		if (aiBtn != null)
 		{
@@ -406,7 +407,7 @@ public partial class TTT2D : Control
 						global.content["wins2D"] += 1;
 						global.content["xWins"] += 1;
 					}
-					File.WriteAllText(path, JsonSerializer.Serialize(global.content));
+					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
 				}
 
 				if (wins[i, 0].Text == "O")
@@ -425,7 +426,7 @@ public partial class TTT2D : Control
 						global.content["loses2D"] += 1;
 						global.content["xLoses"] += 1;
 					}
-					File.WriteAllText(path, JsonSerializer.Serialize(global.content));
+					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
 				}
 
 				scoreScene.ScoreSystem();
@@ -445,11 +446,12 @@ public partial class TTT2D : Control
 	}
 	public override void _Process(double delta)
 	{
+		var global = GetNode<Global>("/root/Global");
 		var mainMenuBtn = this.GetNode<Button>("leftSide/mainMenu");
-		
 		if (mainMenuBtn.IsPressed())
 		{
 			WinPopUp popUp = GetNodeOrNull<WinPopUp>("/root/WinPopUp");
+			global.ClickSFX("res://sfx/btn_click.wav");
 			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu2D/MainMenu2D.tscn");
 			if(popUp != null) popUp.QueueFree();
 		}

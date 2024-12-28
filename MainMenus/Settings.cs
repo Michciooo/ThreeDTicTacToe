@@ -40,6 +40,7 @@ namespace threeDTicTacToe
         private void btnPress(Button button)
         {
             Global global = (Global)GetNode("/root/Global");
+            global.ClickSFX("res://sfx/btn_click.wav");
             TextEdit targetTextInput = null;
             Key oldKey = Key.Unknown;
 
@@ -123,10 +124,19 @@ namespace threeDTicTacToe
 
         public override void _Process(double delta)
         {
+            var global = (Global)GetNode("/root/Global");
             var mainMenuBtn = this.GetNode<Button>("mainMenu");
             var statsBtn = this.GetNode<Button>("stats");
-            if (mainMenuBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
-            if (statsBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/Statistics/Statistics.tscn");
+            if (mainMenuBtn.IsPressed())
+            {
+                global.ClickSFX("res://sfx/btn_click.wav");
+                GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
+            }
+            if (statsBtn.IsPressed())
+            {
+                global.ClickSFX("res://sfx/btn_click.wav");
+                GetTree().ChangeSceneToFile("res://MainMenus/Statistics/Statistics.tscn");
+            }
         }
     }
 }

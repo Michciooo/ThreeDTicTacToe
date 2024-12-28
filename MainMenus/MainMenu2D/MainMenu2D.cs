@@ -45,10 +45,12 @@ namespace threeDTicTacToe
 				global.player22D = playersTypes[2];
 				GetTree().ChangeSceneToFile("res://TicTacToeModes/TTT2D/TTT2D.tscn");
 			}
+			global.ClickSFX("res://sfx/btn_click.wav");
 		}
 
 		private void FirstPlayerSelect(long index)
 		{
+			var global = GetNode<Global>("/root/Global");
 			var playerOneBtn = GetNode<OptionButton>("Main/MainContainer/Container/left/playerOneBtn");
 			string value = "";
 
@@ -61,11 +63,13 @@ namespace threeDTicTacToe
 				case 2: value = playerOneBtn.Text; 
 					break;
 			}
+			global.ClickSFX("res://sfx/btn_click.wav");
 			if(playersTypes.ContainsKey(1)) playersTypes[1] = playerOneBtn.Text;
 			else playersTypes.Add(1,playerOneBtn.Text);
 		}
 		private void SecondPlayerSelect(long index)
 		{
+			var global = GetNode<Global>("/root/Global");
 			var playerTwoBtn = GetNode<OptionButton>("Main/MainContainer/Container/right/playerTwoBtn");
 			string value = "";
 			switch (index)
@@ -77,12 +81,18 @@ namespace threeDTicTacToe
 				case 2: value = playerTwoBtn.Text; 
 					break;
 			}
+			global.ClickSFX("res://sfx/btn_click.wav");
 			if(playersTypes.ContainsKey(2)) playersTypes[2] = playerTwoBtn.Text;
 			else playersTypes.Add(2,playerTwoBtn.Text);
 		}
 		public override void _Process(double delta)
 		{
-			if (Input.IsActionPressed("mainMenu")) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
+			var global = GetNode<Global>("/root/Global");
+			if (Input.IsActionPressed("mainMenu"))
+			{
+				global.ClickSFX("res://sfx/btn_click.wav");
+				GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
+			}
 		}
 	}
 }

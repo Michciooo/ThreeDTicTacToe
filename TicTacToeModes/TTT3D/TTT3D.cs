@@ -119,6 +119,7 @@ public partial class TTT3D : Node3D
 
         if (mainMenu.IsPressed())
         {
+            global.ClickSFX("res://sfx/btn_click.wav");
             GetTree().ChangeSceneToFile("res://MainMenus/MainMenu3D/MainMenu3D.tscn");
             if (popUp != null) popUp.QueueFree();
         }

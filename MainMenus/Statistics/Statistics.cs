@@ -85,7 +85,12 @@ public partial class Statistics : Control
 
 	public override void _Process(double delta)
 	{
+		var global = GetNode<Global>("/root/Global");
 		var backBtn = GetNode<Button>("backBtn");
-		if (backBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/Settings.tscn");
+		if (backBtn.IsPressed())
+		{
+			global.ClickSFX("res://sfx/btn_click.wav");
+			GetTree().ChangeSceneToFile("res://MainMenus/Settings.tscn");
+		}
 	}
 }

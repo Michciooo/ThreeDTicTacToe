@@ -33,6 +33,7 @@ public partial class AccountLogin : Control
 		var logOutBtn = GetNode<Button>("logOutBtn");
 		var loginContainer = GetNode<Panel>("LoginContainer");
 		
+		global.ClickSFX("res://sfx/btn_click.wav");
 		global.isLogged = false;
 		global.accName = "Guest";
 		logOutBtn.Visible = false;
@@ -41,13 +42,15 @@ public partial class AccountLogin : Control
 
 	private void RegisterBtnOnPressed()
 	{
+		var global = GetNode<Global>("/root/Global");
+		
 		var emailTextEdit = GetNode<LineEdit>("RegisterContainer/rightSide/emailTextEdit");
 		var loginTextEdit = GetNode<LineEdit>("RegisterContainer/rightSide/loginTextEdit");
 		var passwordTextEdit = GetNode<LineEdit>("RegisterContainer/rightSide/passwordTextEdit");
 		var validPanel = GetNode<Panel>("ValidPanel");
 		var validationLabel = GetNode<Label>("ValidPanel/validationLabel");
 
-		Regex emailRegex = new Regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+		Regex emailRegex = new Regex("^[a-zA-Z0-9._%+-]+@[a-z.-]+\\.[a-z]{2,}$");
 		Regex loginRegex = new Regex(@"^\S+$");
 		Regex passwordRegex = new Regex("^(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()]).{8,}$");
 
@@ -89,6 +92,7 @@ public partial class AccountLogin : Control
 			loginTextEdit.Text = "";
 			passwordTextEdit.Text = "";
 		}
+		global.ClickSFX("res://sfx/btn_click.wav");
 	}
 	private void LoginBtnOnPressed()
 	{
@@ -108,15 +112,25 @@ public partial class AccountLogin : Control
 		validPanel.Visible = true;
 		validationLabel.Text = "Incorrect login or password";
 		passwordTextEdit.Text = "";
+		global.ClickSFX("res://sfx/btn_click.wav");
 	}
 
 	public override void _Process(double delta)
 	{
+		var global = GetNode<Global>("/root/Global");
 		var backBtn = GetNode<Button>("backBtn");
 		var okBtn = GetNode<Button>("ValidPanel/okBtn");
 		var validPanel = GetNode<Panel>("ValidPanel");
-		
-		if (backBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
-		if (okBtn.IsPressed()) validPanel.Visible = false;
+
+		if (backBtn.IsPressed())
+		{
+			global.ClickSFX("res://sfx/btn_click.wav");
+			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");
+		}
+		if (okBtn.IsPressed())
+		{
+			global.ClickSFX("res://sfx/btn_click.wav");
+			validPanel.Visible = false;
+		}
 	}
 }

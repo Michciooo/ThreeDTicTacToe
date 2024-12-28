@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using NAudio.Wave;
 
 namespace threeDTicTacToe;
 
@@ -39,7 +40,6 @@ public partial class Global : Node
 
     public Button[,] wins4x4x4;
     public Button[,] wins3x3x3;
-
     public void Statistics()
     {
 	    if (File.Exists(path))
@@ -88,7 +88,18 @@ public partial class Global : Node
 		    File.WriteAllText(path, JsonSerializer.Serialize(content));
 	    }
     }
-    
+
+    public void ClickSFX(string pathName)
+    {
+		WaveOutEvent outputDevice = new WaveOutEvent();
+		string virtualPath = pathName;
+	    string realPath = ProjectSettings.GlobalizePath(virtualPath);
+	    
+	    var audioFile = new AudioFileReader(realPath);
+
+	    outputDevice.Init(audioFile);
+	    outputDevice.Play();
+    }
     public void InitializeWins4x4x4()
     {
 	    for (int i = 0; i < 16; i++)

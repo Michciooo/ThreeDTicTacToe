@@ -354,7 +354,7 @@ public partial class GamePlay4x4x4 : Control
 	{
 		var global = GetNode<Global>("/root/Global");
 		moves = 64;
-		
+		global.ClickSFX("res://sfx/btn_click.wav");
 		StandardMaterial3D restartCubeColor = new StandardMaterial3D();
 		restartCubeColor.AlbedoColor = new Color("#000000");
 
@@ -469,6 +469,7 @@ public partial class GamePlay4x4x4 : Control
 		}
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 		Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
+		global.ClickSFX("res://sfx/ttt_btn_click.wav");
 		if (global.player13D == "Human" && global.player23D == "Human")
 		{
 			if (btn.Text == "")
@@ -533,6 +534,7 @@ public partial class GamePlay4x4x4 : Control
 	}
 	private async void EasyComputer()
 	{
+		var global = GetNode<Global>("/root/Global");
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
@@ -549,6 +551,8 @@ public partial class GamePlay4x4x4 : Control
 		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 		BlockBtns(true);
 		await WaitingMove();
+		global.ClickSFX("res://sfx/ttt_btn_click.wav");
+		
 		Random random = new Random();
 		List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
 
@@ -567,12 +571,29 @@ public partial class GamePlay4x4x4 : Control
 	}
 	private async void AiComputer()
 	{
+		var global = GetNode<Global>("/root/Global");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+		for (int i = 0; i < TttBtns.Count; i++)
+		{
+			if (i < 64)
+			{
+				Button button = TttBtns[i];
+				Label3D label = Labels[i];
+				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
+				{
+					main.BtnAndboxMeshLabel3DDictionary[button] = label;
+				}
+			}
+		}
+		
 		BlockBtns(true);
 		await WaitingMove();
 		Button aiBtn = BestMove();
 		if (aiBtn != null)
 		{
 			aiBtn.Text = "X";
+			main.BtnAndboxMeshLabel3DDictionary[aiBtn].Text = "X";
+			global.ClickSFX("res://sfx/ttt_btn_click.wav");
 			moves -= 1;
 			_playerTurn = true;
 

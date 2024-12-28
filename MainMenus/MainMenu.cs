@@ -16,6 +16,8 @@ public partial class MainMenu : Node3D
 	}
 	private void SettingsPress()
 	{
+		var global = (Global)GetNode("/root/Global");
+		global.ClickSFX("res://sfx/btn_click.wav");
 		GetTree().ChangeSceneToFile("res://MainMenus/Settings.tscn");
 	}
 	public override void _Process(double delta)
@@ -29,16 +31,30 @@ public partial class MainMenu : Node3D
 
 		if (twoDBtn.IsPressed())
 		{
+			global.ClickSFX("res://sfx/btn_click.wav");
 			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu2D/MainMenu2D.tscn");
 			global.Mode = "2D";
 		}
 		if (threeDBtn.IsPressed())
 		{
+			global.ClickSFX("res://sfx/btn_click.wav");
 			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu3D/MainMenu3D.tscn");
 			global.Mode = "3D";
 		}
-		if (Input.IsActionPressed("appExit") || exitBtn.IsPressed()) GetTree().Quit();
-		if(settings.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/Settings.tscn");
-		if(accBtn.IsPressed()) GetTree().ChangeSceneToFile("res://Registration/AccountLogin.tscn");
+		if (Input.IsActionPressed("appExit") || exitBtn.IsPressed())
+		{
+			global.ClickSFX("res://sfx/btn_click.wav");
+			GetTree().Quit();
+		}
+		if (settings.IsPressed())
+		{
+			global.ClickSFX("res://sfx/btn_click.wav");
+			GetTree().ChangeSceneToFile("res://MainMenus/Settings.tscn");
+		}
+		if (accBtn.IsPressed())
+		{
+			global.ClickSFX("res://sfx/btn_click.wav");
+			GetTree().ChangeSceneToFile("res://Registration/AccountLogin.tscn");
+		}
 	}
 }

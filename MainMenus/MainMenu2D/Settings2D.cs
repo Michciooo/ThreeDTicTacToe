@@ -45,11 +45,13 @@ namespace threeDTicTacToe
 
             if (button.Name == "btn1")
             {
+                global.ClickSFX("res://sfx/btn_click.wav");
                 targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/mainMenu");
                 oldKey = global.shiftLockKey;
             }
             else if (button.Name == "btn2")
             {
+                global.ClickSFX("res://sfx/btn_click.wav");
                 targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/appExit");
                 oldKey = global.unShiftLockKey;
             }
@@ -123,8 +125,13 @@ namespace threeDTicTacToe
 
         public override void _Process(double delta)
         {
+            var global = (Global)GetNode("/root/Global");
             var mainMenuBtn = this.GetNode<Button>("mainMenu");
-            if (mainMenuBtn.IsPressed()) GetTree().ChangeSceneToFile("res://MainMenus/MainMenu2D/MainMenu2D.tscn");
+            if (mainMenuBtn.IsPressed())
+            {
+                global.ClickSFX("res://sfx/btn_click.wav"); 
+                GetTree().ChangeSceneToFile("res://MainMenus/MainMenu2D/MainMenu2D.tscn");
+            }
         }
     }
 }

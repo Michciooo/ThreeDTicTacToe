@@ -29,6 +29,9 @@ public partial class Global : Node
     public Dictionary<string , int> content = new Dictionary<string, int>();
     private String path = "statistics.json";
     
+    private WaveOutEvent _outputDevice;
+    private AudioFileReader _audioFile;
+    
     public List<Button> FirstDBtn = new List<Button>(16);
     public List<Button> SecondDBtn = new List<Button>(16);
     public List<Button> ThirdDBtn = new List<Button>(16);
@@ -100,6 +103,37 @@ public partial class Global : Node
 	    outputDevice.Init(audioFile);
 	    outputDevice.Play();
     }
+    
+    public void PlayLooping(string filePath)
+    {
+	    if (_audioFile != null && _audioFile.FileName == filePath) return;
+
+	    _audioFile?.Dispose();
+	    
+	    _audioFile = new AudioFileReader(filePath);
+
+	    if (_outputDevice == null)
+	    {
+		    _outputDevice = new WaveOutEvent();
+		    _outputDevice.PlaybackStopped += OnPlaybackStopped;
+	    }
+
+	    if (_outputDevice.PlaybackState != PlaybackState.Playing)
+	    {
+		    _outputDevice.Init(_audioFile);
+		    _outputDevice.Play();
+	    }
+    }
+
+    private void OnPlaybackStopped(object sender, StoppedEventArgs e)
+    {
+	    if (_audioFile != null)
+	    {
+		    _audioFile.Position = 0;
+		    _outputDevice.Play();
+	    }
+    }
+    
     public void InitializeWins4x4x4()
     {
 	    for (int i = 0; i < 16; i++)

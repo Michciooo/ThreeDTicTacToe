@@ -10,6 +10,20 @@ public partial class Statistics : Control
 		WinsInfoUpdate();
 		LosesInfoUpdate();
 		CalculateWinRate();
+		
+		var global = GetNode<Global>("/root/Global");
+		var backBtn = GetNode<Button>("backBtn");
+		var infoBtn = GetNode<Button>("infoBtn");
+		var infoPopUp = GetNode<PopupPanel>("infoPopUp");
+		var closeBtn = GetNode<Button>("infoPopUp/VBoxContainer/closeBtn");
+			
+		infoBtn.Pressed += () => infoPopUp.Show();
+		closeBtn.Pressed += () => infoPopUp.Hide();
+		backBtn.Pressed += () =>
+		{
+			global.ClickSFX("res://sfx/btn_click.wav");
+			GetTree().ChangeSceneToFile("res://MainMenus/Settings.tscn");
+		};
 	}
 
 	private void CalculateWinRate()
@@ -85,12 +99,5 @@ public partial class Statistics : Control
 
 	public override void _Process(double delta)
 	{
-		var global = GetNode<Global>("/root/Global");
-		var backBtn = GetNode<Button>("backBtn");
-		if (backBtn.IsPressed())
-		{
-			global.ClickSFX("res://sfx/btn_click.wav");
-			GetTree().ChangeSceneToFile("res://MainMenus/Settings.tscn");
-		}
 	}
 }

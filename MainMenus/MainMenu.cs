@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using NAudio.Wave;
 
 namespace threeDTicTacToe;
 public partial class MainMenu : Node3D
@@ -13,7 +14,13 @@ public partial class MainMenu : Node3D
 		
 		Texture customCursor = GD.Load<Texture>("res://Custom_mouse/default_mouse.png");
 		Input.SetCustomMouseCursor(customCursor);
+		
+		string virtualPath = "res://sfx/main_menu_theme.mp3";
+		string realPath = ProjectSettings.GlobalizePath(virtualPath);
+		
+		global.PlayLooping(realPath);
 	}
+	
 	private void SettingsPress()
 	{
 		var global = (Global)GetNode("/root/Global");

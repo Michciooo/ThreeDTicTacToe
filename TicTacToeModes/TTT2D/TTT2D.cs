@@ -400,12 +400,16 @@ public partial class TTT2D : Control
 						global.content["allLoses"] += 1;
 						global.content["loses2D"] += 1;
 						global.content["oLoses"] += 1;
+						
+						global.ClickSFX("res://sfx/lost_sound.wav");
 					}
 					if (global.player22D == "Human" && global.player12D != "Human")
 					{
 						global.content["allWins"] += 1;
 						global.content["wins2D"] += 1;
 						global.content["xWins"] += 1;
+						
+						global.ClickSFX("res://sfx/win_sound.wav");
 					}
 					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
 				}
@@ -419,12 +423,16 @@ public partial class TTT2D : Control
 						global.content["allWins"] += 1;
 						global.content["wins2D"] += 1;
 						global.content["oWins"] += 1;
+						
+						global.ClickSFX("res://sfx/win_sound.wav");
 					}
 					if (global.player22D == "Human" && global.player12D != "Human")
 					{
 						global.content["allLoses"] += 1;
 						global.content["loses2D"] += 1;
 						global.content["xLoses"] += 1;
+						
+						global.ClickSFX("res://sfx/lost_sound.wav");
 					}
 					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
 				}

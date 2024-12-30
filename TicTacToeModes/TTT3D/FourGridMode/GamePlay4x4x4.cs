@@ -16,7 +16,7 @@ public partial class GamePlay4x4x4 : Control
 	public List<Label3D> Labels = new List<Label3D>(64);
 	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>(64);
 
-	bool _playerTurn;
+	private bool _playerTurn = true;
 	private String statsPath = "info.json";
 	bool win = false;
 	private int moves = 64;
@@ -35,117 +35,117 @@ public partial class GamePlay4x4x4 : Control
 				    tttBoard[y, 1, x].Text == tttBoard[y, 2, x].Text &&
 				    tttBoard[y, 2, x].Text == tttBoard[y, 3, x].Text)
 				{
-					if (tttBoard[y, 0, x].Text == "X") return 10;
-					if (tttBoard[y, 0, x].Text == "O") return -10;
+					if (tttBoard[y, 0, x].Text == "X") return -10;
+					if (tttBoard[y, 0, x].Text == "O") return 10;
 
-					if (tttBoard[y, 1, x].Text == "X") return 10;
-					if (tttBoard[y, 1, x].Text == "O") return -10;
+					if (tttBoard[y, 1, x].Text == "X") return -10;
+					if (tttBoard[y, 1, x].Text == "O") return 10;
 
-					if (tttBoard[y, 2, x].Text == "X") return 10;
-					if (tttBoard[y, 2, x].Text == "O") return -10;
+					if (tttBoard[y, 2, x].Text == "X") return -10;
+					if (tttBoard[y, 2, x].Text == "O") return 10;
 
-					if (tttBoard[y, 3, x].Text == "X") return 10;
-					if (tttBoard[y, 3, x].Text == "O") return -10;
+					if (tttBoard[y, 3, x].Text == "X") return -10;
+					if (tttBoard[y, 3, x].Text == "O") return 10;
 				}
 				if (tttBoard[0, y, x].Text == tttBoard[1, y, x].Text &&
 				    tttBoard[1, y, x].Text == tttBoard[2, y, x].Text &&
 				    tttBoard[2, y, x].Text == tttBoard[3, y, x].Text)
 				{
-					if (tttBoard[0, y, x].Text == "X") return 10;
-					if (tttBoard[0, y, x].Text == "O") return -10;
+					if (tttBoard[0, y, x].Text == "X") return -10;
+					if (tttBoard[0, y, x].Text == "O") return 10;
 
-					if (tttBoard[1, y, x].Text == "X") return 10;
-					if (tttBoard[1, y, x].Text == "O") return -10;
+					if (tttBoard[1, y, x].Text == "X") return -10;
+					if (tttBoard[1, y, x].Text == "O") return 10;
 
-					if (tttBoard[2, y, x].Text == "X") return 10;
-					if (tttBoard[2, y, x].Text == "O") return -10;
+					if (tttBoard[2, y, x].Text == "X") return -10;
+					if (tttBoard[2, y, x].Text == "O") return 10;
 
-					if (tttBoard[3, y, x].Text == "X") return 10;
-					if (tttBoard[3, y, x].Text == "O") return -10;
+					if (tttBoard[3, y, x].Text == "X") return -10;
+					if (tttBoard[3, y, x].Text == "O") return 10;
 				}
 				if (tttBoard[y,0, x].Text == tttBoard[y,1, x].Text &&
 				    tttBoard[y, 1,x].Text == tttBoard[y,2, x].Text &&
 				    tttBoard[y,2, x].Text == tttBoard[y,3,x].Text)
 				{
-					if(tttBoard[y,0,x].Text == "X") return 10;
-					if(tttBoard[y,0,x].Text == "O") return -10;
+					if(tttBoard[y,0,x].Text == "X") return -10;
+					if(tttBoard[y,0,x].Text == "O") return 10;
 					
-					if(tttBoard[y,1,x].Text == "X") return 10;
-					if(tttBoard[y,1,x].Text == "O") return -10;
+					if(tttBoard[y,1,x].Text == "X") return -10;
+					if(tttBoard[y,1,x].Text == "O") return 10;
 					
-					if(tttBoard[y,2,x].Text == "X") return 10;
-					if(tttBoard[y,2,x].Text == "O") return -10;
+					if(tttBoard[y,2,x].Text == "X") return -10;
+					if(tttBoard[y,2,x].Text == "O") return 10;
 					
-					if(tttBoard[y,3,x].Text == "X") return 10;
-					if(tttBoard[y,3,x].Text == "O") return -10;
+					if(tttBoard[y,3,x].Text == "X") return -10;
+					if(tttBoard[y,3,x].Text == "O") return 10;
 				}
 				// skosy 2D
 				if (tttBoard[0, 0, x].Text == tttBoard[1, 1, x].Text &&
 				    tttBoard[1, 1, x].Text == tttBoard[2, 2, x].Text &&
 				    tttBoard[2, 2, x].Text == tttBoard[3, 3, x].Text)
 				{
-					if(tttBoard[0,0,x].Text == "X") return 10;
-					if(tttBoard[0,0,x].Text == "O") return -10;
+					if(tttBoard[0,0,x].Text == "X") return -10;
+					if(tttBoard[0,0,x].Text == "O") return 10;
 					
-					if(tttBoard[1,1,x].Text == "X") return 10;
-					if(tttBoard[1,1,x].Text == "O") return -10;
+					if(tttBoard[1,1,x].Text == "X") return -10;
+					if(tttBoard[1,1,x].Text == "O") return 10;
 					
-					if(tttBoard[2,2,x].Text == "X") return 10;
-					if(tttBoard[2,2,x].Text == "O") return -10;
+					if(tttBoard[2,2,x].Text == "X") return -10;
+					if(tttBoard[2,2,x].Text == "O") return 10;
 					
-					if(tttBoard[3,3,x].Text == "X") return 10;
-					if(tttBoard[3,3,x].Text == "O") return -10;
+					if(tttBoard[3,3,x].Text == "X") return -10;
+					if(tttBoard[3,3,x].Text == "O") return 10;
 				}
 				// horizontal 3D
 				if (tttBoard[y, x, 0].Text == tttBoard[y, x, 1].Text &&
 				    tttBoard[y, x, 1].Text == tttBoard[y, x, 2].Text &&
 				    tttBoard[y, x, 2].Text == tttBoard[y, x, 3].Text)
 				{
-					if (tttBoard[y, x, 0].Text == "X") return 10;
-					if (tttBoard[y, x, 0].Text == "O") return -10;
+					if (tttBoard[y, x, 0].Text == "X") return -10;
+					if (tttBoard[y, x, 0].Text == "O") return 10;
 
-					if (tttBoard[y, x, 1].Text == "X") return 10;
-					if (tttBoard[y, x, 1].Text == "O") return -10;
+					if (tttBoard[y, x, 1].Text == "X") return -10;
+					if (tttBoard[y, x, 1].Text == "O") return 10;
 
-					if (tttBoard[y, x, 2].Text == "X") return 10;
-					if (tttBoard[y, x, 2].Text == "O") return -10;
+					if (tttBoard[y, x, 2].Text == "X") return -10;
+					if (tttBoard[y, x, 2].Text == "O") return 10;
 
-					if (tttBoard[y, x, 3].Text == "X") return 10;
-					if (tttBoard[y, x, 3].Text == "O") return -10;
+					if (tttBoard[y, x, 3].Text == "X") return -10;
+					if (tttBoard[y, x, 3].Text == "O") return 10;
 				}
 				// skosy 3D vertical
 				if (tttBoard[0, y, 0].Text == tttBoard[1, y, 1].Text &&
 				    tttBoard[1, y, 1].Text == tttBoard[2, y, 2].Text &&
 				    tttBoard[2, y, 2].Text == tttBoard[3, y, 3].Text)
 				{
-					if(tttBoard[0, y, 0].Text == "X") return 10;
-					if(tttBoard[0, y, 0].Text == "O") return -10;
+					if(tttBoard[0, y, 0].Text == "X") return -10;
+					if(tttBoard[0, y, 0].Text == "O") return 10;
 					
-					if(tttBoard[1, y, 1].Text == "X") return 10;
-					if(tttBoard[1, y, 1].Text == "O") return -10;
+					if(tttBoard[1, y, 1].Text == "X") return -10;
+					if(tttBoard[1, y, 1].Text == "O") return 10;
 					
-					if(tttBoard[2, y, 2].Text == "X") return 10;
-					if(tttBoard[2, y, 2].Text == "O") return -10;
+					if(tttBoard[2, y, 2].Text == "X") return -10;
+					if(tttBoard[2, y, 2].Text == "O") return 10;
 					
-					if(tttBoard[3, y, 3].Text == "X") return 10;
-					if(tttBoard[3, y, 3].Text == "O") return -10;
+					if(tttBoard[3, y, 3].Text == "X") return -10;
+					if(tttBoard[3, y, 3].Text == "O") return 10;
 				}
 				// skosy 3D horizontal
 				if (tttBoard[y, 0, 0].Text == tttBoard[y, 1, 1].Text &&
 				    tttBoard[y, 1, 1].Text == tttBoard[y, 2, 2].Text &&
 				    tttBoard[y, 2, 2].Text == tttBoard[y, 3, 3].Text)
 				{
-					if (tttBoard[y, 0, 0].Text == "X") return 10;
-					if (tttBoard[y, 0, 0].Text == "O") return -10;
+					if (tttBoard[y, 0, 0].Text == "X") return -10;
+					if (tttBoard[y, 0, 0].Text == "O") return 10;
 					
-					if (tttBoard[y, 1, 1].Text == "X") return 10;
-					if (tttBoard[y, 1, 1].Text == "O") return -10;
+					if (tttBoard[y, 1, 1].Text == "X") return -10;
+					if (tttBoard[y, 1, 1].Text == "O") return 10;
 					
-					if (tttBoard[y, 2, 2].Text == "X") return 10;
-					if (tttBoard[y, 2, 2].Text == "O") return -10;
+					if (tttBoard[y, 2, 2].Text == "X") return -10;
+					if (tttBoard[y, 2, 2].Text == "O") return 10;
 					
-					if (tttBoard[y, 3, 3].Text == "X") return 10;
-					if (tttBoard[y, 3, 3].Text == "O") return -10;
+					if (tttBoard[y, 3, 3].Text == "X") return -10;
+					if (tttBoard[y, 3, 3].Text == "O") return 10;
 				}
 			}
 		}
@@ -153,26 +153,26 @@ public partial class GamePlay4x4x4 : Control
 		if (tttBoard[0, 0, 0].Text == tttBoard[1, 1, 1].Text && tttBoard[1, 1, 1].Text == tttBoard[2, 2, 2].Text &&
 		    tttBoard[2, 2, 2].Text == tttBoard[3, 3, 3].Text)
 		{
-			if (tttBoard[1, 1, 1].Text == "X") return 10;
-			if (tttBoard[1, 1, 1].Text == "O") return -10;
+			if (tttBoard[1, 1, 1].Text == "X") return -10;
+			if (tttBoard[1, 1, 1].Text == "O") return 10;
 		}
 		if (tttBoard[0, 3, 0].Text == tttBoard[1, 2, 1].Text && tttBoard[1, 2, 1].Text == tttBoard[2,1, 2].Text &&
 		    tttBoard[2, 1, 2].Text == tttBoard[3, 0, 3].Text)
 		{
-			if (tttBoard[1, 1, 1].Text == "X") return 10;
-			if (tttBoard[1, 1, 1].Text == "O") return -10;
+			if (tttBoard[1, 1, 1].Text == "X") return -10;
+			if (tttBoard[1, 1, 1].Text == "O") return 10;
 		}
 		if (tttBoard[3, 3, 0].Text == tttBoard[2, 2, 1].Text && tttBoard[2, 2, 1].Text == tttBoard[1, 1, 2].Text &&
 		    tttBoard[1,1, 2].Text == tttBoard[0,0,3].Text)
 		{
-			if (tttBoard[1, 1, 1].Text == "X") return 10;
-			if (tttBoard[1, 1, 1].Text == "O") return -10;
+			if (tttBoard[1, 1, 1].Text == "X") return -10;
+			if (tttBoard[1, 1, 1].Text == "O") return 10;
 		}
 		if (tttBoard[3, 0, 0].Text == tttBoard[2, 1, 1].Text && tttBoard[2, 1, 1].Text == tttBoard[1, 2, 2].Text &&
 		    tttBoard[1, 2, 2].Text == tttBoard[0, 3, 3].Text)
 		{
-			if (tttBoard[1, 1, 1].Text == "X") return 10;
-			if (tttBoard[1, 1, 1].Text == "O") return -10;
+			if (tttBoard[1, 1, 1].Text == "X") return -10;
+			if (tttBoard[1, 1, 1].Text == "O") return 10;
 		}
 		return 0;
 	}
@@ -199,9 +199,9 @@ public partial class GamePlay4x4x4 : Control
 					{
 						if (tttBoard[i,j,k].Text == "")
 						{
-							tttBoard[i,j,k].Text = "X";
+							tttBoard[i, j, k].Text = "O";
 							bestScore = Math.Max(bestScore, MiniMax(tttBoard, depth + 1, false, maxDepth));
-							tttBoard[i,j,k].Text = "";
+							tttBoard[i, j, k].Text = "";
 						}
 					}
 				}
@@ -218,7 +218,7 @@ public partial class GamePlay4x4x4 : Control
 					{
 						if (tttBoard[i,j,k].Text == "")
 						{
-							tttBoard[i,j,k].Text = "O";
+							tttBoard[i,j,k].Text = "X";
 							bestScore = Math.Min(bestScore, MiniMax(tttBoard, depth + 1, true, maxDepth));
 							tttBoard[i,j,k].Text = "";
 						}
@@ -230,9 +230,12 @@ public partial class GamePlay4x4x4 : Control
 	}
 	private Button BestMove()
 	{
+		var global = GetNode<Global>("/root/Global");
 		int bestScore = -1000;
 		int moveX = -1, moveY = -1, moveZ = -1;
 		
+		
+		int moveScore = int.MaxValue;
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 4; j++)
@@ -241,9 +244,18 @@ public partial class GamePlay4x4x4 : Control
 				{
 					if (board[i, j, k].Text == "")
 					{
-						board[i,j,k].Text = "X";
-						int moveScore = MiniMax(board, 0, false,1);
-						board[i,j,k].Text = "";
+						if (global.player13D == "AI Computer")
+						{
+							board[i, j, k].Text = "X";
+							moveScore = MiniMax(board, 0, false, 2);
+							board[i, j, k].Text = "";
+						}
+						if (global.player23D == "AI Computer")
+						{
+							board[i, j, k].Text = "O";
+							moveScore = MiniMax(board, 0, false, 2);
+							board[i, j, k].Text = "";
+						}
 						if (moveScore > bestScore)
 						{
 							bestScore = moveScore;
@@ -262,7 +274,8 @@ public partial class GamePlay4x4x4 : Control
 			}
 		}
 		var aiButton = board[moveX, moveY, moveZ];
-		aiButton.Text = "X";
+		if (global.player13D == "AI Computer") aiButton.Text = "O";
+		if (global.player23D == "AI Computer") aiButton.Text = "X";
 		return aiButton;
 	}
 	private void AddBtnsToList()
@@ -327,27 +340,19 @@ public partial class GamePlay4x4x4 : Control
 			main.Create_Visualisation4x4x4();
 			Create_Dimensions4x4x4(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9, lay10, lay11, lay12, lay13,
 				lay14, lay15, lay16);
-		}
-		_playerTurn = global.player13D == "Human";
-		
-		if (global.player13D == "Easy Computer" || global.player23D == "Easy Computer")
-		{
-			_playerTurn = global.player23D == "Easy Computer";
-			if (!_playerTurn)
+			
+			if (global.player13D == "Easy Computer" || global.player23D == "Easy Computer")
 			{
-				EasyComputer();
+				if (global.player13D == "Easy Computer" && _playerTurn)  EasyComputer();
+				if (global.player23D == "Easy Computer" && !_playerTurn)  EasyComputer();
+			}
+			else if (global.player13D == "AI Computer" || global.player23D == "AI Computer")
+			{
+				if (global.player13D == "AI Computer" && _playerTurn)  AiComputer();
+				if (global.player23D == "AI Computer" && !_playerTurn)  AiComputer();
 			}
 		}
-
-		if (global.player13D == "AI Computer" || global.player23D == "AI Computer")
-		{
-			AddBtnsToList();
-			_playerTurn = global.player23D == "AI Computer";
-			if (!_playerTurn)
-			{
-				AiComputer();
-			}
-		}
+		AddBtnsToList();
 		AddToDictionary();
 	}
 	public void RestartGame()
@@ -494,8 +499,7 @@ public partial class GamePlay4x4x4 : Control
 			WhoWon();
 		}
 
-		if (global.player13D == "Human" && global.player23D == "Easy Computer" ||
-		    global.player13D == "Easy Computer" && global.player23D == "Human")
+		if (global.player13D == "Human" && global.player23D == "Easy Computer")
 		{
 			if (btn.Text == "")
 			{
@@ -514,8 +518,26 @@ public partial class GamePlay4x4x4 : Control
 				}
 			}
 		}
-		if (global.player13D == "Human" && global.player23D == "AI Computer" ||
-		    global.player13D == "AI Computer" && global.player23D == "Human")
+		if (global.player13D == "Easy Computer" && global.player23D == "Human")
+		{
+			if (btn.Text == "")
+			{
+				if (!_playerTurn)
+				{
+					btn.Text = "X";
+					label3D.Text = btn.Text;
+					playerTurnLabel.Text = "Player Turn : O";
+					_playerTurn = true;
+					moves -= 1;
+					if (WhoWon()) return;
+				}
+				if(_playerTurn)
+				{
+					EasyComputer();
+				}
+			}
+		}
+		if (global.player13D == "Human" && global.player23D == "AI Computer")
 		{
 			if (btn.Text == "")
 			{
@@ -529,6 +551,22 @@ public partial class GamePlay4x4x4 : Control
 					if (WhoWon()) return;
 				}
 				if(!_playerTurn) AiComputer();
+			}
+		} 
+		if (global.player13D == "AI Computer" && global.player23D == "Human")
+		{
+			if (btn.Text == "")
+			{
+				if (!_playerTurn)
+				{
+					btn.Text = "X";
+					label3D.Text = btn.Text;
+					playerTurnLabel.Text = "Player Turn : X";
+					_playerTurn = true;
+					moves -= 1;
+					if (WhoWon()) return;
+				}
+				if(_playerTurn) AiComputer();
 			}
 		}
 	}
@@ -559,12 +597,21 @@ public partial class GamePlay4x4x4 : Control
 		if (availableButtons.Count > 0)
 		{
 			Button computerMove = availableButtons[random.Next(availableButtons.Count)];
-			computerMove.Text = "X";
-			main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "X";
-			playerTurnLabel.Text = "Player Turn : O";
-
+			if (global.player13D == "Easy Computer")
+			{
+				computerMove.Text = "O";
+				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "O";
+				playerTurnLabel.Text = "Player Turn : X";
+				_playerTurn = false;
+			}
+			else if (global.player23D == "Easy Computer")
+			{
+				computerMove.Text = "X";
+				main.BtnAndboxMeshLabel3DDictionary[computerMove].Text = "X";
+				playerTurnLabel.Text = "Player Turn : O";
+				_playerTurn = true;
+			}
 			moves -= 1;
-			_playerTurn = !_playerTurn;
 			if (WhoWon()) return;
 		}
 		BlockBtns(false);
@@ -572,6 +619,7 @@ public partial class GamePlay4x4x4 : Control
 	private async void AiComputer()
 	{
 		var global = GetNode<Global>("/root/Global");
+		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
 		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 		for (int i = 0; i < TttBtns.Count; i++)
 		{
@@ -591,11 +639,23 @@ public partial class GamePlay4x4x4 : Control
 		Button aiBtn = BestMove();
 		if (aiBtn != null)
 		{
-			aiBtn.Text = "X";
-			main.BtnAndboxMeshLabel3DDictionary[aiBtn].Text = "X";
-			global.ClickSFX("res://sfx/ttt_btn_click.wav");
+			if (global.player13D == "AI Computer")
+			{
+				aiBtn.Text = "O";
+				main.BtnAndboxMeshLabel3DDictionary[aiBtn].Text = "O";
+				playerTurnLabel.Text = "Player Turn : X";
+				_playerTurn = false;
+				global.ClickSFX("res://sfx/ttt_btn_click.wav");
+			}
+			else if (global.player23D == "AI Computer")
+			{
+				aiBtn.Text = "X";
+				main.BtnAndboxMeshLabel3DDictionary[aiBtn].Text = "X";
+				playerTurnLabel.Text = "Player Turn : O";
+				_playerTurn = true;
+				global.ClickSFX("res://sfx/ttt_btn_click.wav");
+			}
 			moves -= 1;
-			_playerTurn = true;
 
 			if (WhoWon())
 			{
@@ -678,7 +738,7 @@ public partial class GamePlay4x4x4 : Control
 						global.content["loses3D"] += 1;
 						global.content["loses3D2P"] += 1;
 					}
-					if (global.player13D != "Human" && global.player23D == "Human")
+					else if (global.player13D != "Human" && global.player23D == "Human")
 					{
 						global.ClickSFX("res://sfx/win_sound.wav");
 						global.content["allWins"] += 1;
@@ -686,9 +746,12 @@ public partial class GamePlay4x4x4 : Control
 						global.content["wins3D"] += 1;
 						global.content["wins3D2P"] += 1;
 					}
+					else
+					{
+						global.ClickSFX("res://sfx/end_of_game.mp3");
+					}
 				}
-
-				if (global.wins4x4x4[i, 0].Text == "O")
+				else if (global.wins4x4x4[i, 0].Text == "O")
 				{
 					scoreScene.o_wins += 1;
 					
@@ -700,13 +763,17 @@ public partial class GamePlay4x4x4 : Control
 						global.content["loses3D"] += 1;
 						global.content["loses3D2P"] += 1;
 					}
-					if (global.player13D == "Human" && global.player23D != "Human")
+					else if (global.player13D == "Human" && global.player23D != "Human")
 					{
 						global.ClickSFX("res://sfx/win_sound.wav");
 						global.content["allWins"] += 1;
 						global.content["oWins"] += 1;
 						global.content["wins3D"] += 1;
 						global.content["wins3D2P"] += 1;
+					}
+					else
+					{
+						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
 				}
 				File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
@@ -726,6 +793,7 @@ public partial class GamePlay4x4x4 : Control
 		{
 			win = false;
 			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
+			global.ClickSFX("res://sfx/end_of_game.mp3");
 			GetTree().Root.AddChild(popUpInstant);
 			BlockBtns(true);
 			return true;

@@ -403,7 +403,7 @@ public partial class TTT2D : Control
 						
 						global.ClickSFX("res://sfx/lost_sound.wav");
 					}
-					if (global.player22D == "Human" && global.player12D != "Human")
+					else if (global.player22D == "Human" && global.player12D != "Human")
 					{
 						global.content["allWins"] += 1;
 						global.content["wins2D"] += 1;
@@ -411,10 +411,13 @@ public partial class TTT2D : Control
 						
 						global.ClickSFX("res://sfx/win_sound.wav");
 					}
+					else
+					{
+						global.ClickSFX("res://sfx/end_of_game.mp3");
+					}
 					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
 				}
-
-				if (wins[i, 0].Text == "O")
+				else if (wins[i, 0].Text == "O")
 				{
 					scoreScene.o_wins += 1;
 					
@@ -426,13 +429,17 @@ public partial class TTT2D : Control
 						
 						global.ClickSFX("res://sfx/win_sound.wav");
 					}
-					if (global.player22D == "Human" && global.player12D != "Human")
+					else if (global.player22D == "Human" && global.player12D != "Human")
 					{
 						global.content["allLoses"] += 1;
 						global.content["loses2D"] += 1;
 						global.content["xLoses"] += 1;
 						
 						global.ClickSFX("res://sfx/lost_sound.wav");
+					}
+					else
+					{
+						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
 					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
 				}
@@ -447,6 +454,7 @@ public partial class TTT2D : Control
 			win = false;
 			var popUpInstant = popUp.Instantiate();
 			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
+			global.ClickSFX("res://sfx/end_of_game.mp3");
 			GetTree().Root.AddChild(popUpInstant);
 			return true;
 		}

@@ -271,7 +271,7 @@ public partial class GamePlay3x3x3 : Control
 						global.content["wins3D"] += 1;
 						global.content["wins3D3P"] += 1;
 					}
-					if (global.player23D != "Human" && global.player33D != "Human" &&
+					else if (global.player23D != "Human" && global.player33D != "Human" &&
 					    global.player13D == "Human")
 					{
 						global.ClickSFX("res://sfx/lost_sound.wav");
@@ -280,7 +280,7 @@ public partial class GamePlay3x3x3 : Control
 						global.content["loses3D"] += 1;
 						global.content["loses3D3P"] += 1;
 					}
-					if (global.player13D != "Human" && global.player23D != "Human" &&
+					else if (global.player13D != "Human" && global.player23D != "Human" &&
 					    global.player33D == "Human")
 					{
 						global.ClickSFX("res://sfx/lost_sound.wav");
@@ -288,6 +288,10 @@ public partial class GamePlay3x3x3 : Control
 						global.content["xLoses"] += 1;
 						global.content["loses3D"] += 1;
 						global.content["loses3D3P"] += 1;
+					}
+					else
+					{
+						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
 				}
 				//poprawnie
@@ -303,7 +307,7 @@ public partial class GamePlay3x3x3 : Control
 						global.content["loses3D"] += 1;
 						global.content["loses3D3P"] += 1;
 					}
-					if (global.player23D != "Human" && global.player33D != "Human" &&
+					else if (global.player23D != "Human" && global.player33D != "Human" &&
 					    global.player13D == "Human")
 					{
 						global.ClickSFX("res://sfx/win_sound.wav");
@@ -312,7 +316,7 @@ public partial class GamePlay3x3x3 : Control
 						global.content["wins3D"] += 1;
 						global.content["wins3D3P"] += 1;
 					}
-					if (global.player13D != "Human" && global.player23D != "Human" &&
+					else if (global.player13D != "Human" && global.player23D != "Human" &&
 					    global.player33D == "Human")
 					{
 						global.ClickSFX("res://sfx/lost_sound.wav");
@@ -320,6 +324,10 @@ public partial class GamePlay3x3x3 : Control
 						global.content["oLoses"] += 1;
 						global.content["loses3D"] += 1;
 						global.content["loses3D3P"] += 1;
+					}
+					else
+					{
+						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
 					
 				}
@@ -336,7 +344,7 @@ public partial class GamePlay3x3x3 : Control
 						global.content["wins3D"] += 1;
 						global.content["wins3D3P"] += 1;
 					}
-					if (global.player23D != "Human" && global.player33D != "Human" &&
+					else if (global.player23D != "Human" && global.player33D != "Human" &&
 					    global.player13D == "Human")
 					{
 						global.ClickSFX("res://sfx/lost_sound.wav");
@@ -345,7 +353,7 @@ public partial class GamePlay3x3x3 : Control
 						global.content["loses3D"] += 1;
 						global.content["loses3D3P"] += 1;
 					}
-					if (global.player13D != "Human" && global.player33D != "Human" &&
+					else if (global.player13D != "Human" && global.player33D != "Human" &&
 					    global.player23D == "Human")
 					{
 						global.ClickSFX("res://sfx/lost_sound.wav");
@@ -353,6 +361,10 @@ public partial class GamePlay3x3x3 : Control
 						global.content["tLoses"] += 1;
 						global.content["loses3D"] += 1;
 						global.content["loses3D3P"] += 1;
+					}
+					else
+					{
+						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
 				}
 				File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
@@ -370,6 +382,7 @@ public partial class GamePlay3x3x3 : Control
 		{
 			win = false;
 			popUpInstant.GetNode<Label>("winLabel").Text = "Draw !";
+			global.ClickSFX("res://sfx/end_of_game.mp3");
 			GetTree().Root.AddChild(popUpInstant);
 			BlockBtns(true);
 			return true;

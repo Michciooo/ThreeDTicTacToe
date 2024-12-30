@@ -1,17 +1,64 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 namespace threeDTicTacToe
 {
     public partial class Settings : Control
     {
         private List<Key> keysList = new List<Key>();
+        private String statsPath = "info.json";
 
         public override void _Ready()
         {
             Binding();
             SetupButtons();
+            MusicSettings();
+        }
+
+        private void MusicSettings()
+        {
+            var global = GetNode<Global>("/root/Global");
+            var musicLabel = GetNode<Label>("volumeSettings/settings/musicLabel");
+            musicLabel.Text = $"MUSIC : {global.content["musicVolume"] *100 }%";
+            
+            var sfxLabel = GetNode<Label>("volumeSettings/settings/sfxLabel");
+            sfxLabel.Text = $"SFX : {global.content["sfxVolume"] *100 }%";
+            
+            var musicSlider = GetNode<Slider>("volumeSettings/settings/musicSlider");
+            var sfxSlider = GetNode<Slider>("volumeSettings/settings/sfxSlider");
+            
+            musicSlider.Value = global.content["musicVolume"] *100;
+            sfxSlider.Value = global.content["sfxVolume"] *100;
+            
+            musicSlider.ValueChanged += MusicSliderOnValueChanged;
+            sfxSlider.ValueChanged += SfxSliderOnValueChanged;
+        }
+
+        private void SfxSliderOnValueChanged(double value)
+        {
+            var global = GetNode<Global>("/root/Global");
+            var sfxLabel = GetNode<Label>("volumeSettings/settings/sfxLabel");
+            var sfxVolume = (decimal)value / 100;
+            
+            sfxLabel.Text = $"SFX : {value}%";
+            global.content["sfxVolume"] = (float)Math.Round(sfxVolume, 2);
+            File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
+        }
+
+        private void MusicSliderOnValueChanged(double value)
+        {
+            var global = GetNode<Global>("/root/Global");
+            var musicLabel = GetNode<Label>("volumeSettings/settings/musicLabel");
+            var musicVolume = (decimal)value / 100;
+            
+            musicLabel.Text = $"MUSIC : {value}%";
+            global.content["musicVolume"] = (float)Math.Round(musicVolume, 2);
+            File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
+            
+            global.SetVolume(global.content["musicVolume"]);
         }
 
         private void SetupButtons()

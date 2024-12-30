@@ -17,7 +17,7 @@ public partial class GamePlay4x4x4 : Control
 	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>(64);
 
 	bool _playerTurn;
-	private String statsPath = "statistics.json";
+	private String statsPath = "info.json";
 	bool win = false;
 	private int moves = 64;
 

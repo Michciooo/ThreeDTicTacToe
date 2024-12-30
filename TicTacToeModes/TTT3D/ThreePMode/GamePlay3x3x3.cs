@@ -21,7 +21,7 @@ public partial class GamePlay3x3x3 : Control
 
 	public List<Label3D> Labels = new List<Label3D>();
 	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>();
-	private String statsPath = "statistics.json";
+	private String statsPath = "info.json";
 	public override void _Ready()
 	{
 		Button restartButton = GetNode<Button>("restartBtn");

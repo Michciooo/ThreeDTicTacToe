@@ -26,11 +26,8 @@ public partial class Global : Node
     public String accName = "Guest";
     public bool isLogged = false;
     
-    public Dictionary<string , int> content = new Dictionary<string, int>();
-    private String path = "statistics.json";
-    
-    private WaveOutEvent _outputDevice;
-    private AudioFileReader _audioFile;
+    public Dictionary<string , float> content = new Dictionary<string, float>();
+    private String path = "info.json";
     
     public List<Button> FirstDBtn = new List<Button>(16);
     public List<Button> SecondDBtn = new List<Button>(16);
@@ -48,7 +45,7 @@ public partial class Global : Node
 	    if (File.Exists(path))
 	    {
 		    string jsonContent = File.ReadAllText(path);
-		    content = JsonSerializer.Deserialize<Dictionary<string, int>>(jsonContent);
+		    content = JsonSerializer.Deserialize<Dictionary<string, float>>(jsonContent);
 			
 		    if (!content.ContainsKey("allWins")) content["allWins"] = 0;
 		    if (!content.ContainsKey("oWins")) content["oWins"] = 0;
@@ -67,6 +64,8 @@ public partial class Global : Node
 		    if (!content.ContainsKey("loses3D")) content["loses3D"] = 0;
 		    if (!content.ContainsKey("loses3D2P")) content["loses3D2P"] = 0;
 		    if (!content.ContainsKey("loses3D3P")) content["loses3D3P"] = 0;
+		    if (!content.ContainsKey("musicVolume")) content["musicVolume"] = 1f;
+		    if (!content.ContainsKey("sfxVolume")) content["sfxVolume"] = 1f;
 	    }
 	    else
 	    {
@@ -87,6 +86,8 @@ public partial class Global : Node
 		    content["loses3D"] = 0;
 		    content["loses3D2P"] = 0;
 		    content["loses3D3P"] = 0;
+		    content["musicVolume"] = 1f;
+		    content["sfxVolume"] = 1f;
 
 		    File.WriteAllText(path, JsonSerializer.Serialize(content));
 	    }
@@ -100,40 +101,56 @@ public partial class Global : Node
 	    
 	    var audioFile = new AudioFileReader(realPath);
 
+	    var sfxVolume = content["sfxVolume"];
+	    audioFile.Volume = sfxVolume;
+
 	    outputDevice.Init(audioFile);
 	    outputDevice.Play();
     }
     
+    private WaveOutEvent outputDevice;
+    private AudioFileReader audioFile;
+
     public void PlayLooping(string filePath)
     {
-	    if (_audioFile != null && _audioFile.FileName == filePath) return;
+	    if (audioFile != null && audioFile.FileName == filePath) return;
 
-	    _audioFile?.Dispose();
-	    
-	    _audioFile = new AudioFileReader(filePath);
-
-	    if (_outputDevice == null)
+	    if (outputDevice != null)
 	    {
-		    _outputDevice = new WaveOutEvent();
-		    _outputDevice.PlaybackStopped += OnPlaybackStopped;
+		    outputDevice.Stop();
+		    outputDevice.Dispose();
+		    outputDevice = null;
 	    }
 
-	    if (_outputDevice.PlaybackState != PlaybackState.Playing)
+	    audioFile?.Dispose();
+
+	    audioFile = new AudioFileReader(filePath);
+	    audioFile.Volume = content["musicVolume"]; 
+
+	    void OnPlaybackStopped(object sender, StoppedEventArgs e)
 	    {
-		    _outputDevice.Init(_audioFile);
-		    _outputDevice.Play();
+		    if (audioFile != null)
+		    {
+			    audioFile.Position = 0;
+			    outputDevice.Play();
+		    }
 	    }
+
+	    outputDevice = new WaveOutEvent();
+	    outputDevice.PlaybackStopped += OnPlaybackStopped;
+
+	    outputDevice.Init(audioFile);
+	    outputDevice.Play();
     }
-
-    private void OnPlaybackStopped(object sender, StoppedEventArgs e)
+    public void SetVolume(float newVolume)
     {
-	    if (_audioFile != null)
+	    if (audioFile != null)
 	    {
-		    _audioFile.Position = 0;
-		    _outputDevice.Play();
+		    audioFile.Volume = newVolume;
 	    }
     }
-    
+
+
     public void InitializeWins4x4x4()
     {
 	    for (int i = 0; i < 16; i++)

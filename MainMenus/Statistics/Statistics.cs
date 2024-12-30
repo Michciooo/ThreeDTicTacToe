@@ -34,18 +34,18 @@ public partial class Statistics : Control
 		var winRate2DLabel = GetNode<Label>("winRateInfo/VBoxContainer/winRate2D");
 		var winRate3DLabel = GetNode<Label>("winRateInfo/VBoxContainer/winRate3D");
 
-		decimal winRate = 0;
-		decimal winRate2D = 0;
-		decimal winRate3D = 0;
+		float winRate = 0;
+		float winRate2D = 0;
+		float winRate3D = 0;
 		
 		if (global.content["allWins"] + global.content["allLoses"] == 0) winRate = 0;
-		else winRate = (decimal)global.content["allWins"] / (global.content["allWins"] + global.content["allLoses"]) * 100;
+		else winRate = (float)global.content["allWins"] / (global.content["allWins"] + global.content["allLoses"]) * 100;
 		
 		if (global.content["wins2D"] + global.content["loses2D"] == 0) winRate2D = 0;
-		else winRate2D = (decimal)global.content["wins2D"] / (global.content["wins2D"] + global.content["loses2D"]) * 100;
+		else winRate2D = (float)global.content["wins2D"] / (global.content["wins2D"] + global.content["loses2D"]) * 100;
 		
 		if (global.content["wins3D"] + global.content["loses3D"] == 0) winRate3D = 0;
-		else winRate3D = (decimal)global.content["wins3D"] / (global.content["wins3D"] + global.content["loses3D"]) * 100;
+		else winRate3D = (float)global.content["wins3D"] / (global.content["wins3D"] + global.content["loses3D"]) * 100;
 		
 		allWinRateLabel.Text = $"WINRATE : {Math.Round(winRate,2)} %";
 		winRate2DLabel.Text = $"2D WINRATE : {Math.Round(winRate2D,2)} %";

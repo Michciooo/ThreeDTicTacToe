@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://blvf4x7pgqn8u"]
+[gd_scene load_steps=7 format=3 uid="uid://blvf4x7pgqn8u"]
 
 [ext_resource type="Script" path="res://MainMenus/Settings.cs" id="1_88sxo"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_b5ujf"]
@@ -23,6 +23,14 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgswl"]
+content_margin_left = 1000.0
+bg_color = Color(0.745098, 0.572549, 0, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
 
 [node name="Settings" type="Panel"]
 anchors_preset = 15
@@ -87,20 +95,22 @@ vertical_alignment = 1
 [node name="Main" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(1600, 800)
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.25
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -754.0
-offset_top = -800.0
-offset_right = 754.0
+anchor_bottom = 0.25
+offset_left = -800.0
+offset_top = -0.200005
+offset_right = 800.0
+offset_bottom = 799.8
 grow_horizontal = 2
-grow_vertical = 0
 
 [node name="Labels" type="VBoxContainer" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_constants/separation = 50
 
 [node name="Label4" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
@@ -122,6 +132,8 @@ text = "App exit"
 [node name="KeysInput" type="VBoxContainer" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_constants/separation = 50
 
 [node name="mainMenu" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
@@ -149,6 +161,8 @@ middle_mouse_paste_enabled = false
 [node name="RestartBtns" type="VBoxContainer" parent="Main"]
 layout_mode = 2
 size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_constants/separation = 50
 
 [node name="btn1" type="Button" parent="Main/RestartBtns"]
 custom_minimum_size = Vector2(250, 100)
@@ -165,3 +179,57 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 35
 text = "Reset key"
+
+[node name="volumeSettings" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.65
+anchor_right = 0.7
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jgswl")
+
+[node name="settings" type="VBoxContainer" parent="volumeSettings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_right = 0.6
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="volumeSettings/settings"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_b5ujf")
+theme_override_font_sizes/font_size = 25
+text = "VOLUME SETTINGS"
+horizontal_alignment = 1
+
+[node name="musicLabel" type="Label" parent="volumeSettings/settings"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_b5ujf")
+theme_override_font_sizes/font_size = 20
+text = "MUSIC"
+horizontal_alignment = 1
+
+[node name="musicSlider" type="HSlider" parent="volumeSettings/settings"]
+layout_mode = 2
+value = 100.0
+rounded = true
+
+[node name="sfxLabel" type="Label" parent="volumeSettings/settings"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_b5ujf")
+theme_override_font_sizes/font_size = 20
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="sfxSlider" type="HSlider" parent="volumeSettings/settings"]
+layout_mode = 2
+value = 100.0
+rounded = true

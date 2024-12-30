@@ -11,7 +11,7 @@ namespace threeDTicTacToe;
 
 public partial class TTT2D : Control
 {	
-	private String statsPath = "statistics.json";
+	private String statsPath = "info.json";
 	private List<Button> ticTacToeButtons = new List<Button>(9);
 	private List<Button> allBtns = new List<Button>();
 	private bool playerTurn;

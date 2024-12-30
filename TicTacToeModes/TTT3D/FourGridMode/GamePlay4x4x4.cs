@@ -84,17 +84,34 @@ public partial class GamePlay4x4x4 : Control
 				    tttBoard[1, 1, x].Text == tttBoard[2, 2, x].Text &&
 				    tttBoard[2, 2, x].Text == tttBoard[3, 3, x].Text)
 				{
-					if(tttBoard[0,0,x].Text == "X") return -10;
-					if(tttBoard[0,0,x].Text == "O") return 10;
+					if (tttBoard[0, 0, x].Text == "X") return -10;
+					if (tttBoard[0, 0, x].Text == "O") return 10;
+
+					if (tttBoard[1, 1, x].Text == "X") return -10;
+					if (tttBoard[1, 1, x].Text == "O") return 10;
+
+					if (tttBoard[2, 2, x].Text == "X") return -10;
+					if (tttBoard[2, 2, x].Text == "O") return 10;
+
+					if (tttBoard[3, 3, x].Text == "X") return -10;
+					if (tttBoard[3, 3, x].Text == "O") return 10;
+				}
+				// i tak nie dziala XD
+				if (tttBoard[0, 3, x].Text == tttBoard[1, 2, x].Text &&
+				    tttBoard[1, 2, x].Text == tttBoard[2, 1, x].Text &&
+				    tttBoard[2, 1, x].Text == tttBoard[3, 0, x].Text)
+				{
+					if(tttBoard[0,3,x].Text == "X") return -10;
+					if(tttBoard[0,3,x].Text == "O") return 10;
 					
-					if(tttBoard[1,1,x].Text == "X") return -10;
-					if(tttBoard[1,1,x].Text == "O") return 10;
+					if(tttBoard[1,2,x].Text == "X") return -10;
+					if(tttBoard[1,2,x].Text == "O") return 10;
 					
-					if(tttBoard[2,2,x].Text == "X") return -10;
-					if(tttBoard[2,2,x].Text == "O") return 10;
+					if(tttBoard[2,1,x].Text == "X") return -10;
+					if(tttBoard[2,1,x].Text == "O") return 10;
 					
-					if(tttBoard[3,3,x].Text == "X") return -10;
-					if(tttBoard[3,3,x].Text == "O") return 10;
+					if(tttBoard[3,0,x].Text == "X") return -10;
+					if(tttBoard[3,0,x].Text == "O") return 10;
 				}
 				// horizontal 3D
 				if (tttBoard[y, x, 0].Text == tttBoard[y, x, 1].Text &&
@@ -150,29 +167,33 @@ public partial class GamePlay4x4x4 : Control
 			}
 		}
 		// skosy 3D
-		if (tttBoard[0, 0, 0].Text == tttBoard[1, 1, 1].Text && tttBoard[1, 1, 1].Text == tttBoard[2, 2, 2].Text &&
+		if (tttBoard[0, 0, 0].Text == tttBoard[1, 1, 1].Text
+		    && tttBoard[1, 1, 1].Text == tttBoard[2, 2, 2].Text &&
 		    tttBoard[2, 2, 2].Text == tttBoard[3, 3, 3].Text)
 		{
-			if (tttBoard[1, 1, 1].Text == "X") return -10;
-			if (tttBoard[1, 1, 1].Text == "O") return 10;
+			if (tttBoard[0,0,0].Text == "X") return -10;
+			if (tttBoard[0,0,0].Text == "O") return 10;
 		}
-		if (tttBoard[0, 3, 0].Text == tttBoard[1, 2, 1].Text && tttBoard[1, 2, 1].Text == tttBoard[2,1, 2].Text &&
+		if (tttBoard[0, 3, 0].Text == tttBoard[1, 2, 1].Text && 
+		    tttBoard[1, 2, 1].Text == tttBoard[2,1, 2].Text &&
 		    tttBoard[2, 1, 2].Text == tttBoard[3, 0, 3].Text)
 		{
-			if (tttBoard[1, 1, 1].Text == "X") return -10;
-			if (tttBoard[1, 1, 1].Text == "O") return 10;
+			if (tttBoard[0, 3, 0].Text == "X") return -10;
+			if (tttBoard[0, 3, 0].Text == "O") return 10;
 		}
-		if (tttBoard[3, 3, 0].Text == tttBoard[2, 2, 1].Text && tttBoard[2, 2, 1].Text == tttBoard[1, 1, 2].Text &&
+		if (tttBoard[3, 3, 0].Text == tttBoard[2, 2, 1].Text && 
+		    tttBoard[2, 2, 1].Text == tttBoard[1, 1, 2].Text &&
 		    tttBoard[1,1, 2].Text == tttBoard[0,0,3].Text)
 		{
-			if (tttBoard[1, 1, 1].Text == "X") return -10;
-			if (tttBoard[1, 1, 1].Text == "O") return 10;
+			if (tttBoard[3, 3, 0].Text == "X") return -10;
+			if (tttBoard[3, 3, 0].Text == "O") return 10;
 		}
-		if (tttBoard[3, 0, 0].Text == tttBoard[2, 1, 1].Text && tttBoard[2, 1, 1].Text == tttBoard[1, 2, 2].Text &&
+		if (tttBoard[3, 0, 0].Text == tttBoard[2, 1, 1].Text &&
+		    tttBoard[2, 1, 1].Text == tttBoard[1, 2, 2].Text &&
 		    tttBoard[1, 2, 2].Text == tttBoard[0, 3, 3].Text)
 		{
-			if (tttBoard[1, 1, 1].Text == "X") return -10;
-			if (tttBoard[1, 1, 1].Text == "O") return 10;
+			if (tttBoard[3, 0, 0].Text == "X") return -10;
+			if (tttBoard[3, 0, 0].Text == "O") return 10;
 		}
 		return 0;
 	}
@@ -190,7 +211,7 @@ public partial class GamePlay4x4x4 : Control
 		int bestScore;
 		if (isMaximizing)
 		{
-			bestScore = -1000;
+			bestScore = 1000;
 			for (int i = 0; i < 4; i++)
 			{
 				for (int j = 0; j < 4; j++)
@@ -209,7 +230,7 @@ public partial class GamePlay4x4x4 : Control
 		}
 		else
 		{
-			bestScore = 1000;
+			bestScore = -1000;
 			for (int i = 0; i < 4; i++)
 			{
 				for (int j = 0; j < 4; j++)

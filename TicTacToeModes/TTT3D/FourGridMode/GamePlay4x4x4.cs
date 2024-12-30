@@ -247,13 +247,13 @@ public partial class GamePlay4x4x4 : Control
 						if (global.player13D == "AI Computer")
 						{
 							board[i, j, k].Text = "X";
-							moveScore = MiniMax(board, 0, false, 2);
+							moveScore = MiniMax(board, 0, false, 1);
 							board[i, j, k].Text = "";
 						}
 						if (global.player23D == "AI Computer")
 						{
 							board[i, j, k].Text = "O";
-							moveScore = MiniMax(board, 0, false, 2);
+							moveScore = MiniMax(board, 0, false, 1);
 							board[i, j, k].Text = "";
 						}
 						if (moveScore > bestScore)

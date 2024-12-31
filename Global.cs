@@ -14,6 +14,12 @@ public partial class Global : Node
     public Key restartPosCubeKey = Key.R;
     public Key shiftLockKey = Key.Shift;
     public Key unShiftLockKey = Key.Ctrl;
+    
+    public String mainMenuKeyValue = "Escape";
+    public String appExitKeyValue = "Q";
+    public String restartPosCubeKeyValue = "R";
+    public String shiftLockKeyValue = "Shift";
+    public String unShiftLockKeyValue = "Ctrl";
 
     public String player12D;
     public String player22D;

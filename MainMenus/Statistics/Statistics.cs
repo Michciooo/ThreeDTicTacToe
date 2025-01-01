@@ -14,7 +14,7 @@ public partial class Statistics : Control
 		var global = GetNode<Global>("/root/Global");
 		var backBtn = GetNode<Button>("backBtn");
 		var infoBtn = GetNode<Button>("infoBtn");
-		var infoPopUp = GetNode<PopupPanel>("infoPopUp");
+		var infoPopUp = GetNode<Panel>("infoPopUp");
 		var closeBtn = GetNode<Button>("infoPopUp/VBoxContainer/closeBtn");
 			
 		infoBtn.Pressed += () => infoPopUp.Show();

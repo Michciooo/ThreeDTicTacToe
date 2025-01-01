@@ -297,14 +297,18 @@ theme_override_fonts/font = ExtResource("2_78cy4")
 theme_override_font_sizes/font_size = 30
 text = "3D WINRATE : "
 
-[node name="infoPopUp" type="PopupPanel" parent="."]
-transparent_bg = true
-initial_position = 2
-size = Vector2i(250, 250)
-always_on_top = true
-transparent = true
-min_size = Vector2i(250, 250)
-max_size = Vector2i(250, 250)
+[node name="infoPopUp" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.2
+anchor_right = 0.4
+anchor_bottom = 0.2
+offset_left = -125.0
+offset_right = 125.0
+offset_bottom = 250.0
+grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8b07q")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="infoPopUp"]
@@ -312,7 +316,7 @@ offset_right = 250.0
 offset_bottom = 250.0
 
 [node name="closeBtn" type="Button" parent="infoPopUp/VBoxContainer"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_0orjb")

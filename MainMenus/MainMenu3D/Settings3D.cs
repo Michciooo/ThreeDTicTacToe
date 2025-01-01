@@ -92,43 +92,99 @@ namespace threeDTicTacToe
             {
                 if (shiftLockTextInput.HasFocus())
                 {
-                    AssignKey(eventKey, shiftLockTextInput, ref global.shiftLockKey);
+                    AssignKey(eventKey, shiftLockTextInput, ref global.shiftLockKey, ref global.shiftLockKeyValue);
                 }
                 else if (unshiftLockTextInput.HasFocus())
                 {
-                    AssignKey(eventKey, unshiftLockTextInput, ref global.unShiftLockKey);
+                    AssignKey(eventKey, shiftLockTextInput, ref global.unShiftLockKey, ref global.unShiftLockKeyValue);
                 }
                 else if (restartPosCubeTextInput.HasFocus())
                 {
-                    AssignKey(eventKey, restartPosCubeTextInput, ref global.restartPosCubeKey);
+                    AssignKey(eventKey, restartPosCubeTextInput, ref global.restartPosCubeKey, ref global.restartPosCubeKeyValue);
                 }
             }
         }
 
-        private void AssignKey(InputEventKey eventKey, TextEdit focusedTextInput, ref Key globalKey)
+        private void AssignKey(InputEventKey eventKey, TextEdit focusedTextInput, ref Key globalKey,
+            ref string keyValue)
         {
             Key newKey = (Key)eventKey.Keycode;
+
             if (!keysList.Contains(newKey))
             {
-                if (globalKey != Key.Unknown) 
+                if (globalKey != Key.Unknown)
                 {
                     keysList.Remove(globalKey);
                     RemoveKeyFromAction(focusedTextInput.Name, globalKey);
                 }
-                focusedTextInput.Text = OS.GetKeycodeString(eventKey.Keycode);
+
+                string keyText;
+                switch (newKey)
+                {
+                    case Key.Quoteleft:
+                        keyText = "`";
+                        break;
+                    case Key.Minus:
+                    case Key.KpSubtract:
+                        keyText = "-";
+                        break;
+                    case Key.Equal:
+                        keyText = "=";
+                        break;
+                    case Key.Backslash:
+                        keyText = "\\";
+                        break;
+                    case Key.Bracketleft:
+                        keyText = "[";
+                        break;
+                    case Key.Bracketright:
+                        keyText = "]";
+                        break;
+                    case Key.Semicolon:
+                        keyText = ";";
+                        break;
+                    case Key.Apostrophe:
+                        keyText = "'";
+                        break;
+                    case Key.Comma:
+                        keyText = ",";
+                        break;
+                    case Key.Period:
+                        keyText = ".";
+                        break;
+                    case Key.Slash:
+                    case Key.KpDivide:
+                        keyText = "/";
+                        break;
+                    case Key.KpMultiply:
+                        keyText = "*";
+                        break;
+                    case Key.KpAdd:
+                        keyText = "+";
+                        break;
+                    case Key.KpEnter:
+                        keyText = "Enter";
+                        break;
+                    default:
+                        keyText = OS.GetKeycodeString(eventKey.Keycode);
+                        break;
+                }
+
+                focusedTextInput.Text = keyText;
+
+                keyValue = keyText;
                 keysList.Add(newKey);
                 globalKey = newKey;
+
                 AddKeyToAction(focusedTextInput.Name, newKey);
             }
         }
-
         private void AddKeyToAction(string actionName, Key key)
         {
             InputMap.AddAction(actionName);
             InputEventKey inputEventKey = new InputEventKey { Keycode = key };
             InputMap.ActionAddEvent(actionName, inputEventKey);
         }
-
         private void RemoveKeyFromAction(string actionName, Key key)
         {
             if (InputMap.HasAction(actionName))

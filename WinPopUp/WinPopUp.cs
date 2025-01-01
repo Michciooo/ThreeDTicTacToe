@@ -20,16 +20,20 @@ public partial class WinPopUp : Control
 			TTT2D ttt2D = GetNode<TTT2D>("/root/TTT2D");
 			ttt2D.RestartGame();
 		}
-		if (global.player3DMode == "4x4x4")
+		else switch (global.player3DMode)
 		{
-			GamePlay4x4x4 gamePlay = GetNode<GamePlay4x4x4>("/root/TTT3D/rightSide/GamePlay4x4x4");
-			gamePlay.RestartGame();
-		}
-
-		if (global.player3DMode == "3x3x3")
-		{
-			GamePlay3x3x3 gamePlay = GetNode<GamePlay3x3x3>("/root/TTT3D/rightSide/GamePlay3x3x3");
-			gamePlay.RestartGame();
+			case "4x4x4":
+			{
+				GamePlay4x4x4 gamePlay = GetNode<GamePlay4x4x4>("/root/TTT3D/rightSide/GamePlay4x4x4");
+				gamePlay.RestartGame();
+				break;
+			}
+			case "3x3x3":
+			{
+				GamePlay3x3x3 gamePlay = GetNode<GamePlay3x3x3>("/root/TTT3D/rightSide/GamePlay3x3x3");
+				gamePlay.RestartGame();
+				break;
+			}
 		}
 	}
 	public override void _Process(double delta)

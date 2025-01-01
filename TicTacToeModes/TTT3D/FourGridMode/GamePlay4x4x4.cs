@@ -22,7 +22,6 @@ public partial class GamePlay4x4x4 : Control
 	private int moves = 64;
 
 	Button[,,] board = new Button[4,4,4];
-	int[] bestMove = new int[2];
 
 	private int SimulateBoard(Button[,,] tttBoard)
 	{
@@ -372,8 +371,8 @@ public partial class GamePlay4x4x4 : Control
 				if (global.player13D == "AI Computer" && _playerTurn)  AiComputer();
 				if (global.player23D == "AI Computer" && !_playerTurn)  AiComputer();
 			}
+			AddBtnsToList();
 		}
-		AddBtnsToList();
 		AddToDictionary();
 	}
 	public void RestartGame()

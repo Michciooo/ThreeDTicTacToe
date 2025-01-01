@@ -22,6 +22,23 @@ public partial class GamePlay3x3x3 : Control
 	public List<Label3D> Labels = new List<Label3D>();
 	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>();
 	private String statsPath = "info.json";
+	
+	Button[,,] board = new Button[3,3,3];
+	
+	private void AddBtnsToList()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			for (int j = 0; j < 3; j++)
+			{
+				for (int k = 0; k < 3; k++)
+				{
+					int index = i * 9 + j * 3 + k;
+					board[i, j, k] = TttBtns[index];
+				}
+			}
+		}
+	}
 	public override void _Ready()
 	{
 		Button restartButton = GetNode<Button>("restartBtn");
@@ -39,17 +56,23 @@ public partial class GamePlay3x3x3 : Control
 		HBoxContainer lay7 = GetNode<HBoxContainer>("thirdD/lay7");
 		HBoxContainer lay8 = GetNode<HBoxContainer>("thirdD/lay8");
 		HBoxContainer lay9 = GetNode<HBoxContainer>("thirdD/lay9");
-		
+
 		if (global.player3DMode == "3x3x3")
 		{
 			TTT3D main = GetNode<TTT3D>("/root/TTT3D");
 			main.Create_Visualisation3x3x3();
 			Create_Dimensions3x3x3(lay1, lay2, lay3, lay4, lay5, lay6, lay7, lay8, lay9);
+
+			playerTurn = playerTurns[0];
+			if (global.player13D == "Easy Computer" && playerTurn == playerTurns[0]) EasyComputer();
+			if (global.player23D == "Easy Computer" && playerTurn == playerTurns[1]) EasyComputer();
+
+			if (global.player13D == "AI Computer" && playerTurn == playerTurns[0]) AiComputer();
+			if (global.player23D == "AI Computer" && playerTurn == playerTurns[1]) AiComputer();
+			
+			AddBtnsToList();
 		}
 		AddToDictionary();
-		playerTurn = playerTurns[0];
-		if (global.player13D == "Easy Computer" && playerTurn == playerTurns[0])  EasyComputer();
-		if (global.player23D == "Easy Computer" && playerTurn == playerTurns[1])  EasyComputer();
 	}
 
 	public async void RestartGame()
@@ -66,10 +89,7 @@ public partial class GamePlay3x3x3 : Control
 		foreach (var meshInstance in MeshInstances) meshInstance.MaterialOverride = restartCubeColor;
 
 		BlockBtns(false);
-
-		if (global.player13D == "Easy Computer" && playerTurn == playerTurns[0]) await EasyComputer();
-		if (global.player23D == "Easy Computer" && playerTurn == playerTurns[1]) await EasyComputer();
-		if (global.player33D == "Easy Computer" && playerTurn == playerTurns[2]) await EasyComputer();
+		CheckBotsTurn();
 	}
 
 	private void Create_Dimensions3x3x3(HBoxContainer lay1, HBoxContainer lay2, HBoxContainer lay3 , 
@@ -146,7 +166,6 @@ public partial class GamePlay3x3x3 : Control
 				}
 			}
 		}
-
 		BlockBtns(true);
 		Random random = new Random();
 		List<Button> availableButtons = TttBtns.Where(b => b.Text == "").ToList();
@@ -167,17 +186,52 @@ public partial class GamePlay3x3x3 : Control
 
 			moves -= 1;
 			if (WhoWon()) return;
-
-			if (playerTurn == playerTurns[0] && global.player13D == "Easy Computer") await EasyComputer();
-			else if (playerTurn == playerTurns[1] && global.player23D == "Easy Computer") await EasyComputer();
-			else if (playerTurn == playerTurns[2] && global.player33D == "Easy Computer") await EasyComputer();
+			
+			CheckBotsTurn();
 		}
+	}
+
+	private async Task AiComputer()
+	{
+		var global = GetNode<Global>("/root/Global");
+		TTT3D main = GetNode<TTT3D>("/root/TTT3D");
+		
+		for (int i = 0; i < TttBtns.Count; i++)
+		{
+			if (i < 27)
+			{
+				Button button = TttBtns[i];
+				Label3D label = Labels[i];
+				if (!main.BtnAndboxMeshLabel3DDictionary.ContainsKey(button))
+				{
+					main.BtnAndboxMeshLabel3DDictionary.Add(button, label);
+				}
+			}
+		}
+		BlockBtns(true);
+		await WaitingMove();
+		global.ClickSFX("res://sfx/ttt_btn_click.wav");
+
+		Button computerMove = TttBtns[26];
+		computerMove.Text = playerTurn;
+		Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[computerMove];
+		label3D.Text = computerMove.Text;
+		
+		playerTurn = playerTurns[(Array.IndexOf(playerTurns, playerTurn) + 1) % 3];
+		Label playerTurnLabel = GetNode<Label>("playerTurnLabel");
+		playerTurnLabel.Text = $"Player Turn : {playerTurn}";
+
+		moves -= 1;
+		if (WhoWon()) return;
+		
+		CheckBotsTurn();
+		
 	}
 	private async void PlayGame(Button btn)
 	{
 	    var global = GetNode<Global>("/root/Global");
 	    TTT3D main = GetNode<TTT3D>("/root/TTT3D");
-	    
+
 	    for (int i = 0; i < TttBtns.Count; i++)
 	    {
 	        if (i < 27)
@@ -195,7 +249,7 @@ public partial class GamePlay3x3x3 : Control
 	    Label3D label3D = main.BtnAndboxMeshLabel3DDictionary[btn];
 
 	    global.ClickSFX("res://sfx/ttt_btn_click.wav");
-	    
+
 	    if (btn.Text == "")
 	    {
 	        if (playerTurn == playerTurns[0] && global.player13D == "Human")
@@ -222,14 +276,49 @@ public partial class GamePlay3x3x3 : Control
 	            playerTurn = playerTurns[0];
 	            playerTurnLabel.Text = $"Player Turn : {playerTurn}";
 	        }
-	        if (WhoWon()) return;
 	        
-	        if (playerTurn == playerTurns[0] && global.player13D == "Easy Computer") await EasyComputer();
-	        else if (playerTurn == playerTurns[1] && global.player23D == "Easy Computer") await EasyComputer();
-	        else if (playerTurn == playerTurns[2] && global.player33D == "Easy Computer") await EasyComputer();
+	        if (WhoWon()) return;
+	        CheckBotsTurn();
 	    }
 	}
 
+	private async void CheckBotsTurn()
+	{
+		var global = GetNode<Global>("/root/Global");
+		if (playerTurn == playerTurns[0])
+		{
+			if (global.player13D == "Easy Computer")
+			{
+				await EasyComputer();
+			}
+			else if (global.player13D == "AI Computer")
+			{
+				await AiComputer();
+			}
+		}
+		else if (playerTurn == playerTurns[1])
+		{
+			if (global.player23D == "Easy Computer")
+			{
+				await EasyComputer();
+			}
+			else if (global.player23D == "AI Computer")
+			{
+				await AiComputer();
+			}
+		}
+		else if (playerTurn == playerTurns[2])
+		{
+			if (global.player33D == "Easy Computer")
+			{
+				await EasyComputer();
+			}
+			else if (global.player33D == "AI Computer")
+			{
+				await AiComputer();
+			}
+		}
+	}
 	private async Task WaitingMove()
 	{
 		var waitingLabel = GetNode<Label>("/root/TTT3D/leftSide/VBoxContainer/waitingMoveLabel");
@@ -294,7 +383,6 @@ public partial class GamePlay3x3x3 : Control
 						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
 				}
-				//poprawnie
 				else if (global.wins3x3x3[i, 0].Text == "O")
 				{
 					scoreScene.o_wins += 1;
@@ -331,7 +419,6 @@ public partial class GamePlay3x3x3 : Control
 					}
 					
 				}
-				// poprawnie
 				else if (global.wins3x3x3[i, 0].Text == "\u25b3")
 				{
 					scoreScene.triangle_wins += 1;

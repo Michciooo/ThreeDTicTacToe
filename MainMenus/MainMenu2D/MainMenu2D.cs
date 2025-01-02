@@ -6,13 +6,10 @@ namespace threeDTicTacToe
 {
 	public partial class MainMenu2D : Control
 	{
-		private Dictionary<int, string> playersTypes = new Dictionary<int, string>
-		{
-			{ 1, "Human" },
-			{ 2, "Human" }
-		};
 		public override void _Ready()
 		{
+			var global = (Global)GetNode("/root/Global");
+			
 			var playerOneBtn = GetNode<OptionButton>("Main/MainContainer/Container/left/playerOneBtn");
 			var playerTwoBtn = GetNode<OptionButton>("Main/MainContainer/Container/right/playerTwoBtn");
 			var playBtn = GetNode<Button>("Main/MainContainer/playBtn");
@@ -20,6 +17,21 @@ namespace threeDTicTacToe
 			Input.MouseMode = Input.MouseModeEnum.Confined;
 			playerOneBtn.ItemSelected += FirstPlayerSelect;
 			playerTwoBtn.ItemSelected += SecondPlayerSelect;
+
+			var firstPIndex = -1;
+			var secondPIndex = -1;
+
+			if (global.playersTypes2D[1] == "Human") firstPIndex = 0;
+			else if (global.playersTypes2D[1] == "Easy Computer") firstPIndex = 1;
+			else if(global.playersTypes2D[1] == "AI Computer") firstPIndex = 2;
+			
+			if(global.playersTypes2D[2] == "Human") secondPIndex = 0;
+			else if(global.playersTypes2D[2] == "Easy Computer") secondPIndex = 1;
+			else if(global.playersTypes2D[2] == "AI Computer") secondPIndex = 2;
+
+			playerOneBtn.Selected = firstPIndex;
+			playerTwoBtn.Selected = secondPIndex;
+			
 			playBtn.Pressed += PlayBtnOnPressed;
 		}
 
@@ -28,21 +40,21 @@ namespace threeDTicTacToe
 			var global = GetNode<Global>("/root/Global");
 			var warningLabel = GetNode<Label>("Main/MainContainer/warningLabel");
 
-			if ((playersTypes[1] == playersTypes[2] && playersTypes[1] == "Easy Computer") || 
-			    (playersTypes[1] == playersTypes[2] && playersTypes[1] == "AI Computer") || 
-			    (playersTypes[1] == "Easy Computer" && playersTypes[2] == "AI Computer") ||  
-			    (playersTypes[1] == "AI Computer" && playersTypes[2] == "Easy Computer"))
+			if ((global.playersTypes2D[1] == global.playersTypes2D[2] && global.playersTypes2D[1] == "Easy Computer") || 
+			    (global.playersTypes2D[1] == global.playersTypes2D[2] && global.playersTypes2D[1] == "AI Computer") || 
+			    (global.playersTypes2D[1] == "Easy Computer" && global.playersTypes2D[2] == "AI Computer") ||  
+			    (global.playersTypes2D[1] == "AI Computer" && global.playersTypes2D[2] == "Easy Computer"))
 			{
 				warningLabel.Text = "The battle between 2 computers is not allowed.";
 			}
-			else if ((playersTypes[1] == playersTypes[2] && playersTypes[1] == "Human") || 
-			         (playersTypes[1] == "Human" && playersTypes[2] == "Easy Computer") ||
-			         (playersTypes[1] == "Easy Computer" && playersTypes[2] == "Human") || 
-			         (playersTypes[1] == "Human" && playersTypes[2] == "AI Computer") ||
-			         (playersTypes[1] == "AI Computer" && playersTypes[2] == "Human"))
+			else if ((global.playersTypes2D[1] == global.playersTypes2D[2] && global.playersTypes2D[1] == "Human") || 
+			         (global.playersTypes2D[1] == "Human" && global.playersTypes2D[2] == "Easy Computer") ||
+			         (global.playersTypes2D[1] == "Easy Computer" && global.playersTypes2D[2] == "Human") || 
+			         (global.playersTypes2D[1] == "Human" && global.playersTypes2D[2] == "AI Computer") ||
+			         (global.playersTypes2D[1] == "AI Computer" && global.playersTypes2D[2] == "Human"))
 			{
-				global.player12D = playersTypes[1];
-				global.player22D = playersTypes[2];
+				global.player12D = global.playersTypes2D[1];
+				global.player22D = global.playersTypes2D[2];
 				GetTree().ChangeSceneToFile("res://TicTacToeModes/TTT2D/TTT2D.tscn");
 			}
 			global.ClickSFX("res://sfx/btn_click.wav");
@@ -64,8 +76,8 @@ namespace threeDTicTacToe
 					break;
 			}
 			global.ClickSFX("res://sfx/btn_click.wav");
-			if(playersTypes.ContainsKey(1)) playersTypes[1] = playerOneBtn.Text;
-			else playersTypes.Add(1,playerOneBtn.Text);
+			if(global.playersTypes2D.ContainsKey(1)) global.playersTypes2D[1] = playerOneBtn.Text;
+			else global.playersTypes2D.Add(1,playerOneBtn.Text);
 		}
 		private void SecondPlayerSelect(long index)
 		{
@@ -82,8 +94,8 @@ namespace threeDTicTacToe
 					break;
 			}
 			global.ClickSFX("res://sfx/btn_click.wav");
-			if(playersTypes.ContainsKey(2)) playersTypes[2] = playerTwoBtn.Text;
-			else playersTypes.Add(2,playerTwoBtn.Text);
+			if(global.playersTypes2D.ContainsKey(2)) global.playersTypes2D[2] = playerTwoBtn.Text;
+			else global.playersTypes2D.Add(2,playerTwoBtn.Text);
 		}
 		public override void _Process(double delta)
 		{

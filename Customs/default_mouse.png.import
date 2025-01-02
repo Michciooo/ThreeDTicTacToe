@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cayjys11n4dgq"
-path="res://.godot/imported/hover_mouse.png-231424bda98401fe6f88529ec3b04074.ctex"
+uid="uid://bda6bux6repcs"
+path="res://.godot/imported/default_mouse.png-073480d640e35b2457b417e29b7df6d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Custom_mouse/hover_mouse.png"
-dest_files=["res://.godot/imported/hover_mouse.png-231424bda98401fe6f88529ec3b04074.ctex"]
+source_file="res://Customs/default_mouse.png"
+dest_files=["res://.godot/imported/default_mouse.png-073480d640e35b2457b417e29b7df6d6.ctex"]
 
 [params]
 

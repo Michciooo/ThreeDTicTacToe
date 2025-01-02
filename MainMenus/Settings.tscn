@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://blvf4x7pgqn8u"]
+[gd_scene load_steps=11 format=3 uid="uid://blvf4x7pgqn8u"]
 
 [ext_resource type="Script" path="res://MainMenus/Settings.cs" id="1_88sxo"]
 [ext_resource type="SystemFont" uid="uid://0x2dnpnoqfka" path="res://font.tres" id="2_b5ujf"]
+[ext_resource type="Texture2D" uid="uid://cb0d1ujbbxqmy" path="res://Customs/custom_grabber.png" id="3_vn0ns"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tpyhk"]
 bg_color = Color(0.0980392, 0.0980392, 0.439216, 1)
@@ -24,6 +25,21 @@ corner_radius_bottom_left = 20
 shadow_size = 15
 shadow_offset = Vector2(10, 10)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qqnag"]
+bg_color = Color(0.745098, 0.572549, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ia5vn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgswl"]
 content_margin_left = 1000.0
 bg_color = Color(0.745098, 0.572549, 0, 1)
@@ -31,6 +47,9 @@ corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8yfs"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="Settings" type="Panel"]
 anchors_preset = 15
@@ -92,36 +111,49 @@ text = "SETTINGS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Main" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(1600, 800)
+[node name="Main" type="ScrollContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.25
 anchor_right = 0.5
-anchor_bottom = 0.25
-offset_left = -800.0
-offset_top = -0.200005
-offset_right = 800.0
-offset_bottom = 799.8
+anchor_bottom = 0.6
+offset_left = -500.0
+offset_top = -4.0
+offset_right = 500.0
+offset_bottom = 4.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qqnag")
 
-[node name="Labels" type="VBoxContainer" parent="Main"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+alignment = 2
+
+[node name="keyBindSettings" type="HBoxContainer" parent="Main/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Labels" type="VBoxContainer" parent="Main/VBoxContainer/keyBindSettings"]
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_constants/separation = 50
 
-[node name="Label4" type="Label" parent="Main/Labels"]
-custom_minimum_size = Vector2(500, 100)
+[node name="Label4" type="Label" parent="Main/VBoxContainer/keyBindSettings/Labels"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_fonts/font = ExtResource("2_b5ujf")
 theme_override_font_sizes/font_size = 50
 text = "Main menu"
 
-[node name="Label5" type="Label" parent="Main/Labels"]
-custom_minimum_size = Vector2(500, 100)
+[node name="Label5" type="Label" parent="Main/VBoxContainer/keyBindSettings/Labels"]
+custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
@@ -129,14 +161,14 @@ theme_override_fonts/font = ExtResource("2_b5ujf")
 theme_override_font_sizes/font_size = 50
 text = "App exit"
 
-[node name="KeysInput" type="VBoxContainer" parent="Main"]
+[node name="KeysInput" type="VBoxContainer" parent="Main/VBoxContainer/keyBindSettings"]
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_constants/separation = 50
 
-[node name="mainMenu" type="TextEdit" parent="Main/KeysInput"]
-custom_minimum_size = Vector2(400, 100)
+[node name="mainMenu" type="TextEdit" parent="Main/VBoxContainer/keyBindSettings/KeysInput"]
+custom_minimum_size = Vector2(350, 100)
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 45
@@ -146,10 +178,9 @@ selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="appExit" type="TextEdit" parent="Main/KeysInput"]
-custom_minimum_size = Vector2(400, 100)
+[node name="appExit" type="TextEdit" parent="Main/VBoxContainer/keyBindSettings/KeysInput"]
+custom_minimum_size = Vector2(350, 100)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 45
 placeholder_text = "Press any key"
@@ -158,27 +189,59 @@ selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="RestartBtns" type="VBoxContainer" parent="Main"]
+[node name="RestartBtns" type="VBoxContainer" parent="Main/VBoxContainer/keyBindSettings"]
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_constants/separation = 50
 
-[node name="btn1" type="Button" parent="Main/RestartBtns"]
+[node name="btn1" type="Button" parent="Main/VBoxContainer/keyBindSettings/RestartBtns"]
 custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 35
+text = "Reset key"
+
+[node name="btn2" type="Button" parent="Main/VBoxContainer/keyBindSettings/RestartBtns"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 35
 text = "Reset key"
 
-[node name="btn2" type="Button" parent="Main/RestartBtns"]
-custom_minimum_size = Vector2(250, 100)
+[node name="WindowSizeSettings" type="HBoxContainer" parent="Main/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="PreviousBtn" type="Button" parent="Main/VBoxContainer/WindowSizeSettings"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_b5ujf")
 theme_override_font_sizes/font_size = 35
-text = "Reset key"
+text = "<"
+
+[node name="windowTypeSizeLabel" type="Label" parent="Main/VBoxContainer/WindowSizeSettings"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_fonts/font = ExtResource("2_b5ujf")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_ia5vn")
+horizontal_alignment = 1
+
+[node name="NextBtn" type="Button" parent="Main/VBoxContainer/WindowSizeSettings"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_b5ujf")
+theme_override_font_sizes/font_size = 35
+text = ">"
 
 [node name="volumeSettings" type="Panel" parent="."]
 layout_mode = 1
@@ -218,6 +281,11 @@ horizontal_alignment = 1
 
 [node name="musicSlider" type="HSlider" parent="volumeSettings/settings"]
 layout_mode = 2
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_vn0ns")
+theme_override_icons/grabber_highlight = ExtResource("3_vn0ns")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_x8yfs")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_x8yfs")
 value = 100.0
 rounded = true
 
@@ -231,5 +299,10 @@ horizontal_alignment = 1
 
 [node name="sfxSlider" type="HSlider" parent="volumeSettings/settings"]
 layout_mode = 2
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("3_vn0ns")
+theme_override_icons/grabber_highlight = ExtResource("3_vn0ns")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_x8yfs")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_x8yfs")
 value = 100.0
 rounded = true

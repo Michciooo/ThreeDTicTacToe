@@ -20,14 +20,38 @@ public partial class Global : Node
     public String restartPosCubeKeyValue = "R";
     public String shiftLockKeyValue = "Shift";
     public String unShiftLockKeyValue = "Ctrl";
+    
+    public List<DisplayServer.WindowMode> WindowModes = new List<DisplayServer.WindowMode>()
+    {
+	    DisplayServer.WindowMode.Fullscreen,
+	    DisplayServer.WindowMode.ExclusiveFullscreen,
+	    DisplayServer.WindowMode.Windowed,
+	    DisplayServer.WindowMode.Maximized,
+	    DisplayServer.WindowMode.Minimized
+    }; 
+    public int windowModeIndex = 0;
 
     public String player12D;
     public String player22D;
     public String player13D;
     public String player23D;
     public String player33D;
-    public String player3DMode;
+    public String player3DMode = "4x4x4";
     public String Mode;
+    public bool isModeChecked = false;
+    
+    public Dictionary<int, string> playersTypes2D = new Dictionary<int, string>
+    {
+	    { 1, "Human" },
+	    { 2, "Human" }
+    };
+    
+    public Dictionary<int,string> playersTypes3D = new Dictionary<int,string>
+    {
+	    { 1, "Human" },
+	    { 2, "Human" },
+	    { 3, "Human"}
+    };
 
     public String accName = "Guest";
     public bool isLogged = false;

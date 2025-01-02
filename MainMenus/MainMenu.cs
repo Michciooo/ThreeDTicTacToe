@@ -12,7 +12,7 @@ public partial class MainMenu : Node3D
 		var loggdAsLabel = GetNode<Label>("MainContainer/loggedAsLabel");
 		loggdAsLabel.Text = $"Logged as : {global.accName}";
 		
-		Texture customCursor = GD.Load<Texture>("res://Custom_mouse/default_mouse.png");
+		Texture customCursor = GD.Load<Texture>("res://Customs/default_mouse.png");
 		Input.SetCustomMouseCursor(customCursor);
 		
 		string virtualPath = "res://sfx/main_menu_theme.mp3";

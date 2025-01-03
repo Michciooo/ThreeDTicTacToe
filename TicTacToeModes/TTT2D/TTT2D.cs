@@ -11,7 +11,7 @@ namespace threeDTicTacToe;
 
 public partial class TTT2D : Control
 {	
-	private String statsPath = "info.json";
+	private String statsPath = "settings.json";
 	private List<Button> ticTacToeButtons = new List<Button>(9);
 	private List<Button> allBtns = new List<Button>();
 	private bool playerTurn;
@@ -23,8 +23,7 @@ public partial class TTT2D : Control
 	
 	Button[,] board = new Button[3, 3];
 	int[] bestMove = new int[2];
-	
-	
+		
 	private int SimulateBoard(Button[,] tttBoard)
 	{
 		for (int i = 0; i < 3; i++)
@@ -394,54 +393,56 @@ public partial class TTT2D : Control
 				if (wins[i, 0].Text == "X")
 				{
 					scoreScene.x_wins += 1;
-					
+
 					if (global.player12D == "Human" && global.player22D != "Human")
 					{
-						global.content["allLoses"] += 1;
-						global.content["loses2D"] += 1;
-						global.content["oLoses"] += 1;
-						
+						global.statistics["allLoses"] += 1;
+						global.statistics["loses2D"] += 1;
+						global.statistics["oLoses"] += 1;
+
 						global.ClickSFX("res://sfx/lost_sound.wav");
 					}
 					else if (global.player22D == "Human" && global.player12D != "Human")
 					{
-						global.content["allWins"] += 1;
-						global.content["wins2D"] += 1;
-						global.content["xWins"] += 1;
-						
+						global.statistics["allWins"] += 1;
+						global.statistics["wins2D"] += 1;
+						global.statistics["xWins"] += 1;
+
 						global.ClickSFX("res://sfx/win_sound.wav");
 					}
 					else
 					{
 						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
-					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
+
+					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
 				}
 				else if (wins[i, 0].Text == "O")
 				{
 					scoreScene.o_wins += 1;
-					
+
 					if (global.player12D == "Human" && global.player22D != "Human")
 					{
-						global.content["allWins"] += 1;
-						global.content["wins2D"] += 1;
-						global.content["oWins"] += 1;
-						
+						global.statistics["allWins"] += 1;
+						global.statistics["wins2D"] += 1;
+						global.statistics["oWins"] += 1;
+
 						global.ClickSFX("res://sfx/win_sound.wav");
 					}
 					else if (global.player22D == "Human" && global.player12D != "Human")
 					{
-						global.content["allLoses"] += 1;
-						global.content["loses2D"] += 1;
-						global.content["xLoses"] += 1;
-						
+						global.statistics["allLoses"] += 1;
+						global.statistics["loses2D"] += 1;
+						global.statistics["xLoses"] += 1;
+
 						global.ClickSFX("res://sfx/lost_sound.wav");
 					}
 					else
 					{
 						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
-					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
+
+					File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
 				}
 
 				scoreScene.ScoreSystem();

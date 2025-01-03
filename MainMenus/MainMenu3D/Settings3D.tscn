@@ -124,7 +124,7 @@ text = "Restart cube position"
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="shiftLock" type="TextEdit" parent="Main/KeysInput"]
+[node name="shiftLockKey" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -136,7 +136,7 @@ selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="unShiftLock" type="TextEdit" parent="Main/KeysInput"]
+[node name="unShiftLockKey" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -148,7 +148,7 @@ selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="restartPosCube" type="TextEdit" parent="Main/KeysInput"]
+[node name="restartPosCubeKey" type="TextEdit" parent="Main/KeysInput"]
 custom_minimum_size = Vector2(400, 100)
 layout_mode = 2
 size_flags_horizontal = 4

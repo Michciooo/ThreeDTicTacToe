@@ -100,7 +100,7 @@ namespace threeDTicTacToe
 		public override void _Process(double delta)
 		{
 			var global = GetNode<Global>("/root/Global");
-			if (Input.IsActionPressed("mainMenu"))
+			if (Input.IsActionPressed("mainMenuKey"))
 			{
 				global.ClickSFX("res://sfx/btn_click.wav");
 				GetTree().ChangeSceneToFile("res://MainMenus/MainMenu.tscn");

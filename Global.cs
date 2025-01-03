@@ -56,8 +56,10 @@ public partial class Global : Node
     public String accName = "Guest";
     public bool isLogged = false;
     
-    public Dictionary<string , float> content = new Dictionary<string, float>();
-    private String path = "info.json";
+    public Dictionary<string , object> data = new Dictionary<string, object>();
+    public Dictionary<string , float> statistics = new Dictionary<string , float>();
+    public Dictionary<string , object> settings = new Dictionary<string , object>();
+    private String path = "settings.json";
     
     public List<Button> FirstDBtn = new List<Button>(16);
     public List<Button> SecondDBtn = new List<Button>(16);
@@ -70,59 +72,166 @@ public partial class Global : Node
 
     public Button[,] wins4x4x4;
     public Button[,] wins3x3x3;
-    public void Statistics()
+    
+   public void Statistics()
+{
+    if (File.Exists(path))
     {
-	    if (File.Exists(path))
-	    {
-		    string jsonContent = File.ReadAllText(path);
-		    content = JsonSerializer.Deserialize<Dictionary<string, float>>(jsonContent);
-			
-		    if (!content.ContainsKey("allWins")) content["allWins"] = 0;
-		    if (!content.ContainsKey("oWins")) content["oWins"] = 0;
-		    if (!content.ContainsKey("xWins")) content["xWins"] = 0;
-		    if (!content.ContainsKey("tWins")) content["tWins"] = 0;
-		    if (!content.ContainsKey("wins2D")) content["wins2D"] = 0;
-		    if (!content.ContainsKey("wins3D")) content["wins3D"] = 0;
-		    if (!content.ContainsKey("wins3D2P")) content["wins3D2P"] = 0;
-		    if (!content.ContainsKey("wins3D3P")) content["wins3D3P"] = 0;
-		    
-		    if (!content.ContainsKey("allLoses")) content["allLoses"] = 0;
-		    if (!content.ContainsKey("oLoses")) content["oLoses"] = 0;
-		    if (!content.ContainsKey("xLoses")) content["xLoses"] = 0;
-		    if (!content.ContainsKey("tLoses")) content["tLoses"] = 0;
-		    if (!content.ContainsKey("loses2D")) content["loses2D"] = 0;
-		    if (!content.ContainsKey("loses3D")) content["loses3D"] = 0;
-		    if (!content.ContainsKey("loses3D2P")) content["loses3D2P"] = 0;
-		    if (!content.ContainsKey("loses3D3P")) content["loses3D3P"] = 0;
-		    if (!content.ContainsKey("musicVolume")) content["musicVolume"] = 1f;
-		    if (!content.ContainsKey("sfxVolume")) content["sfxVolume"] = 1f;
-	    }
-	    else
-	    {
-		    content["allWins"] = 0;
-		    content["oWins"] = 0;
-		    content["xWins"] = 0;
-		    content["tWins"] = 0;
-		    content["wins2D"] = 0;
-		    content["wins3D"] = 0;
-		    content["wins3D2P"] = 0;
-		    content["wins3D3P"] = 0;
-		    
-		    content["allLoses"] = 0;
-		    content["oLoses"] = 0;
-		    content["xLoses"] = 0;
-		    content["tLoses"] = 0;
-		    content["loses2D"] = 0;
-		    content["loses3D"] = 0;
-		    content["loses3D2P"] = 0;
-		    content["loses3D3P"] = 0;
-		    content["musicVolume"] = 1f;
-		    content["sfxVolume"] = 1f;
+        string jsonContent = File.ReadAllText(path);
+        data = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonContent);
+        
+        if (!data.ContainsKey("statistics"))
+        {
+            data["statistics"] = new Dictionary<string, float>();
+        }
+        if (!data.ContainsKey("settings"))
+        {
+            data["settings"] = new Dictionary<string, object>();
+        }
 
-		    File.WriteAllText(path, JsonSerializer.Serialize(content));
-	    }
+        if (data.ContainsKey("statistics"))
+        {
+	        if (data["statistics"] is JsonElement jsonElement)
+	        {
+		        statistics = JsonSerializer.Deserialize<Dictionary<string, float>>(jsonElement.GetRawText());
+	        }
+	        else if (data["statistics"] is string jsonString)
+	        {
+		        statistics = JsonSerializer.Deserialize<Dictionary<string, float>>(jsonString);
+	        }
+	        else if (data["statistics"] is Dictionary<string, float> existingStatistics)
+	        {
+		        statistics = existingStatistics;
+	        }
+	        else
+	        {
+		        throw new Exception("Nieoczekiwany typ danych dla 'statistics'.");
+	        }
+        }
+        if (data.ContainsKey("settings"))
+        {
+	        if (data["settings"] is JsonElement jsonElement)
+	        {
+		        settings = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonElement.GetRawText());
+	        }
+	        else if (data["settings"] is string jsonString)
+	        {
+		        settings = JsonSerializer.Deserialize<Dictionary<string, object>>(jsonString);
+	        }
+	        else if (data["settings"] is Dictionary<string, object> existingSettings)
+	        {
+		        settings = existingSettings;
+	        }
+	        else
+	        {
+		        throw new Exception("Nieoczekiwany typ danych dla 'settings'.");
+	        }
+        }
+
+        if (!statistics.ContainsKey("allWins")) statistics["allWins"] = 0;
+        if (!statistics.ContainsKey("oWins")) statistics["oWins"] = 0;
+        if (!statistics.ContainsKey("xWins")) statistics["xWins"] = 0;
+        if (!statistics.ContainsKey("tWins")) statistics["tWins"] = 0;
+        if (!statistics.ContainsKey("wins2D")) statistics["wins2D"] = 0;
+        if (!statistics.ContainsKey("wins3D")) statistics["wins3D"] = 0;
+        if (!statistics.ContainsKey("wins3D2P")) statistics["wins3D2P"] = 0;
+        if (!statistics.ContainsKey("wins3D3P")) statistics["wins3D3P"] = 0;
+
+        if (!statistics.ContainsKey("allLoses")) statistics["allLoses"] = 0;
+        if (!statistics.ContainsKey("oLoses")) statistics["oLoses"] = 0;
+        if (!statistics.ContainsKey("xLoses")) statistics["xLoses"] = 0;
+        if (!statistics.ContainsKey("tLoses")) statistics["tLoses"] = 0;
+        if (!statistics.ContainsKey("loses2D")) statistics["loses2D"] = 0;
+        if (!statistics.ContainsKey("loses3D")) statistics["loses3D"] = 0;
+        if (!statistics.ContainsKey("loses3D2P")) statistics["loses3D2P"] = 0;
+        if (!statistics.ContainsKey("loses3D3P")) statistics["loses3D3P"] = 0;
+
+        if (!statistics.ContainsKey("musicVolume")) statistics["musicVolume"] = 1f;
+        if (!statistics.ContainsKey("sfxVolume")) statistics["sfxVolume"] = 1f;
+
+        if (!settings.ContainsKey("mainMenuKey")) settings["mainMenuKey"] = new KeyValuePair<Key, string>(mainMenuKey, mainMenuKeyValue);
+        if (!settings.ContainsKey("appExitKey")) settings["appExitKey"] =  new KeyValuePair<Key, string>(appExitKey, appExitKeyValue);
+        if (!settings.ContainsKey("restartPosCubeKey")) settings["restartPosCubeKey"] =  new KeyValuePair<Key, string>(restartPosCubeKey, restartPosCubeKeyValue);
+        if (!settings.ContainsKey("shiftLockKey")) settings["shiftLockKey"] =  new KeyValuePair<Key, string>(shiftLockKey, shiftLockKeyValue);
+        if (!settings.ContainsKey("unShiftLockKey")) settings["unShiftLockKey"] =  new KeyValuePair<Key, string>(unShiftLockKey, unShiftLockKeyValue);
+        
+        data["statistics"] = statistics;
+        data["settings"] = settings;
+        File.WriteAllText(path, JsonSerializer.Serialize(data));
     }
+    else
+    {
+        var content = new Dictionary<string, object>
+        {
+            ["statistics"] = new Dictionary<string, float>
+            {
+                { "allWins", 0 },
+                { "oWins", 0 },
+                { "xWins", 0 },
+                { "tWins", 0 },
+                { "wins2D", 0 },
+                { "wins3D", 0 },
+                { "wins3D2P", 0 },
+                { "wins3D3P", 0 },
+                { "allLoses", 0 },
+                { "oLoses", 0 },
+                { "xLoses", 0 },
+                { "tLoses", 0 },
+                { "loses2D", 0 },
+                { "loses3D", 0 },
+                { "loses3D2P", 0 },
+                { "loses3D3P", 0 },
+                { "musicVolume", 1f },
+                { "sfxVolume", 1f },
+            },
+            ["settings"] = new Dictionary<string, object>
+            {
+	            ["mainMenuKey"] = new Dictionary<Key, string>
+	            {
+		            { mainMenuKey, mainMenuKeyValue } 
+	            },
+	            ["appExit"] = new Dictionary<Key, string>
+	            {
+		            { appExitKey , appExitKeyValue }
+	            },
+	            ["restartPosCubeKey"] = new Dictionary<Key, string>
+	            {
+		            { restartPosCubeKey, restartPosCubeKeyValue }
+	            },
+	            ["shiftLockKey"] = new Dictionary<Key, string>
+	            {
+		            { shiftLockKey, shiftLockKeyValue }
+	            },
+	            ["unShiftLockKey"] = new Dictionary<Key, string>
+	            {
+		            { unShiftLockKey, unShiftLockKeyValue }
+	            }
+            }
+        };
+        
+        statistics = content["statistics"] as Dictionary<string, float>;
+        settings = content["settings"] as Dictionary<string, object>;
+        File.WriteAllText(path, JsonSerializer.Serialize(content));
+    }
+}
 
+    public void ErasePlayers2D()
+    {
+	    playersTypes2D = new Dictionary<int,string>
+	    {
+		    { 1, "Human" },
+		    { 2, "Human" },
+	    };
+    }
+    public void ErasePlayers3D()
+    {
+	    playersTypes3D = new Dictionary<int,string>
+	    {
+		    { 1, "Human" },
+		    { 2, "Human" },
+		    { 3, "Human"}
+	    };
+    }
     public void ClickSFX(string pathName)
     {
 		WaveOutEvent outputDevice = new WaveOutEvent();
@@ -131,7 +240,7 @@ public partial class Global : Node
 	    
 	    var audioFile = new AudioFileReader(realPath);
 
-	    var sfxVolume = content["sfxVolume"];
+	    var sfxVolume = statistics["sfxVolume"];
 	    audioFile.Volume = sfxVolume;
 
 	    outputDevice.Init(audioFile);
@@ -155,7 +264,7 @@ public partial class Global : Node
 	    audioFile?.Dispose();
 
 	    audioFile = new AudioFileReader(filePath);
-	    audioFile.Volume = content["musicVolume"]; 
+	    audioFile.Volume = statistics["musicVolume"];
 
 	    void OnPlaybackStopped(object sender, StoppedEventArgs e)
 	    {

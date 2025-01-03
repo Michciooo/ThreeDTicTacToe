@@ -17,7 +17,7 @@ public partial class GamePlay4x4x4 : Control
 	public List<MeshInstance3D> MeshInstances = new List<MeshInstance3D>(64);
 
 	private bool _playerTurn = true;
-	private String statsPath = "info.json";
+	private String statsPath = "settings.json";
 	bool win = false;
 	private int moves = 64;
 
@@ -746,25 +746,25 @@ public partial class GamePlay4x4x4 : Control
 			{
 				win = true;
 				popUpInstant.GetNode<Label>("winLabel").Text = $"Won : {global.wins4x4x4[i, 0].Text}";
-
+				
 				if (global.wins4x4x4[i, 0].Text == "X")
 				{
 					scoreScene.x_wins += 1;
 					if (global.player13D == "Human" && global.player23D != "Human")
 					{
 						global.ClickSFX("res://sfx/lost_sound.wav");
-						global.content["allLoses"] += 1;
-						global.content["oLoses"] += 1;
-						global.content["loses3D"] += 1;
-						global.content["loses3D2P"] += 1;
+						global.statistics["allLoses"] += 1;
+						global.statistics["oLoses"] += 1;
+						global.statistics["loses3D"] += 1;
+						global.statistics["loses3D2P"] += 1;
 					}
 					else if (global.player13D != "Human" && global.player23D == "Human")
 					{
 						global.ClickSFX("res://sfx/win_sound.wav");
-						global.content["allWins"] += 1;
-						global.content["xWins"] += 1;
-						global.content["wins3D"] += 1;
-						global.content["wins3D2P"] += 1;
+						global.statistics["allWins"] += 1;
+						global.statistics["xWins"] += 1;
+						global.statistics["wins3D"] += 1;
+						global.statistics["wins3D2P"] += 1;
 					}
 					else
 					{
@@ -774,29 +774,30 @@ public partial class GamePlay4x4x4 : Control
 				else if (global.wins4x4x4[i, 0].Text == "O")
 				{
 					scoreScene.o_wins += 1;
-					
+
 					if (global.player13D != "Human" && global.player23D == "Human")
 					{
 						global.ClickSFX("res://sfx/lost_sound.wav");
-						global.content["allLoses"] += 1;
-						global.content["xLoses"] += 1;
-						global.content["loses3D"] += 1;
-						global.content["loses3D2P"] += 1;
+						global.statistics["allLoses"] += 1;
+						global.statistics["xLoses"] += 1;
+						global.statistics["loses3D"] += 1;
+						global.statistics["loses3D2P"] += 1;
 					}
 					else if (global.player13D == "Human" && global.player23D != "Human")
 					{
 						global.ClickSFX("res://sfx/win_sound.wav");
-						global.content["allWins"] += 1;
-						global.content["oWins"] += 1;
-						global.content["wins3D"] += 1;
-						global.content["wins3D2P"] += 1;
+						global.statistics["allWins"] += 1;
+						global.statistics["oWins"] += 1;
+						global.statistics["wins3D"] += 1;
+						global.statistics["wins3D2P"] += 1;
 					}
 					else
 					{
 						global.ClickSFX("res://sfx/end_of_game.mp3");
 					}
 				}
-				File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
+				File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
+				
 				scoreScene.ScoreSystem();
 
 				main.BtnAndMeshInstanceDictionary[global.wins4x4x4[i, 0]].MaterialOverride = wonColor;

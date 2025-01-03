@@ -9,7 +9,7 @@ namespace threeDTicTacToe
     public partial class Settings : Control
     {
         private List<Key> keysList = new List<Key>();
-        private String statsPath = "info.json";
+        private String statsPath = "settings.json";
         private Global global;
 
         public override void _Ready()
@@ -28,18 +28,18 @@ namespace threeDTicTacToe
         private void MusicSettings()
         { 
             global = GetNode<Global>("/root/Global");
+        
             var musicLabel = GetNode<Label>("volumeSettings/settings/musicLabel");
-            musicLabel.Text = $"MUSIC : {global.content["musicVolume"] *100 }%";
-            
-            var sfxLabel = GetNode<Label>("volumeSettings/settings/sfxLabel");
-            sfxLabel.Text = $"SFX : {global.content["sfxVolume"] *100 }%";
             
             var musicSlider = GetNode<Slider>("volumeSettings/settings/musicSlider");
             var sfxSlider = GetNode<Slider>("volumeSettings/settings/sfxSlider");
+            var sfxLabel = GetNode<Label>("volumeSettings/settings/sfxLabel");
             
-            musicSlider.Value = global.content["musicVolume"] *100;
-            sfxSlider.Value = global.content["sfxVolume"] *100;
-            
+            musicLabel.Text = $"MUSIC : {global.statistics["musicVolume"] * 100}%";
+            sfxLabel.Text = $"SFX : {global.statistics["sfxVolume"] * 100}%";
+
+            musicSlider.Value = global.statistics["musicVolume"] * 100;
+            sfxSlider.Value = global.statistics["sfxVolume"] * 100;
             musicSlider.ValueChanged += MusicSliderOnValueChanged;
             sfxSlider.ValueChanged += SfxSliderOnValueChanged;
         }
@@ -47,12 +47,13 @@ namespace threeDTicTacToe
         private void SfxSliderOnValueChanged(double value)
         {
             global = GetNode<Global>("/root/Global");
+            
             var sfxLabel = GetNode<Label>("volumeSettings/settings/sfxLabel");
             var sfxVolume = (decimal)value / 100;
             
             sfxLabel.Text = $"SFX : {value}%";
-            global.content["sfxVolume"] = (float)Math.Round(sfxVolume, 2);
-            File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
+            global.statistics["sfxVolume"] = (float)Math.Round(sfxVolume, 2);
+            File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
         }
 
         private void MusicSliderOnValueChanged(double value)
@@ -62,14 +63,15 @@ namespace threeDTicTacToe
             var musicVolume = (decimal)value / 100;
             
             musicLabel.Text = $"MUSIC : {value}%";
-            global.content["musicVolume"] = (float)Math.Round(musicVolume, 2);
-            File.WriteAllText(statsPath, JsonSerializer.Serialize(global.content));
+            global.statistics["musicVolume"] = (float)Math.Round(musicVolume, 2);
+            File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
             
-            global.SetVolume(global.content["musicVolume"]);
+            global.SetVolume(global.statistics["musicVolume"]);
         }
         private void PreviousBtn_OnPressed()
         {
             global = GetNode<Global>("/root/Global");
+            global.ClickSFX("res://sfx/btn_click.wav");
             var windowTypeSizeLabel = GetNode<Label>("Main/VBoxContainer/WindowSizeSettings/windowTypeSizeLabel");
             
             if (global.windowModeIndex == 0) global.windowModeIndex = global.WindowModes.Count - 1;
@@ -81,6 +83,7 @@ namespace threeDTicTacToe
         private void NextBtnOnPressed()
         {
             global = GetNode<Global>("/root/Global");
+            global.ClickSFX("res://sfx/btn_click.wav");
             var windowTypeSizeLabel = GetNode<Label>("Main/VBoxContainer/WindowSizeSettings/windowTypeSizeLabel");
             
             if (global.windowModeIndex == global.WindowModes.Count - 1) global.windowModeIndex = 0;
@@ -107,8 +110,8 @@ namespace threeDTicTacToe
         private void Binding()
         {
             global = (Global)GetNode("/root/Global");
-            var appExitTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExit");
-            var mainMenuTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenu");
+            var appExitTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExitKey");
+            var mainMenuTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenuKey");
 
             appExitTextInput.Text = global.appExitKeyValue;
             mainMenuTextInput.Text = global.mainMenuKeyValue;
@@ -127,22 +130,22 @@ namespace threeDTicTacToe
 
             if (button.Name == "btn1")
             {
-                targetTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenu");
+                targetTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenuKey");
                 oldKey = global.shiftLockKey;
             }
             else if (button.Name == "btn2")
             {
-                targetTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExit");
+                targetTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExitKey");
                 oldKey = global.unShiftLockKey;
             }
 
             if (targetTextInput != null)
             {
-                UpdateKeyBinding(targetTextInput, button.Name, global, oldKey);
+                UpdateKeyBinding(targetTextInput, button.Name, oldKey);
             }
         }
 
-        private void UpdateKeyBinding(TextEdit textInput, string actionName, Global global, Key oldKey)
+        private void UpdateKeyBinding(TextEdit textInput, string actionName,Key oldKey)
         {
             if (oldKey != Key.Unknown)
             {
@@ -155,8 +158,8 @@ namespace threeDTicTacToe
         public override void _Input(InputEvent @event)
         {
             global = (Global)GetNode("/root/Global");
-            var appExitTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExit");
-            var mainMenuTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenu");
+            var appExitTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExitKey");
+            var mainMenuTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenuKey");
 
             if (@event is InputEventKey eventKey && eventKey.Pressed)
             {
@@ -173,7 +176,7 @@ namespace threeDTicTacToe
         private void AssignKey(InputEventKey eventKey, TextEdit focusedTextInput, ref Key globalKey, ref string keyValue)
         {
             Key newKey = (Key)eventKey.Keycode;
-
+            string keyText;
             if (!keysList.Contains(newKey))
             {
                 if (globalKey != Key.Unknown)
@@ -181,7 +184,6 @@ namespace threeDTicTacToe
                     keysList.Remove(globalKey);
                     RemoveKeyFromAction(focusedTextInput.Name, globalKey);
                 }
-                string keyText;
                 switch (newKey)
                 {
                     case Key.Quoteleft:
@@ -240,6 +242,8 @@ namespace threeDTicTacToe
                 globalKey = newKey;
 
                 AddKeyToAction(focusedTextInput.Name, newKey);
+                // global.settings[focusedTextInput.Name] = new KeyValuePair<Key, string>(newKey, keyText);
+                // File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
             }
         }
 

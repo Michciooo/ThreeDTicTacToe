@@ -19,6 +19,9 @@ public partial class MainMenu : Node3D
 		string realPath = ProjectSettings.GlobalizePath(virtualPath);
 		
 		global.PlayLooping(realPath);
+		
+		global.ErasePlayers2D();
+		global.ErasePlayers3D();
 	}
 	
 	private void SettingsPress()
@@ -48,7 +51,7 @@ public partial class MainMenu : Node3D
 			GetTree().ChangeSceneToFile("res://MainMenus/MainMenu3D/MainMenu3D.tscn");
 			global.Mode = "3D";
 		}
-		if (Input.IsActionPressed("appExit") || exitBtn.IsPressed())
+		if (Input.IsActionPressed("appExitKey") || exitBtn.IsPressed())
 		{
 			global.ClickSFX("res://sfx/btn_click.wav");
 			GetTree().Quit();

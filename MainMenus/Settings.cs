@@ -242,8 +242,9 @@ namespace threeDTicTacToe
                 globalKey = newKey;
 
                 AddKeyToAction(focusedTextInput.Name, newKey);
-                // global.settings[focusedTextInput.Name] = new KeyValuePair<Key, string>(newKey, keyText);
-                // File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
+                global.KeyBind[focusedTextInput.Name] = newKey;
+                global.KeyBindValue[focusedTextInput.Name] = keyText;
+                File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
             }
         }
 

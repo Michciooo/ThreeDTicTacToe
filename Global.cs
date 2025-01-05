@@ -59,6 +59,10 @@ public partial class Global : Node
     public Dictionary<string , object> data = new Dictionary<string, object>();
     public Dictionary<string , float> statistics = new Dictionary<string , float>();
     public Dictionary<string , object> settings = new Dictionary<string , object>();
+    
+    public Dictionary<string , Key> KeyBind = new Dictionary<string , Key>();
+    public Dictionary<string , string> KeyBindValue = new Dictionary<string , string>();
+    
     private String path = "settings.json";
     
     public List<Button> FirstDBtn = new List<Button>(16);
@@ -127,6 +131,66 @@ public partial class Global : Node
 		        throw new Exception("Nieoczekiwany typ danych dla 'settings'.");
 	        }
         }
+        if (!settings.ContainsKey("KeyBind"))
+        {
+	        settings["KeyBind"] = new Dictionary<string, Key>();
+        }
+        if (!settings.ContainsKey("KeyBindValue"))
+        {
+	        settings["KeyBindValue"] = new Dictionary<string, string>();
+        }
+
+        if (settings.ContainsKey("KeyBind"))
+        {
+	        if (settings["KeyBind"] is JsonElement jsonElement)
+	        {
+		        KeyBind = JsonSerializer.Deserialize<Dictionary<string, Key>>(jsonElement.GetRawText())
+		                  ?? new Dictionary<string, Key>();
+	        }
+	        else if (settings["KeyBind"] is string jsonString)
+	        {
+		        KeyBind = JsonSerializer.Deserialize<Dictionary<string, Key>>(jsonString)
+		                  ?? new Dictionary<string, Key>();
+	        }
+	        else if (settings["KeyBind"] is Dictionary<string, Key> existingSettings)
+	        {
+		        KeyBind = existingSettings;
+	        }
+	        else
+	        {
+		        KeyBind = new Dictionary<string, Key>();
+	        }
+        }
+        else
+        {
+	        KeyBind = new Dictionary<string, Key>();
+        }
+
+        if (settings.ContainsKey("KeyBindValue"))
+        {
+	        if (settings["KeyBindValue"] is JsonElement jsonElement)
+	        {
+		        KeyBindValue = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonElement.GetRawText())
+		                       ?? new Dictionary<string, string>();
+	        }
+	        else if (settings["KeyBindValue"] is string jsonString)
+	        {
+		        KeyBindValue = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonString)
+		                       ?? new Dictionary<string, string>();
+	        }
+	        else if (settings["KeyBindValue"] is Dictionary<string, string> existingSettings)
+	        {
+		        KeyBindValue = existingSettings;
+	        }
+	        else
+	        {
+		        KeyBindValue = new Dictionary<string, string>();
+	        }
+        }
+        else
+        {
+	        KeyBindValue = new Dictionary<string, string>();
+        }
 
         if (!statistics.ContainsKey("allWins")) statistics["allWins"] = 0;
         if (!statistics.ContainsKey("oWins")) statistics["oWins"] = 0;
@@ -148,12 +212,21 @@ public partial class Global : Node
 
         if (!statistics.ContainsKey("musicVolume")) statistics["musicVolume"] = 1f;
         if (!statistics.ContainsKey("sfxVolume")) statistics["sfxVolume"] = 1f;
-
-        if (!settings.ContainsKey("mainMenuKey")) settings["mainMenuKey"] = new KeyValuePair<Key, string>(mainMenuKey, mainMenuKeyValue);
-        if (!settings.ContainsKey("appExitKey")) settings["appExitKey"] =  new KeyValuePair<Key, string>(appExitKey, appExitKeyValue);
-        if (!settings.ContainsKey("restartPosCubeKey")) settings["restartPosCubeKey"] =  new KeyValuePair<Key, string>(restartPosCubeKey, restartPosCubeKeyValue);
-        if (!settings.ContainsKey("shiftLockKey")) settings["shiftLockKey"] =  new KeyValuePair<Key, string>(shiftLockKey, shiftLockKeyValue);
-        if (!settings.ContainsKey("unShiftLockKey")) settings["unShiftLockKey"] =  new KeyValuePair<Key, string>(unShiftLockKey, unShiftLockKeyValue);
+        
+        if(!KeyBind.ContainsKey("mainMenuKey")) KeyBind["mainMenuKey"] = mainMenuKey;
+        if(!KeyBind.ContainsKey("appExitKey")) KeyBind["appExitKey"] = appExitKey;
+        if(!KeyBind.ContainsKey("restartPosCubeKey")) KeyBind["restartPosCubeKey"] = restartPosCubeKey;
+        if(!KeyBind.ContainsKey("shiftLockKey")) KeyBind["shiftLockKey"] = shiftLockKey;
+        if(!KeyBind.ContainsKey("unShiftLockKey")) KeyBind["unShiftLockKey"] = unShiftLockKey;
+        
+        if(!KeyBindValue.ContainsKey("mainMenuKey")) KeyBindValue["mainMenuKey"] = mainMenuKeyValue;
+        if(!KeyBindValue.ContainsKey("appExitKey")) KeyBindValue["appExitKey"] = appExitKeyValue;
+        if(!KeyBindValue.ContainsKey("restartPosCubeKey")) KeyBindValue["restartPosCubeKey"] = restartPosCubeKeyValue;
+        if(!KeyBindValue.ContainsKey("shiftLockKey")) KeyBindValue["shiftLockKey"] = shiftLockKeyValue;
+        if(!KeyBindValue.ContainsKey("unShiftLockKey")) KeyBindValue["unShiftLockKey"] = unShiftLockKeyValue;
+        
+        settings["KeyBind"] = KeyBind;
+        settings["KeyBindValue"] = KeyBindValue;
         
         data["statistics"] = statistics;
         data["settings"] = settings;
@@ -186,25 +259,21 @@ public partial class Global : Node
             },
             ["settings"] = new Dictionary<string, object>
             {
-	            ["mainMenuKey"] = new Dictionary<Key, string>
+	            ["KeyBind"] = new Dictionary<string, Key>
 	            {
-		            { mainMenuKey, mainMenuKeyValue } 
+		            {"mainMenuKey", mainMenuKey},
+		            {"appExitKey", appExitKey},
+		            {"restartPosCubeKey", restartPosCubeKey},
+		            {"shiftLockKey", shiftLockKey},
+		            {"unShiftLockKey", unShiftLockKey},
 	            },
-	            ["appExit"] = new Dictionary<Key, string>
+	            ["KeyBindValue"] = new Dictionary<string, string>
 	            {
-		            { appExitKey , appExitKeyValue }
-	            },
-	            ["restartPosCubeKey"] = new Dictionary<Key, string>
-	            {
-		            { restartPosCubeKey, restartPosCubeKeyValue }
-	            },
-	            ["shiftLockKey"] = new Dictionary<Key, string>
-	            {
-		            { shiftLockKey, shiftLockKeyValue }
-	            },
-	            ["unShiftLockKey"] = new Dictionary<Key, string>
-	            {
-		            { unShiftLockKey, unShiftLockKeyValue }
+		            {"mainMenuKey", mainMenuKeyValue},
+		            {"appExitKey", appExitKeyValue},
+		            {"restartPosCubeKey", restartPosCubeKeyValue},
+		            {"shiftLockKey", shiftLockKeyValue},
+		            {"unShiftLockKey", unShiftLockKeyValue},
 	            }
             }
         };

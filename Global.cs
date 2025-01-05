@@ -9,18 +9,6 @@ namespace threeDTicTacToe;
 
 public partial class Global : Node
 {
-    public Key mainMenuKey = Key.Escape;
-    public Key appExitKey = Key.Q;
-    public Key restartPosCubeKey = Key.R;
-    public Key shiftLockKey = Key.Shift;
-    public Key unShiftLockKey = Key.Ctrl;
-    
-    public String mainMenuKeyValue = "Escape";
-    public String appExitKeyValue = "Q";
-    public String restartPosCubeKeyValue = "R";
-    public String shiftLockKeyValue = "Shift";
-    public String unShiftLockKeyValue = "Ctrl";
-    
     public List<DisplayServer.WindowMode> WindowModes = new List<DisplayServer.WindowMode>()
     {
 	    DisplayServer.WindowMode.Fullscreen,
@@ -56,13 +44,6 @@ public partial class Global : Node
     public String accName = "Guest";
     public bool isLogged = false;
     
-    public Dictionary<string , object> data = new Dictionary<string, object>();
-    public Dictionary<string , float> statistics = new Dictionary<string , float>();
-    public Dictionary<string , object> settings = new Dictionary<string , object>();
-    
-    public Dictionary<string , Key> KeyBind = new Dictionary<string , Key>();
-    public Dictionary<string , string> KeyBindValue = new Dictionary<string , string>();
-    
     private String path = "settings.json";
     
     public List<Button> FirstDBtn = new List<Button>(16);
@@ -77,6 +58,24 @@ public partial class Global : Node
     public Button[,] wins4x4x4;
     public Button[,] wins3x3x3;
     
+    public Key mainMenuKey;
+    public Key appExitKey;
+    public Key restartPosCubeKey;
+    public Key shiftLockKey;
+    public Key unShiftLockKey;
+
+    public String mainMenuKeyValue;
+    public String appExitKeyValue;
+    public String restartPosCubeKeyValue;
+    public String shiftLockKeyValue;
+    public String unShiftLockKeyValue;
+    
+    public Dictionary<string , object> data = new Dictionary<string, object>();
+    public Dictionary<string , float> statistics = new Dictionary<string , float>();
+    public Dictionary<string , object> settings = new Dictionary<string , object>();
+    
+    public Dictionary<string , Key> KeyBind = new Dictionary<string , Key>();
+    public Dictionary<string , string> KeyBindValue = new Dictionary<string , string>();
    public void Statistics()
 {
     if (File.Exists(path))
@@ -225,11 +224,12 @@ public partial class Global : Node
         if(!KeyBindValue.ContainsKey("shiftLockKey")) KeyBindValue["shiftLockKey"] = shiftLockKeyValue;
         if(!KeyBindValue.ContainsKey("unShiftLockKey")) KeyBindValue["unShiftLockKey"] = unShiftLockKeyValue;
         
+        data["statistics"] = statistics;
+        data["settings"] = settings;
+        
         settings["KeyBind"] = KeyBind;
         settings["KeyBindValue"] = KeyBindValue;
         
-        data["statistics"] = statistics;
-        data["settings"] = settings;
         File.WriteAllText(path, JsonSerializer.Serialize(data));
     }
     else
@@ -261,26 +261,40 @@ public partial class Global : Node
             {
 	            ["KeyBind"] = new Dictionary<string, Key>
 	            {
-		            {"mainMenuKey", mainMenuKey},
-		            {"appExitKey", appExitKey},
-		            {"restartPosCubeKey", restartPosCubeKey},
-		            {"shiftLockKey", shiftLockKey},
-		            {"unShiftLockKey", unShiftLockKey},
+		            {"mainMenuKey", Key.Escape},
+		            {"appExitKey", Key.Q},
+		            {"restartPosCubeKey", Key.R},
+		            {"shiftLockKey", Key.Shift},
+		            {"unShiftLockKey", Key.Ctrl},
 	            },
 	            ["KeyBindValue"] = new Dictionary<string, string>
 	            {
-		            {"mainMenuKey", mainMenuKeyValue},
-		            {"appExitKey", appExitKeyValue},
-		            {"restartPosCubeKey", restartPosCubeKeyValue},
-		            {"shiftLockKey", shiftLockKeyValue},
-		            {"unShiftLockKey", unShiftLockKeyValue},
+		            {"mainMenuKey", "Escape"},
+		            {"appExitKey", "Q"},
+		            {"restartPosCubeKey", "R"},
+		            {"shiftLockKey", "Shift"},
+		            {"unShiftLockKey", "Ctrl"},
 	            }
             }
         };
-        
         statistics = content["statistics"] as Dictionary<string, float>;
         settings = content["settings"] as Dictionary<string, object>;
+        
+        KeyBind = settings["KeyBind"] as Dictionary<string, Key>;
+        KeyBindValue = settings["KeyBindValue"] as Dictionary<string, string>;
         File.WriteAllText(path, JsonSerializer.Serialize(content));
+        
+        mainMenuKey = KeyBind["mainMenuKey"];
+        appExitKey = KeyBind["appExitKey"];
+        restartPosCubeKey = KeyBind["restartPosCubeKey"];
+        shiftLockKey = KeyBind["shiftLockKey"];
+        unShiftLockKey = KeyBind["unShiftLockKey"];
+        
+        mainMenuKeyValue = KeyBindValue["mainMenuKey"];
+        appExitKeyValue = KeyBindValue["appExitKey"];
+        restartPosCubeKeyValue = KeyBindValue["restartPosCubeKey"];
+        shiftLockKeyValue = KeyBindValue["shiftLockKey"];
+        unShiftLockKeyValue = KeyBindValue["unShiftLockKey"];
     }
 }
 

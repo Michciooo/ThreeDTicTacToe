@@ -1,12 +1,16 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 namespace threeDTicTacToe
 {
     public partial class Settings3D : Control
     {
         private List<Key> keysList = new List<Key>();
+        private String statsPath = "settings.json";
+        private Global global;
 
         public override void _Ready()
         {
@@ -27,51 +31,51 @@ namespace threeDTicTacToe
 
         private void Binding()
         {
-            Global global = (Global)GetNode("/root/Global");
-            var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
-            var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
-            var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
-
-            shiftLockTextInput.Text = global.shiftLockKey.ToString();
-            unshiftLockTextInput.Text = global.unShiftLockKey.ToString();
-            restartPosCubeTextInput.Text = global.restartPosCubeKey.ToString();
+            global = (Global)GetNode("/root/Global");
+            var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLockKey");
+            var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLockKey");
+            var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCubeKey");
 
             keysList.Clear();
-            keysList.Add(global.shiftLockKey);
-            keysList.Add(global.unShiftLockKey);
-            keysList.Add(global.restartPosCubeKey);
+            keysList.Add(global.KeyBind["shiftLockKey"]);
+            keysList.Add(global.KeyBind["unShiftLockKey"]);
+            keysList.Add(global.KeyBind["restartPosCubeKey"]);
+            
+            shiftLockTextInput.Text = global.KeyBindValue["shiftLockKey"];
+            unshiftLockTextInput.Text = global.KeyBindValue["unShiftLockKey"];
+            restartPosCubeTextInput.Text = global.KeyBindValue["restartPosCubeKey"];
         }
 
         private void btnPress(Button button)
         {
-            Global global = (Global)GetNode("/root/Global");
+            global = (Global)GetNode("/root/Global");
             TextEdit targetTextInput = null;
             Key oldKey = Key.Unknown;
 
             if (button.Name == "btn1")
             {
                 global.ClickSFX("res://sfx/btn_click.wav");
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
-                oldKey = global.shiftLockKey;
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLockKey");
+                oldKey = global.KeyBind["shiftLockKey"];
             }
             else if (button.Name == "btn2")
             {
                 global.ClickSFX("res://sfx/btn_click.wav");
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
-                oldKey = global.unShiftLockKey;
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLockKey");
+                oldKey = global.KeyBind["unShiftLockKey"];
             }
             else if (button.Name == "btn3")
             {
                 global.ClickSFX("res://sfx/btn_click.wav");
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
-                oldKey = global.restartPosCubeKey;
+                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCubeKey");
+                oldKey = global.KeyBind["restartPosCubeKey"];
             }
             if (targetTextInput != null)
             {
-                UpdateKeyBinding(targetTextInput, button.Name, global, oldKey);
+                UpdateKeyBinding(targetTextInput, button.Name, oldKey);
             }
         }
-        private void UpdateKeyBinding(TextEdit textInput, string actionName, Global global, Key oldKey)
+        private void UpdateKeyBinding(TextEdit textInput, string actionName, Key oldKey)
         {
             if (oldKey != Key.Unknown)
             {
@@ -83,10 +87,10 @@ namespace threeDTicTacToe
 
         public override void _Input(InputEvent @event)
         {
-            Global global = (Global)GetNode("/root/Global");
-            var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLock");
-            var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLock");
-            var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCube");
+            global = (Global)GetNode("/root/Global");
+            var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLockKey");
+            var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLockKey");
+            var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCubeKey");
 
             if (@event is InputEventKey eventKey && eventKey.Pressed)
             {
@@ -177,11 +181,19 @@ namespace threeDTicTacToe
                 globalKey = newKey;
 
                 AddKeyToAction(focusedTextInput.Name, newKey);
+                global.KeyBind[focusedTextInput.Name] = newKey;
+                global.KeyBindValue[focusedTextInput.Name] = keyText;
+                File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
             }
         }
         private void AddKeyToAction(string actionName, Key key)
         {
-            InputMap.AddAction(actionName);
+            if (!InputMap.HasAction(actionName))
+            {
+                InputMap.AddAction(actionName);
+            }
+            InputMap.ActionEraseEvents(actionName);
+            
             InputEventKey inputEventKey = new InputEventKey { Keycode = key };
             InputMap.ActionAddEvent(actionName, inputEventKey);
         }
@@ -195,7 +207,7 @@ namespace threeDTicTacToe
 
         public override void _Process(double delta)
         {
-            var global = (Global)GetNode("/root/Global");
+            global = (Global)GetNode("/root/Global");
             var mainMenuBtn = this.GetNode<Button>("mainMenu");
             if (mainMenuBtn.IsPressed())
             {

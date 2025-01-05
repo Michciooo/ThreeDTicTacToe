@@ -33,6 +33,12 @@ public partial class TTT3D : Node3D
         Node3D visualisation = GetNode<Node3D>("/root/TTT3D/Visualisation4x4x4");
         GamePlay4x4x4 gamePlay = GetNode<GamePlay4x4x4>("/root/TTT3D/rightSide/GamePlay4x4x4");
         LabelPositions.Clear();
+        
+        float size = 50;
+        float spacing = 80;
+        
+        Vector3 centerOffset = new Vector3((3 * spacing) * 0.5f, 0, (3 * spacing) * 0.5f);
+
         for (int x = 0; x < 4; x++)
         {
             for (int y = 0; y < 4; y++)
@@ -47,8 +53,9 @@ public partial class TTT3D : Node3D
                     BoxMesh minibox = new BoxMesh();
 
                     minicube.Mesh = minibox;
-                    minibox.Size = new Vector3(50, 50, 50);
-                    minicube.Position = new Vector3(80 * x, -80 * z, -80 * y);
+                    minibox.Size = new Vector3(size, size, size);
+                    
+                    minicube.Position = new Vector3(spacing * x, -spacing * z, -spacing * y) - centerOffset;
                     
                     minicube.MaterialOverride = miniMaterial;
 
@@ -58,7 +65,7 @@ public partial class TTT3D : Node3D
                     label.Scale = new Vector3(label.Scale.X, label.Scale.Y, 200.0f);
                     label.PixelSize = 1;
                     label.FontSize = 100;
-                    label.Position = new Vector3(80 * x, -80 * z, -80 * y);
+                    label.Position = new Vector3(spacing * x, -spacing * z, -spacing * y) - centerOffset;
                     LabelPositions.Add(label.Position);
 
                     gamePlay.Labels.Add(label);
@@ -70,11 +77,18 @@ public partial class TTT3D : Node3D
             }
         }
     }
+
     public void Create_Visualisation3x3x3()
     {
         Node3D visualisation = GetNode<Node3D>("/root/TTT3D/Visualisation3x3x3");
         GamePlay3x3x3 gamePlay = GetNode<GamePlay3x3x3>("/root/TTT3D/rightSide/GamePlay3x3x3");
         LabelPositions.Clear();
+        
+        float size = 50;
+        float spacing = 80;
+        
+        Vector3 centerOffset = new Vector3((2 * spacing) * 0.5f, 0, (2 * spacing) * 0.5f);
+
         for (int x = 0; x < 3; x++)
         {
             for (int y = 0; y < 3; y++)
@@ -89,8 +103,10 @@ public partial class TTT3D : Node3D
                     BoxMesh minibox = new BoxMesh();
 
                     minicube.Mesh = minibox;
-                    minibox.Size = new Vector3(50, 50, 50);
-                    minicube.Position = new Vector3(80 * x, -80 * z, -80 * y);
+                    minibox.Size = new Vector3(size, size, size);
+                    
+                    minicube.Position = new Vector3(spacing * x, -spacing * z, -spacing * y) - centerOffset;
+
                     minicube.MaterialOverride = miniMaterial;
 
                     Label3D label = new Label3D();
@@ -99,7 +115,7 @@ public partial class TTT3D : Node3D
                     label.Scale = new Vector3(label.Scale.X, label.Scale.Y, 200.0f);
                     label.PixelSize = 1;
                     label.FontSize = 100;
-                    label.Position = new Vector3(80 * x, -80 * z, -80 * y);
+                    label.Position = new Vector3(spacing * x, -spacing * z, -spacing * y) - centerOffset;
                     LabelPositions.Add(label.Position);
 
                     gamePlay.Labels.Add(label);
@@ -111,6 +127,7 @@ public partial class TTT3D : Node3D
             }
         }
     }
+
     public override void _Input(InputEvent @event)
     {
         var global = GetNode<Global>("/root/Global");
@@ -182,12 +199,12 @@ public partial class TTT3D : Node3D
 
         if (mouseDelta.X != 0)
         {
-            visualisation.RotateObjectLocal(Vector3.Up, -mouseDelta.X * mouseSensitivity);
+            visualisation.Rotate(Vector3.Up, -mouseDelta.X * mouseSensitivity);
         }
 
         if (mouseDelta.Y != 0)
         {
-            visualisation.RotateObjectLocal(Vector3.Right, -mouseDelta.Y * mouseSensitivity);
+            visualisation.Rotate(Vector3.Right, -mouseDelta.Y * mouseSensitivity);
         }
     }
     public override void _Process(double delta)

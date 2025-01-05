@@ -110,16 +110,27 @@ namespace threeDTicTacToe
         private void Binding()
         {
             global = (Global)GetNode("/root/Global");
+
             var appExitTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExitKey");
             var mainMenuTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenuKey");
 
-            appExitTextInput.Text = global.appExitKeyValue;
-            mainMenuTextInput.Text = global.mainMenuKeyValue;
-
             keysList.Clear();
-            keysList.Add(global.mainMenuKey);
-            keysList.Add(global.appExitKey);
+            keysList.Add(global.KeyBind["appExitKey"]);
+            keysList.Add(global.KeyBind["mainMenuKey"]);
+
+            appExitTextInput.Text = global.KeyBindValue["appExitKey"];
+            mainMenuTextInput.Text = global.KeyBindValue["mainMenuKey"];
+
+            InputMap.ActionEraseEvents("mainMenuKey");
+            InputMap.ActionEraseEvents("appExitKey");
+    
+            InputEventKey mainMenuKeyEvent = new InputEventKey { Keycode = global.mainMenuKey };
+            InputEventKey appExitKeyEvent = new InputEventKey { Keycode = global.appExitKey };
+    
+            InputMap.ActionAddEvent("mainMenuKey", mainMenuKeyEvent);
+            InputMap.ActionAddEvent("appExitKey", appExitKeyEvent);
         }
+
 
         private void btnPress(Button button)
         {
@@ -131,12 +142,12 @@ namespace threeDTicTacToe
             if (button.Name == "btn1")
             {
                 targetTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenuKey");
-                oldKey = global.shiftLockKey;
+                oldKey = global.mainMenuKey;
             }
             else if (button.Name == "btn2")
             {
                 targetTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExitKey");
-                oldKey = global.unShiftLockKey;
+                oldKey = global.appExitKey;
             }
 
             if (targetTextInput != null)
@@ -160,6 +171,15 @@ namespace threeDTicTacToe
             global = (Global)GetNode("/root/Global");
             var appExitTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExitKey");
             var mainMenuTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenuKey");
+            
+            InputMap.ActionEraseEvents("mainMenuKey");
+            InputMap.ActionEraseEvents("appExitKey");
+    
+            InputEventKey mainMenuKey = new InputEventKey { Keycode = global.mainMenuKey };
+            InputEventKey appExitKey = new InputEventKey { Keycode = global.appExitKey };
+
+            InputMap.ActionAddEvent("mainMenuKey", mainMenuKey);
+            InputMap.ActionAddEvent("appExitKey", appExitKey);
 
             if (@event is InputEventKey eventKey && eventKey.Pressed)
             {
@@ -177,6 +197,7 @@ namespace threeDTicTacToe
         {
             Key newKey = (Key)eventKey.Keycode;
             string keyText;
+            
             if (!keysList.Contains(newKey))
             {
                 if (globalKey != Key.Unknown)
@@ -184,6 +205,9 @@ namespace threeDTicTacToe
                     keysList.Remove(globalKey);
                     RemoveKeyFromAction(focusedTextInput.Name, globalKey);
                 }
+                keyText = OS.GetKeycodeString(eventKey.Keycode);
+                focusedTextInput.Text = keyText;
+                
                 switch (newKey)
                 {
                     case Key.Quoteleft:
@@ -235,15 +259,15 @@ namespace threeDTicTacToe
                         break;
                 }
                 
-                focusedTextInput.Text = keyText;
-
                 keyValue = keyText;
                 keysList.Add(newKey);
                 globalKey = newKey;
 
                 AddKeyToAction(focusedTextInput.Name, newKey);
-                global.KeyBind[focusedTextInput.Name] = newKey;
+                
+                global.KeyBind[focusedTextInput.Name] = globalKey;
                 global.KeyBindValue[focusedTextInput.Name] = keyText;
+                
                 File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
             }
         }

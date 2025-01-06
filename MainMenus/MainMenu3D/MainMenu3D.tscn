@@ -65,18 +65,16 @@ text = "TIC TAC TOE 3D"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Settings" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(200, 200)
+[node name="SettingsBtn" type="TextureButton" parent="Main"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.05
 offset_left = -200.0
 offset_bottom = 200.0
 grow_horizontal = 0
-
-[node name="SettingsBtn" type="TextureButton" parent="Main/Settings"]
-layout_mode = 2
 texture_normal = ExtResource("2_2ydsw")
 stretch_mode = 3
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsxbjvka16uen"]
+[gd_scene load_steps=10 format=3 uid="uid://dsxbjvka16uen"]
 
 [ext_resource type="Script" path="res://MainMenus/MainMenu3D/Settings3D.cs" id="1_3fn24"]
 
@@ -25,6 +25,13 @@ shadow_offset = Vector2(10, 10)
 
 [sub_resource type="SystemFont" id="SystemFont_56380"]
 font_names = PackedStringArray("Kristen ITC")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4y713"]
+bg_color = Color(0.745098, 0.572549, 0, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [sub_resource type="SystemFont" id="SystemFont_xvygg"]
 font_names = PackedStringArray("Kristen ITC")
@@ -77,28 +84,28 @@ text = "SETTINGS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Main" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(1600, 800)
+[node name="Main" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -800.0
-offset_top = -400.0
-offset_right = 800.0
-offset_bottom = 400.0
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.3
+anchor_right = 0.95
+anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4y713")
 
 [node name="Labels" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(700, 800)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 530.0
+grow_vertical = 2
 
 [node name="Label" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = SubResource("SystemFont_xvygg")
 theme_override_font_sizes/font_size = 50
@@ -107,6 +114,7 @@ text = "Cube rotating"
 [node name="Label2" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = SubResource("SystemFont_ipuau")
 theme_override_font_sizes/font_size = 50
@@ -115,13 +123,22 @@ text = "Marking fields"
 [node name="Label3" type="Label" parent="Main/Labels"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
 theme_override_fonts/font = SubResource("SystemFont_ppp2y")
 theme_override_font_sizes/font_size = 50
 text = "Restart cube position"
 
 [node name="KeysInput" type="VBoxContainer" parent="Main"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_right = 200.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 10
 
 [node name="shiftLockKey" type="TextEdit" parent="Main/KeysInput"]
@@ -162,7 +179,14 @@ middle_mouse_paste_enabled = false
 
 [node name="RestartBtns" type="VBoxContainer" parent="Main"]
 custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 10
 
 [node name="btn1" type="Button" parent="Main/RestartBtns"]

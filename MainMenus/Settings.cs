@@ -120,15 +120,6 @@ namespace threeDTicTacToe
 
             appExitTextInput.Text = global.KeyBindValue["appExitKey"];
             mainMenuTextInput.Text = global.KeyBindValue["mainMenuKey"];
-
-            InputMap.ActionEraseEvents("mainMenuKey");
-            InputMap.ActionEraseEvents("appExitKey");
-    
-            InputEventKey mainMenuKeyEvent = new InputEventKey { Keycode = global.mainMenuKey };
-            InputEventKey appExitKeyEvent = new InputEventKey { Keycode = global.appExitKey };
-    
-            InputMap.ActionAddEvent("mainMenuKey", mainMenuKeyEvent);
-            InputMap.ActionAddEvent("appExitKey", appExitKeyEvent);
         }
 
 

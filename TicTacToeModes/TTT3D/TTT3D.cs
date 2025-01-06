@@ -150,14 +150,14 @@ public partial class TTT3D : Node3D
         if (global.player3DMode == "4x4x4")
         {
             Node3D visualisation = GetNodeOrNull<Node3D>("/root/TTT3D/Visualisation4x4x4");
-            if (Input.IsActionPressed("resetPosCubeKey"))
+            if (Input.IsActionPressed("restartPosCubeKey"))
             {
                 GetNode<Node3D>("Visualisation4x4x4").Rotation = new Vector3(0, 0, 0);
             }
 
             if (shiftLock)
             {
-                if (Input.IsActionPressed("unshiftLockKey"))
+                if (Input.IsActionPressed("unShiftLockKey"))
                 {
                     Input.MouseMode = Input.MouseModeEnum.Visible;
                     shiftLock = false;
@@ -173,14 +173,14 @@ public partial class TTT3D : Node3D
         if (global.player3DMode == "3x3x3")
         {
             Node3D visualisation = GetNodeOrNull<Node3D>("/root/TTT3D/Visualisation3x3x3");
-            if (Input.IsActionPressed("resetPosCubeKey"))
+            if (Input.IsActionPressed("restartPosCubeKey"))
             {
                 GetNode<Node3D>("Visualisation3x3x3").Rotation = new Vector3(0, 0, 0);
             }
 
             if (shiftLock)
             {
-                if (Input.IsActionPressed("unshiftLockKey"))
+                if (Input.IsActionPressed("unShiftLockKey"))
                 {
                     Input.MouseMode = Input.MouseModeEnum.Visible;
                     shiftLock = false;

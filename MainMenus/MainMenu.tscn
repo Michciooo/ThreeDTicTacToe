@@ -84,18 +84,16 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_iorjt")
 theme_override_styles/normal = SubResource("StyleBoxFlat_nylto")
 text = "Account"
 
-[node name="Settings" type="VBoxContainer" parent="MainContainer"]
-custom_minimum_size = Vector2(200, 200)
+[node name="SettingsBtn" type="TextureButton" parent="MainContainer"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
+anchors_preset = -1
+anchor_left = 0.95
+anchor_top = 0.05
+anchor_right = 0.95
+anchor_bottom = 0.05
 offset_left = -200.0
 offset_bottom = 200.0
 grow_horizontal = 0
-
-[node name="SettingsBtn" type="TextureButton" parent="MainContainer/Settings"]
-layout_mode = 2
 texture_normal = ExtResource("2_t183y")
 stretch_mode = 3
 
@@ -233,4 +231,4 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_g4yj7")
 theme_override_font_sizes/font_size = 20
-text = "Alpha version 1.0"
+text = "Alpha"

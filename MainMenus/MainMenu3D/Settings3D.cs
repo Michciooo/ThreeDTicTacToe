@@ -51,22 +51,20 @@ namespace threeDTicTacToe
             global = (Global)GetNode("/root/Global");
             TextEdit targetTextInput = null;
             Key oldKey = Key.Unknown;
+            global.ClickSFX("res://sfx/btn_click.wav");
 
             if (button.Name == "btn1")
             {
-                global.ClickSFX("res://sfx/btn_click.wav");
                 targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLockKey");
                 oldKey = global.KeyBind["shiftLockKey"];
             }
             else if (button.Name == "btn2")
             {
-                global.ClickSFX("res://sfx/btn_click.wav");
                 targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLockKey");
                 oldKey = global.KeyBind["unShiftLockKey"];
             }
             else if (button.Name == "btn3")
             {
-                global.ClickSFX("res://sfx/btn_click.wav");
                 targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCubeKey");
                 oldKey = global.KeyBind["restartPosCubeKey"];
             }
@@ -91,7 +89,19 @@ namespace threeDTicTacToe
             var shiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLockKey");
             var unshiftLockTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLockKey");
             var restartPosCubeTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCubeKey");
+            
+            InputMap.ActionEraseEvents("shiftLockKey");
+            InputMap.ActionEraseEvents("unShiftLockKey");
+            InputMap.ActionEraseEvents("restartPosCubeKey");
+    
+            InputEventKey shiftLockKey = new InputEventKey { Keycode = global.shiftLockKey };
+            InputEventKey unShiftLockKey = new InputEventKey { Keycode = global.unShiftLockKey };
+            InputEventKey restartPosCubeKey = new InputEventKey { Keycode = global.restartPosCubeKey };
 
+            InputMap.ActionAddEvent("shiftLockKey", shiftLockKey);
+            InputMap.ActionAddEvent("unShiftLockKey", unShiftLockKey);
+            InputMap.ActionAddEvent("restartPosCubeKey", restartPosCubeKey);
+            
             if (@event is InputEventKey eventKey && eventKey.Pressed)
             {
                 if (shiftLockTextInput.HasFocus())
@@ -109,11 +119,11 @@ namespace threeDTicTacToe
             }
         }
 
-        private void AssignKey(InputEventKey eventKey, TextEdit focusedTextInput, ref Key globalKey,
-            ref string keyValue)
+        private void AssignKey(InputEventKey eventKey, TextEdit focusedTextInput, ref Key globalKey, ref string keyValue)
         {
             Key newKey = (Key)eventKey.Keycode;
-
+            string keyText;
+            
             if (!keysList.Contains(newKey))
             {
                 if (globalKey != Key.Unknown)
@@ -121,8 +131,9 @@ namespace threeDTicTacToe
                     keysList.Remove(globalKey);
                     RemoveKeyFromAction(focusedTextInput.Name, globalKey);
                 }
-
-                string keyText;
+                keyText = OS.GetKeycodeString(eventKey.Keycode);
+                focusedTextInput.Text = keyText;
+                
                 switch (newKey)
                 {
                     case Key.Quoteleft:
@@ -173,16 +184,16 @@ namespace threeDTicTacToe
                         keyText = OS.GetKeycodeString(eventKey.Keycode);
                         break;
                 }
-
-                focusedTextInput.Text = keyText;
-
+                
                 keyValue = keyText;
                 keysList.Add(newKey);
                 globalKey = newKey;
 
                 AddKeyToAction(focusedTextInput.Name, newKey);
-                global.KeyBind[focusedTextInput.Name] = newKey;
+                
+                global.KeyBind[focusedTextInput.Name] = globalKey;
                 global.KeyBindValue[focusedTextInput.Name] = keyText;
+                
                 File.WriteAllText(statsPath, JsonSerializer.Serialize(global.data));
             }
         }

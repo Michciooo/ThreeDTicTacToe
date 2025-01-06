@@ -8,7 +8,7 @@ namespace threeDTicTacToe
 	{
 		public override void _Ready()
 		{
-			var settings = GetNode<TextureButton>("Main/Settings/SettingsBtn");
+			var settings = GetNode<TextureButton>("Main/SettingsBtn");
 			var playerOneBtn = GetNode<OptionButton>("Main/MainContainer/Container/left/playerOneBtn");
 			var playerTwoBtn = GetNode<OptionButton>("Main/MainContainer/Container/center/playerTwoBtn");
 			var playerThreeBtn = GetNodeOrNull<OptionButton>("Main/MainContainer/Container/right/playerThreeBtn");
@@ -55,6 +55,19 @@ namespace threeDTicTacToe
 			}
 			
 			playBtn.Pressed+= PlayBtnOnPressed;
+			
+			InputMap.ActionEraseEvents("shiftLockKey");
+			InputMap.ActionEraseEvents("unShiftLockKey");
+			InputMap.ActionEraseEvents("restartPosCubeKey");
+			
+			InputEventKey shiftLockKey = new InputEventKey { Keycode = global.KeyBind["shiftLockKey"] };
+			InputEventKey unShiftLockKey = new InputEventKey { Keycode = global.KeyBind["unShiftLockKey"] };
+			InputEventKey restartPosCubeKey = new InputEventKey { Keycode = global.KeyBind["restartPosCubeKey"] };
+
+			
+			InputMap.ActionAddEvent("shiftLockKey", shiftLockKey);
+			InputMap.ActionAddEvent("unShiftLockKey", unShiftLockKey);
+			InputMap.ActionAddEvent("restartPosCubeKey", restartPosCubeKey);
 		}
 		private void PlayBtnOnPressed()
 		{

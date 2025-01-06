@@ -22,6 +22,24 @@ public partial class MainMenu : Node3D
 		
 		global.ErasePlayers2D();
 		global.ErasePlayers3D();
+		
+		InputMap.ActionEraseEvents("mainMenuKey");
+		InputMap.ActionEraseEvents("appExitKey");
+		InputMap.ActionEraseEvents("shiftLockKey");
+		InputMap.ActionEraseEvents("unShiftLockKey");
+		InputMap.ActionEraseEvents("restartPosCubeKey");
+    
+		InputEventKey mainMenuKeyEvent = new InputEventKey { Keycode = global.KeyBind["mainMenuKey"] };
+		InputEventKey appExitKeyEvent = new InputEventKey { Keycode = global.KeyBind["appExitKey"] };
+		InputEventKey shiftLockKey = new InputEventKey { Keycode = global.KeyBind["shiftLockKey"] };
+		InputEventKey unShiftLockKey = new InputEventKey { Keycode = global.KeyBind["unShiftLockKey"] };
+		InputEventKey restartPosCubeKey = new InputEventKey { Keycode = global.KeyBind["restartPosCubeKey"] };
+    
+		InputMap.ActionAddEvent("mainMenuKey", mainMenuKeyEvent);
+		InputMap.ActionAddEvent("appExitKey", appExitKeyEvent);
+		InputMap.ActionAddEvent("shiftLockKey", shiftLockKey);
+		InputMap.ActionAddEvent("unShiftLockKey", unShiftLockKey);
+		InputMap.ActionAddEvent("restartPosCubeKey", restartPosCubeKey);
 	}
 	
 	private void SettingsPress()
@@ -36,7 +54,7 @@ public partial class MainMenu : Node3D
 		Button twoDBtn = GetNode<Button>("MainContainer/Modes/leftSide/twoDBtn");
 		Button threeDBtn = GetNode<Button>("MainContainer/Modes/rightSide/threeDBtn");
 		Button exitBtn = GetNode<Button>("MainContainer/ExitBtn");
-		var settings = GetNode<TextureButton>("MainContainer/Settings/SettingsBtn");
+		var settings = GetNode<TextureButton>("MainContainer/SettingsBtn");
 		var accBtn = GetNode<Button>("MainContainer/accBtn");
 
 		if (twoDBtn.IsPressed())

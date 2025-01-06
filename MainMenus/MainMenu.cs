@@ -28,13 +28,13 @@ public partial class MainMenu : Node3D
 		InputMap.ActionEraseEvents("shiftLockKey");
 		InputMap.ActionEraseEvents("unShiftLockKey");
 		InputMap.ActionEraseEvents("restartPosCubeKey");
-    
+	
 		InputEventKey mainMenuKeyEvent = new InputEventKey { Keycode = global.KeyBind["mainMenuKey"] };
 		InputEventKey appExitKeyEvent = new InputEventKey { Keycode = global.KeyBind["appExitKey"] };
 		InputEventKey shiftLockKey = new InputEventKey { Keycode = global.KeyBind["shiftLockKey"] };
 		InputEventKey unShiftLockKey = new InputEventKey { Keycode = global.KeyBind["unShiftLockKey"] };
 		InputEventKey restartPosCubeKey = new InputEventKey { Keycode = global.KeyBind["restartPosCubeKey"] };
-    
+	
 		InputMap.ActionAddEvent("mainMenuKey", mainMenuKeyEvent);
 		InputMap.ActionAddEvent("appExitKey", appExitKeyEvent);
 		InputMap.ActionAddEvent("shiftLockKey", shiftLockKey);

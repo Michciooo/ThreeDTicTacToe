@@ -79,17 +79,17 @@ namespace threeDTicTacToe
 			if (fourxfourGridMode.IsPressed())
 			{
 				if ((global.playersTypes3D[1] == global.playersTypes3D[2] && global.playersTypes3D[1] == "Easy Computer") ||
-				    (global.playersTypes3D[1] == global.playersTypes3D[2] && global.playersTypes3D[1] == "AI Computer") ||
-				    (global.playersTypes3D[1] == "Easy Computer" && global.playersTypes3D[2] == "AI Computer") ||
-				    (global.playersTypes3D[1] == "AI Computer" && global.playersTypes3D[2] == "Easy Computer"))
+					(global.playersTypes3D[1] == global.playersTypes3D[2] && global.playersTypes3D[1] == "AI Computer") ||
+					(global.playersTypes3D[1] == "Easy Computer" && global.playersTypes3D[2] == "AI Computer") ||
+					(global.playersTypes3D[1] == "AI Computer" && global.playersTypes3D[2] == "Easy Computer"))
 				{
 					warningLabel.Text = "The battle between 2 computers is not allowed.";
 				}
 				else if ((global.playersTypes3D[1] == global.playersTypes3D[2] && global.playersTypes3D[1] == "Human") ||
-				         (global.playersTypes3D[1] == "Human" && global.playersTypes3D[2] == "Easy Computer") ||
-				         (global.playersTypes3D[1] == "Easy Computer" && global.playersTypes3D[2] == "Human") ||
-				         (global.playersTypes3D[1] == "Human" && global.playersTypes3D[2] == "AI Computer") ||
-				         (global.playersTypes3D[1] == "AI Computer" && global.playersTypes3D[2] == "Human"))
+						 (global.playersTypes3D[1] == "Human" && global.playersTypes3D[2] == "Easy Computer") ||
+						 (global.playersTypes3D[1] == "Easy Computer" && global.playersTypes3D[2] == "Human") ||
+						 (global.playersTypes3D[1] == "Human" && global.playersTypes3D[2] == "AI Computer") ||
+						 (global.playersTypes3D[1] == "AI Computer" && global.playersTypes3D[2] == "Human"))
 				{
 					global.player13D = global.playersTypes3D[1];
 					global.player23D = global.playersTypes3D[2];
@@ -100,13 +100,13 @@ namespace threeDTicTacToe
 			if (threePMode.IsPressed())
 			{
 				if ((global.playersTypes3D[1]==global.playersTypes3D[2] && global.playersTypes3D[2]==global.playersTypes3D[3] && global.playersTypes3D[1]=="Easy Computer") ||
-				    (global.playersTypes3D[1]==global.playersTypes3D[2] && global.playersTypes3D[2]==global.playersTypes3D[3] &&  global.playersTypes3D[1]=="AI Computer") || 
-				    (global.playersTypes3D[1]==global.playersTypes3D[2] && global.playersTypes3D[3]=="AI Computer" && global.playersTypes3D[1]=="Easy Computer") ||
-				    (global.playersTypes3D[1]==global.playersTypes3D[2] && global.playersTypes3D[3]=="Easy Computer" && global.playersTypes3D[1]=="AI Computer") ||
-				    (global.playersTypes3D[1]==global.playersTypes3D[3] && global.playersTypes3D[2]=="AI Computer" && global.playersTypes3D[1]=="Easy Computer") ||
-				    (global.playersTypes3D[1]==global.playersTypes3D[3] && global.playersTypes3D[2]=="Easy Computer" && global.playersTypes3D[1]=="AI Computer") ||
-				    (global.playersTypes3D[2]==global.playersTypes3D[3] && global.playersTypes3D[1]=="AI Computer" && global.playersTypes3D[2]=="Easy Computer") ||
-				    (global.playersTypes3D[2]==global.playersTypes3D[3] && global.playersTypes3D[1]=="Easy Computer" && global.playersTypes3D[2]=="AI Computer"))
+					(global.playersTypes3D[1]==global.playersTypes3D[2] && global.playersTypes3D[2]==global.playersTypes3D[3] &&  global.playersTypes3D[1]=="AI Computer") || 
+					(global.playersTypes3D[1]==global.playersTypes3D[2] && global.playersTypes3D[3]=="AI Computer" && global.playersTypes3D[1]=="Easy Computer") ||
+					(global.playersTypes3D[1]==global.playersTypes3D[2] && global.playersTypes3D[3]=="Easy Computer" && global.playersTypes3D[1]=="AI Computer") ||
+					(global.playersTypes3D[1]==global.playersTypes3D[3] && global.playersTypes3D[2]=="AI Computer" && global.playersTypes3D[1]=="Easy Computer") ||
+					(global.playersTypes3D[1]==global.playersTypes3D[3] && global.playersTypes3D[2]=="Easy Computer" && global.playersTypes3D[1]=="AI Computer") ||
+					(global.playersTypes3D[2]==global.playersTypes3D[3] && global.playersTypes3D[1]=="AI Computer" && global.playersTypes3D[2]=="Easy Computer") ||
+					(global.playersTypes3D[2]==global.playersTypes3D[3] && global.playersTypes3D[1]=="Easy Computer" && global.playersTypes3D[2]=="AI Computer"))
 				{
 					warningLabel.Text = "The battle between 3 computers is not allowed.";
 				}

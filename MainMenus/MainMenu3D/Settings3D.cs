@@ -15,20 +15,8 @@ namespace threeDTicTacToe
         public override void _Ready()
         {
             Binding();
-            SetupButtons();
         }
-
-        private void SetupButtons()
-        {
-            var btn1 = this.GetNode<Button>("Main/RestartBtns/btn1");
-            var btn2 = this.GetNode<Button>("Main/RestartBtns/btn2");
-            var btn3 = this.GetNode<Button>("Main/RestartBtns/btn3");
-
-            btn1.Pressed += () => btnPress(btn1);
-            btn2.Pressed += () => btnPress(btn2);
-            btn3.Pressed += () => btnPress(btn3);
-        }
-
+        
         private void Binding()
         {
             global = (Global)GetNode("/root/Global");
@@ -45,44 +33,6 @@ namespace threeDTicTacToe
             unshiftLockTextInput.Text = global.KeyBindValue["unShiftLockKey"];
             restartPosCubeTextInput.Text = global.KeyBindValue["restartPosCubeKey"];
         }
-
-        private void btnPress(Button button)
-        {
-            global = (Global)GetNode("/root/Global");
-            TextEdit targetTextInput = null;
-            Key oldKey = Key.Unknown;
-            global.ClickSFX("res://sfx/btn_click.wav");
-
-            if (button.Name == "btn1")
-            {
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/shiftLockKey");
-                oldKey = global.KeyBind["shiftLockKey"];
-            }
-            else if (button.Name == "btn2")
-            {
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/unShiftLockKey");
-                oldKey = global.KeyBind["unShiftLockKey"];
-            }
-            else if (button.Name == "btn3")
-            {
-                targetTextInput = this.GetNode<TextEdit>("Main/KeysInput/restartPosCubeKey");
-                oldKey = global.KeyBind["restartPosCubeKey"];
-            }
-            if (targetTextInput != null)
-            {
-                UpdateKeyBinding(targetTextInput, button.Name, oldKey);
-            }
-        }
-        private void UpdateKeyBinding(TextEdit textInput, string actionName, Key oldKey)
-        {
-            if (oldKey != Key.Unknown)
-            {
-                keysList.Remove(oldKey);
-            }
-
-            textInput.Text = "";
-        }
-
         public override void _Input(InputEvent @event)
         {
             global = (Global)GetNode("/root/Global");
@@ -107,14 +57,17 @@ namespace threeDTicTacToe
                 if (shiftLockTextInput.HasFocus())
                 {
                     AssignKey(eventKey, shiftLockTextInput, ref global.shiftLockKey, ref global.shiftLockKeyValue);
+                    shiftLockTextInput.Text = global.KeyBindValue["shiftLockKey"];
                 }
                 else if (unshiftLockTextInput.HasFocus())
                 {
                     AssignKey(eventKey, shiftLockTextInput, ref global.unShiftLockKey, ref global.unShiftLockKeyValue);
+                    unshiftLockTextInput.Text = global.KeyBindValue["unShiftLockKey"];
                 }
                 else if (restartPosCubeTextInput.HasFocus())
                 {
                     AssignKey(eventKey, restartPosCubeTextInput, ref global.restartPosCubeKey, ref global.restartPosCubeKeyValue);
+                    restartPosCubeTextInput.Text = global.KeyBindValue["restartPosCubeKey"];
                 }
             }
         }
@@ -133,7 +86,7 @@ namespace threeDTicTacToe
                 }
                 keyText = OS.GetKeycodeString(eventKey.Keycode);
                 focusedTextInput.Text = keyText;
-                
+
                 switch (newKey)
                 {
                     case Key.Quoteleft:

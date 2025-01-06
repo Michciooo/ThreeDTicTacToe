@@ -97,7 +97,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4y713")
 
 [node name="Labels" type="VBoxContainer" parent="Main"]
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.2
 anchor_bottom = 1.0
 offset_right = 530.0
 grow_vertical = 2
@@ -131,13 +133,12 @@ text = "Restart cube position"
 
 [node name="KeysInput" type="VBoxContainer" parent="Main"]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = -1
+anchor_left = 0.8
+anchor_right = 0.8
 anchor_bottom = 1.0
-offset_left = -200.0
-offset_right = 200.0
-grow_horizontal = 2
+offset_left = -400.0
+grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 10
 
@@ -176,39 +177,3 @@ editable = false
 selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
-
-[node name="RestartBtns" type="VBoxContainer" parent="Main"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -250.0
-grow_horizontal = 0
-grow_vertical = 2
-size_flags_horizontal = 10
-
-[node name="btn1" type="Button" parent="Main/RestartBtns"]
-custom_minimum_size = Vector2(250, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 35
-text = "Reset key"
-
-[node name="btn2" type="Button" parent="Main/RestartBtns"]
-custom_minimum_size = Vector2(250, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 35
-text = "Reset key"
-
-[node name="btn3" type="Button" parent="Main/RestartBtns"]
-custom_minimum_size = Vector2(250, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 35
-text = "Reset key"

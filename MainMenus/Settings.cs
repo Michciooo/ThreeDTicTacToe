@@ -94,15 +94,9 @@ namespace threeDTicTacToe
         }
         private void SetupButtons()
         {
-            var btn1 = this.GetNode<Button>("Main/VBoxContainer/keyBindSettings/RestartBtns/btn1");
-            var btn2 = this.GetNode<Button>("Main/VBoxContainer/keyBindSettings/RestartBtns/btn2");
-            
             var previousBtn = this.GetNode<Button>("Main/VBoxContainer/WindowSizeSettings/PreviousBtn");
             var nextBtn = this.GetNode<Button>("Main/VBoxContainer/WindowSizeSettings/NextBtn");
-
-            btn1.Pressed += () => btnPress(btn1);
-            btn2.Pressed += () => btnPress(btn2);
-
+            
             previousBtn.Pressed += PreviousBtn_OnPressed;
             nextBtn.Pressed += NextBtnOnPressed;
         }
@@ -121,42 +115,6 @@ namespace threeDTicTacToe
             appExitTextInput.Text = global.KeyBindValue["appExitKey"];
             mainMenuTextInput.Text = global.KeyBindValue["mainMenuKey"];
         }
-
-
-        private void btnPress(Button button)
-        {
-            global = (Global)GetNode("/root/Global");
-            global.ClickSFX("res://sfx/btn_click.wav");
-            TextEdit targetTextInput = null;
-            Key oldKey = Key.Unknown;
-
-            if (button.Name == "btn1")
-            {
-                targetTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/mainMenuKey");
-                oldKey = global.mainMenuKey;
-            }
-            else if (button.Name == "btn2")
-            {
-                targetTextInput = this.GetNode<TextEdit>("Main/VBoxContainer/keyBindSettings/KeysInput/appExitKey");
-                oldKey = global.appExitKey;
-            }
-
-            if (targetTextInput != null)
-            {
-                UpdateKeyBinding(targetTextInput, button.Name, oldKey);
-            }
-        }
-
-        private void UpdateKeyBinding(TextEdit textInput, string actionName,Key oldKey)
-        {
-            if (oldKey != Key.Unknown)
-            {
-                keysList.Remove(oldKey);
-            }
-
-            textInput.Text = "";
-        }
-
         public override void _Input(InputEvent @event)
         {
             global = (Global)GetNode("/root/Global");
@@ -177,10 +135,12 @@ namespace threeDTicTacToe
                 if (mainMenuTextInput.HasFocus())
                 {
                     AssignKey(eventKey, mainMenuTextInput, ref global.mainMenuKey, ref global.mainMenuKeyValue);
+                    mainMenuTextInput.Text = global.KeyBindValue["mainMenuKey"];
                 }
                 else if (appExitTextInput.HasFocus())
                 {
                     AssignKey(eventKey, appExitTextInput, ref global.appExitKey, ref global.appExitKeyValue);
+                    appExitTextInput.Text = global.KeyBindValue["appExitKey"];
                 }
             }
         }

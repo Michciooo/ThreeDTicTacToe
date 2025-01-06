@@ -188,28 +188,6 @@ selecting_enabled = false
 drag_and_drop_selection_enabled = false
 middle_mouse_paste_enabled = false
 
-[node name="RestartBtns" type="VBoxContainer" parent="Main/VBoxContainer/keyBindSettings"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-theme_override_constants/separation = 50
-
-[node name="btn1" type="Button" parent="Main/VBoxContainer/keyBindSettings/RestartBtns"]
-custom_minimum_size = Vector2(250, 100)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 35
-text = "Reset key"
-
-[node name="btn2" type="Button" parent="Main/VBoxContainer/keyBindSettings/RestartBtns"]
-custom_minimum_size = Vector2(250, 100)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 35
-text = "Reset key"
-
 [node name="WindowSizeSettings" type="HBoxContainer" parent="Main/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
